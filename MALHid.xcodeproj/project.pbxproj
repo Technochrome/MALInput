@@ -1,0 +1,246 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2F05797A14C05A70009D8B82 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797914C05A70009D8B82 /* Cocoa.framework */; };
+		2F05798414C05A71009D8B82 /* MALHid.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05798314C05A71009D8B82 /* MALHid.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2F05797614C05A70009D8B82 /* libMALHid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMALHid.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F05797914C05A70009D8B82 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		2F05797C14C05A70009D8B82 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		2F05797D14C05A70009D8B82 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2F05797E14C05A70009D8B82 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2F05798114C05A71009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
+		2F05798214C05A71009D8B82 /* MALHid.h */ = {isa = PBXFileReference; path = MALHid.h; sourceTree = "<group>"; };
+		2F05798314C05A71009D8B82 /* MALHid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MALHid.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2F05797314C05A70009D8B82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F05797A14C05A70009D8B82 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2F05796B14C05A70009D8B82 = {
+			isa = PBXGroup;
+			children = (
+				2F05797F14C05A70009D8B82 /* MALHid */,
+				2F05797814C05A70009D8B82 /* Frameworks */,
+				2F05797714C05A70009D8B82 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2F05797714C05A70009D8B82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F05797614C05A70009D8B82 /* libMALHid.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2F05797814C05A70009D8B82 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F05797914C05A70009D8B82 /* Cocoa.framework */,
+				2F05797B14C05A70009D8B82 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2F05797B14C05A70009D8B82 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F05797C14C05A70009D8B82 /* AppKit.framework */,
+				2F05797D14C05A70009D8B82 /* CoreData.framework */,
+				2F05797E14C05A70009D8B82 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		2F05797F14C05A70009D8B82 /* MALHid */ = {
+			isa = PBXGroup;
+			children = (
+				2F05798214C05A71009D8B82 /* MALHid.h */,
+				2F05798314C05A71009D8B82 /* MALHid.m */,
+				2F05798014C05A71009D8B82 /* Supporting Files */,
+			);
+			path = MALHid;
+			sourceTree = "<group>";
+		};
+		2F05798014C05A71009D8B82 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2F05798114C05A71009D8B82 /* MALHid-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2F05797414C05A70009D8B82 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2F05797514C05A70009D8B82 /* MALHid */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F05798714C05A71009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */;
+			buildPhases = (
+				2F05797214C05A70009D8B82 /* Sources */,
+				2F05797314C05A70009D8B82 /* Frameworks */,
+				2F05797414C05A70009D8B82 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MALHid;
+			productName = MALHid;
+			productReference = 2F05797614C05A70009D8B82 /* libMALHid.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2F05796D14C05A70009D8B82 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 2F05797014C05A70009D8B82 /* Build configuration list for PBXProject "MALHid" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2F05796B14C05A70009D8B82;
+			productRefGroup = 2F05797714C05A70009D8B82 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2F05797514C05A70009D8B82 /* MALHid */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2F05797214C05A70009D8B82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F05798414C05A71009D8B82 /* MALHid.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2F05798514C05A71009D8B82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2F05798614C05A71009D8B82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2F05798814C05A71009D8B82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MALHid/MALHid-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2F05798914C05A71009D8B82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MALHid/MALHid-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2F05797014C05A70009D8B82 /* Build configuration list for PBXProject "MALHid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F05798514C05A71009D8B82 /* Debug */,
+				2F05798614C05A71009D8B82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2F05798714C05A71009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F05798814C05A71009D8B82 /* Debug */,
+				2F05798914C05A71009D8B82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2F05796D14C05A70009D8B82 /* Project object */;
+}

@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'MALHid' target in the 'MALHid' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+#endif
