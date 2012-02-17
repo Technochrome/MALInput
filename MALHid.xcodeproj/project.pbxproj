@@ -7,27 +7,75 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F05797A14C05A70009D8B82 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797914C05A70009D8B82 /* Cocoa.framework */; };
-		2F05798414C05A71009D8B82 /* MALHid.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05798314C05A71009D8B82 /* MALHid.m */; };
+		2F05799E14C05B15009D8B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797E14C05A70009D8B82 /* Foundation.framework */; };
+		2F0579A114C05B15009D8B82 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0579A014C05B15009D8B82 /* main.m */; };
+		2F0579A514C05B15009D8B82 /* HIDTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2F0579A414C05B15009D8B82 /* HIDTest.1 */; };
+		2F0579BE14C05F51009D8B82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F0579BC14C05F51009D8B82 /* InfoPlist.strings */; };
+		2F0579C914C0629F009D8B82 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05799614C05AEB009D8B82 /* IOKit.framework */; };
+		2F0579CD14C0636E009D8B82 /* MALHidCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F0579C814C0613B009D8B82 /* MALHidCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F0579D014C06585009D8B82 /* MALHidCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0579C614C06002009D8B82 /* MALHidCenter.m */; };
+		2F0579D214C06693009D8B82 /* MALHid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0579B214C05F51009D8B82 /* MALHid.framework */; };
+		2F0579D314C06879009D8B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797E14C05A70009D8B82 /* Foundation.framework */; };
+		2F0579D514C06966009D8B82 /* DDHidStandardUsages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */; };
+		2F45597E14C0AF59004378A6 /* MALMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F45597D14C0AF59004378A6 /* MALMacros.h */; };
+		2FF38DDE14EEC7750091504E /* MALHidStructs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DDC14EEC6F40091504E /* MALHidStructs.c */; };
+		2FF38DDF14EEC7750091504E /* MALHidElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DD714EEC5680091504E /* MALHidElement.m */; };
+		2FF38DE214EECACC0091504E /* MALHid.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DE114EECACC0091504E /* MALHid.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2F05799A14C05B15009D8B82 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				2F0579A514C05B15009D8B82 /* HIDTest.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		2F05797614C05A70009D8B82 /* libMALHid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMALHid.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F05797914C05A70009D8B82 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		2F05797C14C05A70009D8B82 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		2F05797D14C05A70009D8B82 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2F05797E14C05A70009D8B82 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2F05798114C05A71009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
-		2F05798214C05A71009D8B82 /* MALHid.h */ = {isa = PBXFileReference; path = MALHid.h; sourceTree = "<group>"; };
-		2F05798314C05A71009D8B82 /* MALHid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MALHid.m; sourceTree = "<group>"; };
+		2F05799614C05AEB009D8B82 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		2F05799C14C05B15009D8B82 /* HIDTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HIDTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F0579A014C05B15009D8B82 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2F0579A314C05B15009D8B82 /* HIDTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HIDTest-Prefix.pch"; sourceTree = "<group>"; };
+		2F0579A414C05B15009D8B82 /* HIDTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = HIDTest.1; sourceTree = "<group>"; };
+		2F0579B214C05F51009D8B82 /* MALHid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MALHid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F0579BB14C05F51009D8B82 /* MALHid-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MALHid-Info.plist"; sourceTree = "<group>"; };
+		2F0579BD14C05F51009D8B82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2F0579C614C06002009D8B82 /* MALHidCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALHidCenter.m; sourceTree = "<group>"; };
+		2F0579C814C0613B009D8B82 /* MALHidCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidCenter.h; sourceTree = "<group>"; };
+		2F0579D114C065B8009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
+		2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DDHidStandardUsages.plist; sourceTree = "<group>"; };
+		2F45597D14C0AF59004378A6 /* MALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MALMacros.h; path = "/Volumes/Black Tulip/Users/rovolo/Stuff/Programming/Code/MALlib/MALlib/../MALMacros.h"; sourceTree = "<absolute>"; };
+		2FF38DD614EEC5680091504E /* MALHidElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidElement.h; sourceTree = "<group>"; };
+		2FF38DD714EEC5680091504E /* MALHidElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALHidElement.m; sourceTree = "<group>"; };
+		2FF38DDA14EEC6330091504E /* MALHidInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidInternal.h; sourceTree = "<group>"; };
+		2FF38DDB14EEC6A90091504E /* MALHidStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidStructs.h; sourceTree = "<group>"; };
+		2FF38DDC14EEC6F40091504E /* MALHidStructs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MALHidStructs.c; sourceTree = "<group>"; };
+		2FF38DE014EEC9390091504E /* MALHid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHid.h; sourceTree = "<group>"; };
+		2FF38DE114EECACC0091504E /* MALHid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALHid.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2F05797314C05A70009D8B82 /* Frameworks */ = {
+		2F05799914C05B15009D8B82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F05797A14C05A70009D8B82 /* Cocoa.framework in Frameworks */,
+				2F0579D214C06693009D8B82 /* MALHid.framework in Frameworks */,
+				2F05799E14C05B15009D8B82 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F0579AE14C05F51009D8B82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F0579D314C06879009D8B82 /* Foundation.framework in Frameworks */,
+				2F0579C914C0629F009D8B82 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,7 +85,8 @@
 		2F05796B14C05A70009D8B82 = {
 			isa = PBXGroup;
 			children = (
-				2F05797F14C05A70009D8B82 /* MALHid */,
+				2F05799F14C05B15009D8B82 /* HIDTest */,
+				2F0579B914C05F51009D8B82 /* MALHid */,
 				2F05797814C05A70009D8B82 /* Frameworks */,
 				2F05797714C05A70009D8B82 /* Products */,
 			);
@@ -46,7 +95,8 @@
 		2F05797714C05A70009D8B82 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F05797614C05A70009D8B82 /* libMALHid.a */,
+				2F05799C14C05B15009D8B82 /* HIDTest */,
+				2F0579B214C05F51009D8B82 /* MALHid.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -54,36 +104,55 @@
 		2F05797814C05A70009D8B82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F05797914C05A70009D8B82 /* Cocoa.framework */,
-				2F05797B14C05A70009D8B82 /* Other Frameworks */,
+				2F05797E14C05A70009D8B82 /* Foundation.framework */,
+				2F05799614C05AEB009D8B82 /* IOKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2F05797B14C05A70009D8B82 /* Other Frameworks */ = {
+		2F05799F14C05B15009D8B82 /* HIDTest */ = {
 			isa = PBXGroup;
 			children = (
-				2F05797C14C05A70009D8B82 /* AppKit.framework */,
-				2F05797D14C05A70009D8B82 /* CoreData.framework */,
-				2F05797E14C05A70009D8B82 /* Foundation.framework */,
+				2F0579A014C05B15009D8B82 /* main.m */,
+				2F0579A214C05B15009D8B82 /* Supporting Files */,
 			);
-			name = "Other Frameworks";
+			path = HIDTest;
 			sourceTree = "<group>";
 		};
-		2F05797F14C05A70009D8B82 /* MALHid */ = {
+		2F0579A214C05B15009D8B82 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2F05798214C05A71009D8B82 /* MALHid.h */,
-				2F05798314C05A71009D8B82 /* MALHid.m */,
-				2F05798014C05A71009D8B82 /* Supporting Files */,
+				2F0579A414C05B15009D8B82 /* HIDTest.1 */,
+				2F0579A314C05B15009D8B82 /* HIDTest-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2F0579B914C05F51009D8B82 /* MALHid */ = {
+			isa = PBXGroup;
+			children = (
+				2FF38DE014EEC9390091504E /* MALHid.h */,
+				2FF38DE114EECACC0091504E /* MALHid.m */,
+				2FF38DDA14EEC6330091504E /* MALHidInternal.h */,
+				2F45597D14C0AF59004378A6 /* MALMacros.h */,
+				2FF38DDB14EEC6A90091504E /* MALHidStructs.h */,
+				2FF38DDC14EEC6F40091504E /* MALHidStructs.c */,
+				2F0579C814C0613B009D8B82 /* MALHidCenter.h */,
+				2F0579C614C06002009D8B82 /* MALHidCenter.m */,
+				2FF38DD614EEC5680091504E /* MALHidElement.h */,
+				2FF38DD714EEC5680091504E /* MALHidElement.m */,
+				2F0579BA14C05F51009D8B82 /* Supporting Files */,
 			);
 			path = MALHid;
 			sourceTree = "<group>";
 		};
-		2F05798014C05A71009D8B82 /* Supporting Files */ = {
+		2F0579BA14C05F51009D8B82 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2F05798114C05A71009D8B82 /* MALHid-Prefix.pch */,
+				2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */,
+				2F0579BB14C05F51009D8B82 /* MALHid-Info.plist */,
+				2F0579BC14C05F51009D8B82 /* InfoPlist.strings */,
+				2F0579D114C065B8009D8B82 /* MALHid-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -91,23 +160,43 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		2F05797414C05A70009D8B82 /* Headers */ = {
+		2F0579AF14C05F51009D8B82 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0579CD14C0636E009D8B82 /* MALHidCenter.h in Headers */,
+				2F45597E14C0AF59004378A6 /* MALMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2F05797514C05A70009D8B82 /* MALHid */ = {
+		2F05799B14C05B15009D8B82 /* HIDTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F05798714C05A71009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */;
+			buildConfigurationList = 2F0579A614C05B15009D8B82 /* Build configuration list for PBXNativeTarget "HIDTest" */;
 			buildPhases = (
-				2F05797214C05A70009D8B82 /* Sources */,
-				2F05797314C05A70009D8B82 /* Frameworks */,
-				2F05797414C05A70009D8B82 /* Headers */,
+				2F05799814C05B15009D8B82 /* Sources */,
+				2F05799914C05B15009D8B82 /* Frameworks */,
+				2F05799A14C05B15009D8B82 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HIDTest;
+			productName = HIDTest;
+			productReference = 2F05799C14C05B15009D8B82 /* HIDTest */;
+			productType = "com.apple.product-type.tool";
+		};
+		2F0579B114C05F51009D8B82 /* MALHid */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F0579C314C05F51009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */;
+			buildPhases = (
+				2F0579AD14C05F51009D8B82 /* Sources */,
+				2F0579AE14C05F51009D8B82 /* Frameworks */,
+				2F0579AF14C05F51009D8B82 /* Headers */,
+				2F0579B014C05F51009D8B82 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -115,8 +204,8 @@
 			);
 			name = MALHid;
 			productName = MALHid;
-			productReference = 2F05797614C05A70009D8B82 /* libMALHid.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 2F0579B214C05F51009D8B82 /* MALHid.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -138,29 +227,64 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2F05797514C05A70009D8B82 /* MALHid */,
+				2F05799B14C05B15009D8B82 /* HIDTest */,
+				2F0579B114C05F51009D8B82 /* MALHid */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		2F0579B014C05F51009D8B82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F0579BE14C05F51009D8B82 /* InfoPlist.strings in Resources */,
+				2F0579D514C06966009D8B82 /* DDHidStandardUsages.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		2F05797214C05A70009D8B82 /* Sources */ = {
+		2F05799814C05B15009D8B82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F05798414C05A71009D8B82 /* MALHid.m in Sources */,
+				2F0579A114C05B15009D8B82 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F0579AD14C05F51009D8B82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FF38DDE14EEC7750091504E /* MALHidStructs.c in Sources */,
+				2FF38DDF14EEC7750091504E /* MALHidElement.m in Sources */,
+				2F0579D014C06585009D8B82 /* MALHidCenter.m in Sources */,
+				2FF38DE214EECACC0091504E /* MALHid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2F0579BC14C05F51009D8B82 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F0579BD14C05F51009D8B82 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2F05798514C05A71009D8B82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -176,7 +300,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -186,8 +310,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -197,26 +321,70 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
-		2F05798814C05A71009D8B82 /* Debug */ = {
+		2F0579A714C05B15009D8B82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Products/Products/Debug\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MALHid/MALHid-Prefix.pch";
+				GCC_PREFIX_HEADER = "HIDTest/HIDTest-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		2F05798914C05A71009D8B82 /* Release */ = {
+		2F0579A814C05B15009D8B82 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Products/Products/Debug\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HIDTest/HIDTest-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2F0579C414C05F51009D8B82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MALHid/MALHid-Prefix.pch";
+				INFOPLIST_FILE = "MALHid/MALHid-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		2F0579C514C05F51009D8B82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MALHid/MALHid-Prefix.pch";
+				INFOPLIST_FILE = "MALHid/MALHid-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
@@ -232,13 +400,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F05798714C05A71009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */ = {
+		2F0579A614C05B15009D8B82 /* Build configuration list for PBXNativeTarget "HIDTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2F05798814C05A71009D8B82 /* Debug */,
-				2F05798914C05A71009D8B82 /* Release */,
+				2F0579A714C05B15009D8B82 /* Debug */,
+				2F0579A814C05B15009D8B82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2F0579C314C05F51009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F0579C414C05F51009D8B82 /* Debug */,
+				2F0579C514C05F51009D8B82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

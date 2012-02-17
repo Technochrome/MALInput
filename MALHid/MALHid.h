@@ -2,12 +2,13 @@
 //  MALHid.h
 //  MALHid
 //
-//  Created by Rovolo on 1/13/12.
+//  Created by Rovolo on 2/17/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef MALHid_MALHid_h
+#define MALHid_MALHid_h
 
-@interface MALHid : NSObject
+void getDevices(void);
 
-@end
+#endif
