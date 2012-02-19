@@ -11,11 +11,12 @@
 #pragma mark Implementations
 @implementation MALHidCenter
 +(MALHidCenter *) shared {
-	MALHidCenter * shared = nil;
+	static MALHidCenter * shared = nil;
 	if(!shared) shared = [[self alloc] init];
 	return shared;
 }
 -(BOOL) addObserver:(MALHidElement*)o forElement:(IOHIDElementRef)e {
+	if(!o) return NO;
 	NSString * key = [MALHidElement keyForElement:e];
 	if([rawValueDict objectForKey:key]) return NO;
 	[rawValueDict setObject:o forKey:key];
@@ -58,5 +59,11 @@
 	rawValueDict = [[NSMutableDictionary alloc] init];
 	
 	return self;
+}
+
+-(void) newValue:(IOHIDValueRef)value {
+	NSString * key = [MALHidElement keyForElement:IOHIDValueGetElement(value)];
+	MALHidElement * ob = [rawValueDict objectForKey:key];
+	[ob valueChanged:value];
 }
 @end

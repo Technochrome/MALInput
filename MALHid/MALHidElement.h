@@ -6,21 +6,26 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+
+#import "MALInputElement.h"
 #import "MALHidInternal.h"
 
-@interface MALHidElement : NSObject {
+// joystick normalize
+// D-pad normalize
+// something with mouse pointer?
+
+@interface MALHidElement : MALInputElement {
 @private
+	float scaleMax,scaleMin;
+	
 	IOHIDElementRef element;
-	
-	NSMutableArray * observers;
-	
-	int value,min,max;
-	//timestamp of new, of last
 }
 -(IOHIDDeviceRef) device;
--(MALHidUsage) usage;
 -(int) cookie;
 
 +(NSString*) keyForElement:(IOHIDElementRef)e;
++(id) hidElementWithElement:(IOHIDElementRef)e;
 -(id) initWithElement:(IOHIDElementRef) e namespace:(NSString*)ns;
+
+-(void) valueChanged:(IOHIDValueRef)value;
 @end

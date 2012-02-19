@@ -16,7 +16,7 @@ int main (int argc, const char * argv[]) {
 	    NSLog(@"Hello, World!");
 	    
 		
-		getDevices();
+		startMALHidListener();
 		
 		[[NSRunLoop currentRunLoop] run];
 	}

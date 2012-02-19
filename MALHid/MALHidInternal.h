@@ -21,7 +21,8 @@
 
 #include "MALHidStructs.h"
 
-#import "MALHidCenter.h"
+#import "MALInputElement.h"
 #import "MALHidElement.h"
+#import "MALHidCenter.h"
 
 #endif

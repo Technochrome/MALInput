@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DeviceNamespace</key>
+	<dict>
+		<key>Comments</key>
+		<array>
+			<string>searches usagePage, then usage on the table for the namespace</string>
+			<string>if the namespace is &quot;SKIP&quot; then that category is skipped</string>
+			<string>the default on this level is passed both page and usage; the lower level will pass just usage</string>
+		</array>
+		<key>1</key>
+		<dict>
+			<key>1</key>
+			<string>SKIP</string>
+			<key>2</key>
+			<string>SKIP</string>
+			<key>4</key>
+			<string>Game</string>
+			<key>5</key>
+			<string>Game</string>
+			<key>6</key>
+			<string>SKIP</string>
+			<key>7</key>
+			<string>Key</string>
+			<key>default</key>
+			<string>GD_%x</string>
+		</dict>
+		<key>default</key>
+		<string>unknown_%x_%x</string>
+	</dict>
+	<key>ProductDescription</key>
+	<dict>
+		<key>46d_c216</key>
+		<dict>
+			<key>Description</key>
+			<string>Logitech Dual Action</string>
+			<key>1_30</key>
+			<string>JoyLeft.x</string>
+			<key>1_31</key>
+			<string>JoyLeft.y</string>
+			<key>1_32</key>
+			<string>JoyRight.x</string>
+			<key>1_35</key>
+			<string>JoyRight.y</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

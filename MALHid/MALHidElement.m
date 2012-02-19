@@ -12,7 +12,6 @@
 #pragma mark accessors
 -(IOHIDDeviceRef) device { return IOHIDElementGetDevice(element); }
 -(int) cookie { return IOHIDElementGetCookie(element); }
--(MALHidUsage) usage { return MakeMALHidUsage(IOHIDElementGetUsagePage(element), IOHIDElementGetUsage(element)); }
 
 #pragma mark new/delete
 +(NSString*) keyForElement:(IOHIDElementRef)element {
@@ -21,7 +20,6 @@
 	int usagePage = [getHIDDeviceProperty(device, kIOHIDPrimaryUsagePageKey) intValue];
 	int usageID = [getHIDDeviceProperty(device, kIOHIDPrimaryUsageKey) intValue];
 	int location = [getHIDDeviceProperty(device, kIOHIDLocationIDKey) intValue];
-	
 	int cookie = IOHIDElementGetCookie(element);
 	
 	NSString * key = [NSString stringWithFormat:@"%x.%x.%x.%x", location, usagePage, usageID, cookie];
@@ -33,6 +31,7 @@
 	if(!self) return nil;
 	
 	element = e;
+	hidUsage = MakeMALHidUsage(IOHIDElementGetUsagePage(element), IOHIDElementGetUsage(element));
 	
 	unsigned usageID = IOHIDElementGetUsage(element);
 	unsigned usagePage = IOHIDElementGetUsagePage(element);
@@ -40,6 +39,7 @@
 	bool wrap = IOHIDElementIsWrapping(element);
 	CFIndex maxv = IOHIDElementGetLogicalMax(element);
 	CFIndex minv = IOHIDElementGetLogicalMin(element);
+	
 	NSString * desc = [[MALHidCenter shared] descriptionForPage:usagePage usage:usageID];
 	ns = [NSString stringWithFormat:@"%@.%@", ns, desc];
 	
@@ -57,5 +57,21 @@
 	}
 	
 	return self;
+}
++(id) hidElementWithElement:(IOHIDElementRef)e {
+	MALHidElement * element = [[[self alloc] initWithElement:e namespace:nil] autorelease];
+	
+	if([[MALHidCenter shared] addObserver:element forElement:e]) return element;
+	else return nil;
+}
+
+-(void) valueChanged:(IOHIDValueRef)newValue {
+	int eUsagePage = IOHIDElementGetUsagePage(element);
+	int eUsageID = IOHIDElementGetUsage(element);
+	
+	printf("%s - %s = %lx\n",
+		   [[MALHidElement keyForElement:element] UTF8String],
+		   [[[MALHidCenter shared] descriptionForPage:eUsagePage usage:eUsageID] UTF8String],
+		   IOHIDValueGetIntegerValue(newValue));
 }
 @end
