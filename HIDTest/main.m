@@ -27,31 +27,17 @@
 #import <Foundation/Foundation.h>
 #import "MALHid.h"
 
-@interface test : NSObject <MALInputCallback> {
-	BOOL b;
-}
-@end
-
-@implementation test
--(void) inputFrom:(NSString *)path {
-//	NSLog(@"Input from %@",path);
-	
-	[[MALInputCenter shared] nextInputFromDeviceMatching:
-	 [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:b] forKey:MALInputMatchIsScalar]
-												callback:self];
-	
-	b = !b;
-}
-@end
 
 int main (int argc, const char * argv[]) {
-	printf("%ld\n",sizeof(unsigned));
 	@autoreleasepool {
 		startMALHidListener();
 		MALInputCenter *i = [MALInputCenter shared];
-		[i nextInputFromDeviceMatching:
-		 [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:MALInputMatchIsScalar]
-													callback:[test new]];
+		[i setInputListener:^(MALInputElement *inputElement) {
+			if([inputElement isBoolean]) {
+				NSLog(@"%@ (%@)",inputElement,[inputElement key]);
+				[i setInputListener:nil];
+			}
+		}];
 		
 		[[NSRunLoop currentRunLoop] run];
 	}

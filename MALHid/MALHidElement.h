@@ -7,12 +7,11 @@
 //
 
 
-#import "MALInputElement.h"
-#import "MALHidInternal.h"
-
 // joystick normalize
 // D-pad normalize
 // something with mouse pointer?
+
+@class MALInputElement;
 
 @interface MALHidElement : MALInputElement {
 @private

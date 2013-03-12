@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MALHidInternal.h"
-
 // 3 major devices right now [Key, Mouse, Joy]
 // refer by Joy, Joy[0]
 // each device should have a connected/disconnected attribute (or should absense be attribute?)

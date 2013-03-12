@@ -15,6 +15,8 @@ NSString * MALInputMatchIsRelative = @"MALInputMatchIsRelative";
 NSString * MALInputMatchIsScalar = @"MALInputMatchIsScalar";
 
 @implementation MALInputCenter
+@synthesize inputListener;
+
 +(MALInputCenter*) shared {
 	static id shared = nil;
 	if(!shared) shared = [[self alloc] init];
@@ -29,16 +31,7 @@ NSString * MALInputMatchIsScalar = @"MALInputMatchIsScalar";
 }
 
 -(void) valueChanged:(MALInputElement*)element path:(NSString*)path {
-	if(callbackNextInput) {
-		NSNumber * num = nil;
-		
-		num = [nextInputMatchDict objectForKey:MALInputMatchIsScalar];
-		if(num && ([num boolValue] != [element isScalar])) return;
-		
-		id c = callbackNextInput;
-		[self cancelNextInputCallback];
-		[c inputFrom:path];
-	}
+	if(inputListener) inputListener(element);
 }
 
 -(void) addInput:(MALInputElement*)input atPath:(NSString*)path {

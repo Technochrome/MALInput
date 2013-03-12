@@ -14,6 +14,7 @@ void startMALHidListener(void);
 #ifdef __OBJC__
 
 	#import "MALInputCenter.h"
+	#import "MALInputElement.h"
 
 #endif
 

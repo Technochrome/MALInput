@@ -21,12 +21,13 @@
 	[[MALInputCenter shared] addInput:self atPath:path];
 }
 
--(void) updateValue:(int)value timestamp:(uint64_t)t {
+-(void) updateValue:(long)value timestamp:(uint64_t)t {
 	[[MALInputCenter shared] valueChanged:self path:path];
 }
 
 -(NSString*) pathOfType:(MALInputPathType)type {return nil;}
 -(NSString*) path {return nil;}
 
+-(BOOL) isBoolean {return (max-min) == 1;}
 -(BOOL) isScalar {return (max-min) > 1;}
 @end

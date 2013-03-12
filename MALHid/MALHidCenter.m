@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MALHidCenter.h"
+#import "MALHidInternal.h"
 
 #pragma mark Implementations
 @implementation MALHidCenter

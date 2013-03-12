@@ -23,6 +23,7 @@
 #include "MALHidStructs.h"
 
 #import "MALInputElement.h"
+#import "MALInputCenter.h"
 #import "MALHidElement.h"
 #import "MALHidCenter.h"
 

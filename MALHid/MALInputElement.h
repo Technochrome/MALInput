@@ -13,7 +13,7 @@ typedef enum {
 } MALInputPathType;
 
 @interface MALInputElement : NSObject {
-	NSMutableArray * observers;
+	NSMutableArray * observers; // Make this a weak collection
 	NSString * path;
 	
 	// does this provide enough to deliniate between different types? 0D, 1D, 2D, 3D
@@ -22,7 +22,7 @@ typedef enum {
 	MALHidUsage hidUsage;
 	
 	int isRelative:1;
-	int isAbsolute:1;
+	int isWrapping:1;
 	int isDiscoverable:1; // will notify InputCenter of changes, 
 	
 	// timestamp of new, of last
@@ -38,8 +38,13 @@ typedef enum {
 -(void) addObserver:(id)observer;
 -(void) removeObserver:(id)observer;
 
+-(BOOL) isBoolean;
 -(BOOL) isScalar;
 // Some devices can do both, e.g. joysticks
 -(BOOL) isRelative;
 -(BOOL) isAbsolute;
+
+
+-(NSString*) controllerName;
+-(NSString*) inputName;
 @end

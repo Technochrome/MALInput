@@ -16,6 +16,7 @@ static void deviceConnection(void * context, IOReturn inResult, void * HIDManage
 	int usagePage = [getHIDDeviceProperty(device, kIOHIDPrimaryUsagePageKey) intValue];
 	int usageID = [getHIDDeviceProperty(device, kIOHIDPrimaryUsageKey) intValue];
 	int location = [getHIDDeviceProperty(device, kIOHIDLocationIDKey) intValue];
+	int version = [getHIDDeviceProperty(device, kIOHIDVersionNumberKey) intValue];
 	
 	//check to see if device type is known
 	NSString * ns = nil;
@@ -30,16 +31,10 @@ static void deviceConnection(void * context, IOReturn inResult, void * HIDManage
 		NSString * defaultFormat = [deviceNamespaces objectForKey:@"default"];
 		if(defaultFormat) ns = [NSString stringWithFormat:defaultFormat, usagePage, usageID];
 	}
-	NSLog(@"Input Device connection :: #%x_%x (%s) {%x}", usagePage, usageID, [ns UTF8String], location);
+	NSLog(@"Input Device connection :: %x.%x (%s) {%x.%x}", usagePage, usageID, [ns UTF8String], location, version);
 	
 	// Things that will disqualify a device
 	if([ns isEqualToString:@"SKIP"] || location == 0) return;
-	
-	// NO DUPLICATES
-//	NSString * deviceName = [NSString stringWithFormat:@"%x.%x.%x", location, usagePage, usageID];
-//	if([connectedDevices member:deviceName]) return;
-//	[connectedDevices addObject:deviceName];
-	
 	
 	for(id element in (NSArray*)IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone)) {
 		IOHIDElementType type = IOHIDElementGetType((IOHIDElementRef)element);
@@ -51,7 +46,7 @@ static void deviceConnection(void * context, IOReturn inResult, void * HIDManage
 		MALHidUsage usage = [e usage];
 		if(usage.page == 0 && usage.ID == 0)
 			printf("---------------------\n");
-		NSLog(@"Added Element %@ (%@)",e,[e path]);
+//		NSLog(@"Added Element %@ (%@)",e,[e path]);
 	}
 	
 }

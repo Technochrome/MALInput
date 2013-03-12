@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MALHidElement.h"
+#import "MALHidInternal.h"
 
 @implementation MALHidElement
 #pragma mark accessors
 -(IOHIDDeviceRef) device { return IOHIDElementGetDevice(element); }
 -(int) cookie { return IOHIDElementGetCookie(element); }
--(NSString*) path { return [MALHidElement pathForElement:element]; }
+-(NSString*) key { return [MALHidElement keyForElement:element]; }
 
 #pragma mark new/delete
 +(NSString*) keyForElement:(IOHIDElementRef)element {
@@ -34,9 +34,6 @@
 	return [[MALHidCenter shared] descriptionForPage:hidUsage.page
 											   usage:hidUsage.ID];
 }
-+(NSString*) pathForElement:(IOHIDElementRef)element {
-	return [self keyForElement:element];
-}
 -(id) initWithElement:(IOHIDElementRef) e namespace:(NSString*)ns {
 	self = [super init];
 	if(!self) return nil;
@@ -47,12 +44,8 @@
 		[self release]; return nil;
 	}
 	
-	if(hidUsage.page == 0x1 && hidUsage.ID == 0x30) {
-
-	}
-	
-	bool rel = IOHIDElementIsRelative(element);
-	bool wrap = IOHIDElementIsWrapping(element);
+	isRelative = IOHIDElementIsRelative(element);
+	isWrapping = IOHIDElementIsWrapping(element);
 	max = IOHIDElementGetLogicalMax(element);
 	min = IOHIDElementGetLogicalMin(element);
 	
@@ -85,14 +78,6 @@
 }
 
 -(void) valueChanged:(IOHIDValueRef)newValue {
-	int eUsagePage = IOHIDElementGetUsagePage(element);
-	int eUsageID = IOHIDElementGetUsage(element);
-	
 	[self updateValue:IOHIDValueGetIntegerValue(newValue) timestamp:IOHIDValueGetTimeStamp(newValue)];
-	
-//	printf("%s - %s = %lx\n",
-//		   [[MALHidElement keyForElement:element] UTF8String],
-//		   [[[MALHidCenter shared] descriptionForPage:eUsagePage usage:eUsageID] UTF8String],
-//		   IOHIDValueGetIntegerValue(newValue));
 }
 @end
