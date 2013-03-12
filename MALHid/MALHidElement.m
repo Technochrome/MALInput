@@ -11,14 +11,14 @@
 @implementation MALHidElement
 #pragma mark accessors
 -(IOHIDDeviceRef) device { return IOHIDElementGetDevice(element); }
--(int) cookie { return IOHIDElementGetCookie(element); }
+-(int) cookie { return (int)IOHIDElementGetCookie(element); }
 -(NSString*) key { return [MALHidElement keyForElement:element]; }
 
 #pragma mark new/delete
 +(NSString*) keyForElement:(IOHIDElementRef)element {
 	IOHIDDeviceRef device = IOHIDElementGetDevice(element);
 	
-	int cookie = IOHIDElementGetCookie(element);
+	int cookie = (int)IOHIDElementGetCookie(element);
 	
 	NSMutableString * key = [NSMutableString stringWithFormat:@"%x",cookie];
 	for (IOHIDElementRef e = element; (e = IOHIDElementGetParent(e));) {
@@ -46,8 +46,8 @@
 	
 	isRelative = IOHIDElementIsRelative(element);
 	isWrapping = IOHIDElementIsWrapping(element);
-	max = IOHIDElementGetLogicalMax(element);
-	min = IOHIDElementGetLogicalMin(element);
+	rawMax = IOHIDElementGetLogicalMax(element);
+	rawMin = IOHIDElementGetLogicalMin(element);
 	
 	NSString * desc = [[MALHidCenter shared] descriptionForPage:hidUsage.page usage:hidUsage.ID];
 	ns = [NSString stringWithFormat:@"%@.%@", ns, desc];

@@ -34,8 +34,9 @@ int main (int argc, const char * argv[]) {
 		MALInputCenter *i = [MALInputCenter shared];
 		[i setInputListener:^(MALInputElement *inputElement) {
 			if([inputElement isBoolean]) {
-				NSLog(@"%@ (%@)",inputElement,[inputElement key]);
-				[i setInputListener:nil];
+				if([inputElement boolValue]) NSLog(@"%@ (%@)",inputElement,[inputElement key]);
+			} else {
+				NSLog(@"%f, (%ld,%ld,%ld)",[inputElement floatValueFrom:-1 to:1 deadzone:.1],[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
 			}
 		}];
 		

@@ -17,6 +17,7 @@
 		2F0579D214C06693009D8B82 /* MALHid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0579B214C05F51009D8B82 /* MALHid.framework */; };
 		2F0579D314C06879009D8B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797E14C05A70009D8B82 /* Foundation.framework */; };
 		2F0579D514C06966009D8B82 /* DDHidStandardUsages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */; };
+		2F37CF4A16EFEB06001C6DD3 /* HID_usage_strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F37CF4616EFEB06001C6DD3 /* HID_usage_strings.plist */; };
 		2F45597E14C0AF59004378A6 /* MALMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F45597D14C0AF59004378A6 /* MALMacros.h */; };
 		2F4FA2F014EF006F004C8126 /* MALInputCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */; };
 		2F4FA2F114EF006F004C8126 /* MALInputCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */; };
@@ -55,6 +56,7 @@
 		2F0579C814C0613B009D8B82 /* MALHidCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidCenter.h; sourceTree = "<group>"; };
 		2F0579D114C065B8009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
 		2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DDHidStandardUsages.plist; sourceTree = "<group>"; };
+		2F37CF4716EFEB06001C6DD3 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = "../../../../../Downloads/HID_Dumper/HID Utilities/English.lproj/HID_usage_strings.plist"; sourceTree = "<group>"; };
 		2F45597D14C0AF59004378A6 /* MALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MALMacros.h; path = /Users/rovolo/Stuff/Programming/Code/MALlib/MALMacros.h; sourceTree = "<absolute>"; };
 		2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALInputCenter.h; sourceTree = "<group>"; };
 		2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALInputCenter.m; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		2F0579BA14C05F51009D8B82 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2F37CF4616EFEB06001C6DD3 /* HID_usage_strings.plist */,
 				2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */,
 				2FF38DE314EED4020091504E /* MALHidUsageMap.plist */,
 				2F0579BB14C05F51009D8B82 /* MALHid-Info.plist */,
@@ -254,6 +257,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 2F05796B14C05A70009D8B82;
 			productRefGroup = 2F05797714C05A70009D8B82 /* Products */;
@@ -274,6 +278,7 @@
 				2F0579BE14C05F51009D8B82 /* InfoPlist.strings in Resources */,
 				2F0579D514C06966009D8B82 /* DDHidStandardUsages.plist in Resources */,
 				2FF38DE414EED4020091504E /* MALHidUsageMap.plist in Resources */,
+				2F37CF4A16EFEB06001C6DD3 /* HID_usage_strings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +315,14 @@
 				2F0579BD14C05F51009D8B82 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2F37CF4616EFEB06001C6DD3 /* HID_usage_strings.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F37CF4716EFEB06001C6DD3 /* English */,
+			);
+			name = HID_usage_strings.plist;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

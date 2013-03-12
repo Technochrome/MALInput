@@ -16,18 +16,19 @@ typedef enum {
 	NSMutableArray * observers; // Make this a weak collection
 	NSString * path;
 	
-	// does this provide enough to deliniate between different types? 0D, 1D, 2D, 3D
-	long value,min,max;
+	long value,rawMin,rawMax;
 	
 	MALHidUsage hidUsage;
 	
-	int isRelative:1;
-	int isWrapping:1;
-	int isDiscoverable:1; // will notify InputCenter of changes, 
+	BOOL isRelative:1;
+	BOOL isWrapping:1;
+	BOOL isDiscoverable:1; // will notify InputCenter of changes,
 	
 	// timestamp of new, of last
 	// flag for if it is raw (i.e. not the best representation (e.g. hatswitch))
 }
+@property (readonly) long rawValue,rawMax,rawMin;
+@property (readonly) BOOL isRelative,isWrapping;
 
 -(MALHidUsage) usage;
 -(NSString*) pathOfType:(MALInputPathType)type;
@@ -38,12 +39,19 @@ typedef enum {
 -(void) addObserver:(id)observer;
 -(void) removeObserver:(id)observer;
 
+// Query input type
 -(BOOL) isBoolean;
--(BOOL) isScalar;
-// Some devices can do both, e.g. joysticks
 -(BOOL) isRelative;
 -(BOOL) isAbsolute;
 
+// Query value
+-(BOOL) boolValue;
+-(float) floatValue;
+-(float) floatValueFrom:(float)from to:(float)to;
+// The deadzone is a percentage of the range [min, max]
+-(float) floatValueFrom:(float)from to:(float)to deadzone:(float)deadzone;
+
+// Somehow look at history
 
 -(NSString*) controllerName;
 -(NSString*) inputName;
