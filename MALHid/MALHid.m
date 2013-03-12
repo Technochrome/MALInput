@@ -15,8 +15,6 @@ static NSDictionary * deviceNamespaces = nil;
 static void deviceConnection(void * context, IOReturn inResult, void * HIDManagerRef, IOHIDDeviceRef device) {
 	int usagePage = [getHIDDeviceProperty(device, kIOHIDPrimaryUsagePageKey) intValue];
 	int usageID = [getHIDDeviceProperty(device, kIOHIDPrimaryUsageKey) intValue];
-	int product = [getHIDDeviceProperty(device, kIOHIDProductIDKey) intValue];
-	int vendor = [getHIDDeviceProperty(device, kIOHIDVendorIDKey) intValue];
 	int location = [getHIDDeviceProperty(device, kIOHIDLocationIDKey) intValue];
 	
 	//check to see if device type is known
@@ -32,30 +30,28 @@ static void deviceConnection(void * context, IOReturn inResult, void * HIDManage
 		NSString * defaultFormat = [deviceNamespaces objectForKey:@"default"];
 		if(defaultFormat) ns = [NSString stringWithFormat:defaultFormat, usagePage, usageID];
 	}
-	printf("Connection: %x %s #%x_%x {%x %x}",location, [ns UTF8String], usagePage, usageID, vendor, product);
+	NSLog(@"Input Device connection :: #%x_%x (%s) {%x}", usagePage, usageID, [ns UTF8String], location);
 	
 	// Things that will disqualify a device
-	if([ns isEqualToString:@"SKIP"] || location == 0) goto DeviceConnectionDenied;
+	if([ns isEqualToString:@"SKIP"] || location == 0) return;
 	
 	// NO DUPLICATES
-	NSString * deviceName = [NSString stringWithFormat:@"%x.%x.%x", location, usagePage, usageID];
-	if([connectedDevices member:deviceName]) goto DeviceConnectionDenied;
-	[connectedDevices addObject:deviceName];
+//	NSString * deviceName = [NSString stringWithFormat:@"%x.%x.%x", location, usagePage, usageID];
+//	if([connectedDevices member:deviceName]) return;
+//	[connectedDevices addObject:deviceName];
 	
-	if(NO) {
-		DeviceConnectionDenied: printf(" ... Denied\n"); return;
-	}
 	
-	printf(" ... Accepted\n");
-	
-	for(id _element in (NSArray*)IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone)) {
-		IOHIDElementRef element = (IOHIDElementRef)_element;
-		if(!IOHIDElementIsArray(element)) {
-			MALHidElement * e = [MALHidElement hidElementWithElement:element];
-//			MALHidElement * e = [[MALHidElement alloc] initWithElement:(IOHIDElementRef)element namespace:ns];
-			// add to non-raw tree
-			// add derivative elements
-		}
+	for(id element in (NSArray*)IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone)) {
+		IOHIDElementType type = IOHIDElementGetType((IOHIDElementRef)element);
+		if(type == kIOHIDElementTypeCollection || type == kIOHIDElementTypeFeature) continue;
+		
+		MALHidElement * e = [MALHidElement hidElementWithElement:(IOHIDElementRef)element];
+		if(!e) continue;
+		
+		MALHidUsage usage = [e usage];
+		if(usage.page == 0 && usage.ID == 0)
+			printf("---------------------\n");
+		NSLog(@"Added Element %@ (%@)",e,[e path]);
 	}
 	
 }
@@ -96,8 +92,8 @@ void startMALHidListener() {
 	for(int i=0; i<sizeArr(matches); i++) {
 		[matchingValues addObject:
 		 [NSDictionary dictionaryWithObjectsAndKeys:
-		  [NSNumber numberWithInt:kHIDPage_GenericDesktop], [NSString stringWithUTF8String:kIOHIDDeviceUsagePageKey],
-		  [NSNumber numberWithInt:matches[i]], [NSString stringWithUTF8String:kIOHIDDeviceUsageKey],
+		  @(kHIDPage_GenericDesktop), [NSString stringWithUTF8String:kIOHIDDeviceUsagePageKey],
+		  @(matches[i]), [NSString stringWithUTF8String:kIOHIDDeviceUsageKey],
 		  nil]];
 	}
 	

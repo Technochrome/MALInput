@@ -13,15 +13,15 @@
 		<key>1</key>
 		<dict>
 			<key>1</key>
-			<string>SKIP</string>
+			<string>Mouse</string>
 			<key>2</key>
-			<string>SKIP</string>
+			<string>Mouse</string>
 			<key>4</key>
 			<string>Game</string>
 			<key>5</key>
 			<string>Game</string>
 			<key>6</key>
-			<string>SKIP</string>
+			<string>Key</string>
 			<key>7</key>
 			<string>Key</string>
 			<key>default</key>

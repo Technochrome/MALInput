@@ -33,7 +33,7 @@
 
 	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
 	if (usagePageLookup == nil)
-		return @"Unknown usage page";
+		return [NSString stringWithFormat:@"Unknown usage page %u,%u",usagePage,usage];
 
 	NSDictionary * usageLookup = [usagePageLookup objectForKey: @"usages"];
 	NSString * description = [usageLookup objectForKey: usageString];

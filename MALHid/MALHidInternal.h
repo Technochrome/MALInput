@@ -18,6 +18,7 @@
 
 
 #define getHIDDeviceProperty(device, key) [(NSNumber*)IOHIDDeviceGetProperty(device, CFSTR(key)) autorelease]
+#define getHIDElementProperty(element, key) [(NSNumber*)IOHIDElementGetProperty(element, CFSTR(key)) autorelease]
 
 #include "MALHidStructs.h"
 

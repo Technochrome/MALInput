@@ -55,7 +55,7 @@
 		2F0579C814C0613B009D8B82 /* MALHidCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidCenter.h; sourceTree = "<group>"; };
 		2F0579D114C065B8009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
 		2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DDHidStandardUsages.plist; sourceTree = "<group>"; };
-		2F45597D14C0AF59004378A6 /* MALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MALMacros.h; path = "/Volumes/Black Tulip/Users/rovolo/Stuff/Programming/Code/MALlib/MALlib/../MALMacros.h"; sourceTree = "<absolute>"; };
+		2F45597D14C0AF59004378A6 /* MALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MALMacros.h; path = /Users/rovolo/Stuff/Programming/Code/MALlib/MALMacros.h; sourceTree = "<absolute>"; };
 		2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALInputCenter.h; sourceTree = "<group>"; };
 		2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALInputCenter.m; sourceTree = "<group>"; };
 		2FF38DD614EEC5680091504E /* MALHidElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidElement.h; sourceTree = "<group>"; };
@@ -141,16 +141,13 @@
 		2F0579B914C05F51009D8B82 /* MALHid */ = {
 			isa = PBXGroup;
 			children = (
+				2F69CD4914F141B500051534 /* Foundation */,
 				2FF38DE014EEC9390091504E /* MALHid.h */,
 				2FF38DE114EECACC0091504E /* MALHid.m */,
 				2FF38DE514EEE5600091504E /* MALInputElement.h */,
 				2FF38DE614EEE5600091504E /* MALInputElement.m */,
 				2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */,
 				2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */,
-				2FF38DDA14EEC6330091504E /* MALHidInternal.h */,
-				2F45597D14C0AF59004378A6 /* MALMacros.h */,
-				2FF38DDB14EEC6A90091504E /* MALHidStructs.h */,
-				2FF38DDC14EEC6F40091504E /* MALHidStructs.c */,
 				2F4FA2F214EF0091004C8126 /* HID */,
 				2F0579BA14C05F51009D8B82 /* Supporting Files */,
 			);
@@ -178,6 +175,17 @@
 				2FF38DD714EEC5680091504E /* MALHidElement.m */,
 			);
 			name = HID;
+			sourceTree = "<group>";
+		};
+		2F69CD4914F141B500051534 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				2FF38DDA14EEC6330091504E /* MALHidInternal.h */,
+				2F45597D14C0AF59004378A6 /* MALMacros.h */,
+				2FF38DDB14EEC6A90091504E /* MALHidStructs.h */,
+				2FF38DDC14EEC6F40091504E /* MALHidStructs.c */,
+			);
+			name = Foundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
