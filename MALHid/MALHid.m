@@ -40,13 +40,7 @@ static void deviceConnection(void * context, IOReturn inResult, void * HIDManage
 		IOHIDElementType type = IOHIDElementGetType((IOHIDElementRef)element);
 		if(type == kIOHIDElementTypeCollection || type == kIOHIDElementTypeFeature) continue;
 		
-		MALHidElement * e = [MALHidElement hidElementWithElement:(IOHIDElementRef)element];
-		if(!e) continue;
-		
-		MALHidUsage usage = [e usage];
-		if(usage.page == 0 && usage.ID == 0)
-			printf("---------------------\n");
-//		NSLog(@"Added Element %@ (%@)",e,[e path]);
+		[MALHidElement hidElementWithElement:(IOHIDElementRef)element];
 	}
 	
 }
@@ -81,15 +75,11 @@ void startMALHidListener() {
 	IOHIDManagerRef io = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);
 	
 	// make an array of matching dictionaries for the HIDManager
-	int matches[] = {kHIDUsage_GD_Mouse, kHIDUsage_GD_Keyboard, kHIDUsage_GD_Pointer, kHIDUsage_GD_Joystick, kHIDUsage_GD_GamePad};
+	int matches[] = {kHIDUsage_GD_Mouse, kHIDUsage_GD_Keyboard, kHIDUsage_GD_Keypad, kHIDUsage_GD_Pointer, kHIDUsage_GD_Joystick, kHIDUsage_GD_GamePad};
 	NSMutableArray * matchingValues = [NSMutableArray array];
 	
 	for(int i=0; i<sizeArr(matches); i++) {
-		[matchingValues addObject:
-		 [NSDictionary dictionaryWithObjectsAndKeys:
-		  @(kHIDPage_GenericDesktop), [NSString stringWithUTF8String:kIOHIDDeviceUsagePageKey],
-		  @(matches[i]), [NSString stringWithUTF8String:kIOHIDDeviceUsageKey],
-		  nil]];
+		[matchingValues addObject:@{@(kIOHIDDeviceUsagePageKey):@(kHIDPage_GenericDesktop), @(kIOHIDDeviceUsageKey):@(matches[i])}];
 	}
 	
 	IOHIDManagerSetDeviceMatchingMultiple(io, (CFMutableArrayRef)matchingValues);

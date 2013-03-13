@@ -8,41 +8,36 @@
 
 #import "MALHidStructs.h"
 
-typedef enum {
-	MALInputRawPath, MALInputDeviceTypePath, MALInputDeviceNumberPath
-} MALInputPathType;
+@class MALInputElement;
+typedef void (^MALInputObserverBlock)(MALInputElement*);
 
 @interface MALInputElement : NSObject {
-	NSMutableArray * observers; // Make this a weak collection
+	NSMutableSet * observers; // Takes blocks
 	NSString * path;
 	
-	long value,rawMin,rawMax;
+	long rawMin,rawMax;
+	long value,oldValue;
+	uint64_t timestamp,oldTimestamp;
 	
 	MALHidUsage hidUsage;
 	
 	BOOL isRelative:1;
 	BOOL isWrapping:1;
 	BOOL isDiscoverable:1; // will notify InputCenter of changes,
-	
-	// timestamp of new, of last
-	// flag for if it is raw (i.e. not the best representation (e.g. hatswitch))
 }
 @property (readonly) long rawValue,rawMax,rawMin;
 @property (readonly) BOOL isRelative,isWrapping;
+@property (readwrite) BOOL isDiscoverable;
+@property (readwrite,copy,nonatomic) NSString * path;
 
 -(MALHidUsage) usage;
--(NSString*) pathOfType:(MALInputPathType)type;
--(void) setPath:(NSString*)path;
 
--(void) updateValue:(long)value timestamp:(uint64_t)t;
-
--(void) addObserver:(id)observer;
--(void) removeObserver:(id)observer;
+-(void) addObserver:(MALInputObserverBlock)observer;
+-(void) removeObserver:(MALInputObserverBlock)observer;
 
 // Query input type
 -(BOOL) isBoolean;
 -(BOOL) isRelative;
--(BOOL) isAbsolute;
 
 // Query value
 -(BOOL) boolValue;
@@ -50,6 +45,8 @@ typedef enum {
 -(float) floatValueFrom:(float)from to:(float)to;
 // The deadzone is a percentage of the range [min, max]
 -(float) floatValueFrom:(float)from to:(float)to deadzone:(float)deadzone;
+
+-(void) updateValue:(long)value timestamp:(uint64_t)t;
 
 // Somehow look at history
 

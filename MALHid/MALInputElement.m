@@ -10,27 +10,41 @@
 
 @implementation MALInputElement
 @synthesize rawValue=value,rawMax,rawMin;
-@synthesize isRelative,isWrapping;
+@synthesize isRelative,isWrapping,path,isDiscoverable;
 
--(MALHidUsage) usage {
-	if(hidUsage.page == 0 && hidUsage.ID == 0) printf("---------------------\n");
-	return hidUsage;}
+-(id) init {
+	if((self = [super init])) {
+		observers = [[NSMutableSet alloc] init];
+		isDiscoverable = YES;
+	} return self;
+}
+
+-(MALHidUsage) usage {return hidUsage;}
 
 -(void) setPath:(NSString*)p {
 	if(path) [[MALInputCenter shared] removeInputAtPath:path];
 	
 	path = [p copy];
 	
-	[[MALInputCenter shared] addInput:self atPath:path];
+	if(path) [[MALInputCenter shared] addInput:self atPath:path];
 }
 
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
-	value = newValue;
-	[[MALInputCenter shared] valueChanged:self path:path];
+	oldValue = value; value = newValue;
+	oldTimestamp = timestamp; timestamp = t;
+	for(MALInputObserverBlock block in observers) {
+		block(self);
+	}
+	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self path:path];
 }
 
--(NSString*) pathOfType:(MALInputPathType)type {return nil;}
--(NSString*) path {return nil;}
+-(void) addObserver:(MALInputObserverBlock)observer {
+	[observers addObject:observer];
+}
+
+-(void) removeObserver:(MALInputObserverBlock)observer	{
+	[observers removeObject:observer];
+}
 
 #pragma mark Query Input Type
 -(BOOL) isBoolean {return (rawMax-rawMin) == 1;}
@@ -49,19 +63,22 @@
 	
 	// sVal = value in [rawMin,rawMax] => [0,1]
 	float sVal = (value - rawMin)/(float)(rawMax-rawMin);
-	printf("%f ",sVal);
 	
 	// Lop off the deadzone from the middle. [0,1] => [0+deadzone,1-deadzone]
 	sVal = (sVal > .5 ? MAX(.5,sVal-deadzone) : MIN(.5, sVal+deadzone));
-	printf("%f ",sVal);
 	
 	// [0+deadzone,1-deadzone] => [0,1]
 	sVal = (sVal - deadzone)/(1-2*deadzone);
-	printf("%f ",sVal);
 	
 	// [0,1] => [min, max]
 	sVal = sVal*(to-from) + from;
-	printf("%f\n",sVal);
 	return sVal;
+}
+
+-(NSString*) controllerName {
+	return @"No controller name";
+}
+-(NSString*) inputName {
+	return @"No input name";
 }
 @end

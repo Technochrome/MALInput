@@ -31,12 +31,23 @@
 int main (int argc, const char * argv[]) {
 	@autoreleasepool {
 		startMALHidListener();
+		
+		MALInputObserverBlock dumpEverything = ^(MALInputElement* input) {
+			NSLog(@"%@ : %lx",input, [input rawValue]);
+		};
+		
 		MALInputCenter *i = [MALInputCenter shared];
 		[i setInputListener:^(MALInputElement *inputElement) {
+			MALHidUsage usage = [inputElement usage];
+			if(usage.page == 0x7 && usage.ID == 0x29) {
+				[i setInputListener:nil];
+				return;
+			}
 			if([inputElement isBoolean]) {
-				if([inputElement boolValue]) NSLog(@"%@ (%@)",inputElement,[inputElement key]);
-			} else {
-				NSLog(@"%f, (%ld,%ld,%ld)",[inputElement floatValueFrom:-1 to:1 deadzone:.1],[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
+				if([inputElement boolValue]) [inputElement addObserver:dumpEverything];
+			} else if(![inputElement isRelative]) {
+				float value = [inputElement floatValueFrom:-1 to:1 deadzone:.1];
+				if(value != 0) NSLog(@"%f, (%ld,%ld,%ld)",value,[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
 			}
 		}];
 		

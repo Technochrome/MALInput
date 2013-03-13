@@ -8,12 +8,6 @@
 
 #import "MALHidInternal.h"
 
-NSString * MALInputMatchDeviceType = @"MALInputMatchDeviceType";
-NSString * MALInputMatchDevice = @"MALInputMatchDevice";
-NSString * MALInputMatchUseDeviceNumber = @"MALInputMatchUseDeviceNumber";
-NSString * MALInputMatchIsRelative = @"MALInputMatchIsRelative";
-NSString * MALInputMatchIsScalar = @"MALInputMatchIsScalar";
-
 @implementation MALInputCenter
 @synthesize inputListener;
 
@@ -23,10 +17,9 @@ NSString * MALInputMatchIsScalar = @"MALInputMatchIsScalar";
 	return shared;
 }
 -(id) init {
-	self = [super init]; if(!self) return nil;
-	
-	devices = [[NSMutableDictionary alloc] init];
-	
+	if((self = [super init])) {
+		elements = [[NSMutableDictionary alloc] init];
+	}
 	return self;
 }
 
@@ -34,18 +27,13 @@ NSString * MALInputMatchIsScalar = @"MALInputMatchIsScalar";
 	if(inputListener) inputListener(element);
 }
 
+-(void) removeInputAtPath:(NSString *)path {
+	[elements removeObjectForKey:path];
+}
 -(void) addInput:(MALInputElement*)input atPath:(NSString*)path {
-	[devices setObject:input forKey:path];
+	[elements setObject:input forKey:path];
 }
-
--(void) nextInputFromDeviceMatching:(NSDictionary*)matchDictionary callback:(id)callback {
-	if(callbackNextInput) [self cancelNextInputCallback];
-	
-	nextInputMatchDict = [matchDictionary retain];
-	callbackNextInput = [callback retain];
-}
--(void) cancelNextInputCallback {
-	[nextInputMatchDict release]; nextInputMatchDict = nil;
-	[callbackNextInput release]; callbackNextInput = nil;
+-(MALInputElement*) inputAtPath:(NSString *)path {
+	return [elements objectForKey:path];
 }
 @end

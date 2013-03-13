@@ -12,7 +12,6 @@
 #pragma mark accessors
 -(IOHIDDeviceRef) device { return IOHIDElementGetDevice(element); }
 -(int) cookie { return (int)IOHIDElementGetCookie(element); }
--(NSString*) key { return [MALHidElement keyForElement:element]; }
 
 #pragma mark new/delete
 +(NSString*) keyForElement:(IOHIDElementRef)element {
@@ -65,16 +64,20 @@
 		return nil;
 	}
 	
+	
+	
+	[self setPath:[[self class] keyForElement:element]];
 	return self;
 }
 +(id) hidElementWithElement:(IOHIDElementRef)e {
 	MALHidElement * element = [[[self alloc] initWithElement:e namespace:nil] autorelease];
 	
 	if([[MALHidCenter shared] addObserver:element forElement:e]) {
-		
-		[element setPath:[MALHidElement keyForElement:e]];
 		return element;
-	} else return nil;
+	} else {
+		[element setPath:nil];
+		return nil;
+	}
 }
 
 -(void) valueChanged:(IOHIDValueRef)newValue {

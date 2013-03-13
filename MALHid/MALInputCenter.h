@@ -6,24 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-extern NSString * MALInputMatchDeviceType;
-extern NSString * MALInputMatchDevice;
-extern NSString * MALInputMatchUseDeviceNumber;
-
-
-@protocol MALInputCallback <NSObject>
--(void) inputFrom:(NSString*)path;
-@end
-
 @class MALInputElement;
 
 typedef void (^inputListenerType)(MALInputElement*);
 
 @interface MALInputCenter : NSObject {
-	NSMutableDictionary * devices, *deviceToPath;
+	NSMutableDictionary * elements, *deviceToPath;
 	
-	id <MALInputCallback> callbackNextInput;
-	NSDictionary * nextInputMatchDict;
+	inputListenerType inputListener;
 }
 @property (readwrite, strong) inputListenerType inputListener;
 
@@ -34,8 +24,4 @@ typedef void (^inputListenerType)(MALInputElement*);
 -(void) addInput:(MALInputElement*)input atPath:(NSString*)path;
 -(MALInputElement*) inputAtPath:(NSString*)path;
 -(void) removeInputAtPath:(NSString*)path;
-
--(void) nextInputFromDeviceMatching:(NSDictionary*)matchDictionary callback:(id<MALInputCallback>)callback;
--(void) cancelNextInputCallback;
-// define accidental input
 @end

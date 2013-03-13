@@ -225,9 +225,9 @@
 			productReference = 2F05799C14C05B15009D8B82 /* HIDTest */;
 			productType = "com.apple.product-type.tool";
 		};
-		2F0579B114C05F51009D8B82 /* MALHid */ = {
+		2F0579B114C05F51009D8B82 /* MALInput */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F0579C314C05F51009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */;
+			buildConfigurationList = 2F0579C314C05F51009D8B82 /* Build configuration list for PBXNativeTarget "MALInput" */;
 			buildPhases = (
 				2F0579AD14C05F51009D8B82 /* Sources */,
 				2F0579AE14C05F51009D8B82 /* Frameworks */,
@@ -238,7 +238,7 @@
 			);
 			dependencies = (
 			);
-			name = MALHid;
+			name = MALInput;
 			productName = MALHid;
 			productReference = 2F0579B214C05F51009D8B82 /* MALHid.framework */;
 			productType = "com.apple.product-type.framework";
@@ -265,7 +265,7 @@
 			projectRoot = "";
 			targets = (
 				2F05799B14C05B15009D8B82 /* HIDTest */,
-				2F0579B114C05F51009D8B82 /* MALHid */,
+				2F0579B114C05F51009D8B82 /* MALInput */,
 			);
 		};
 /* End PBXProject section */
@@ -354,7 +354,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -380,7 +380,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -470,7 +470,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F0579C314C05F51009D8B82 /* Build configuration list for PBXNativeTarget "MALHid" */ = {
+		2F0579C314C05F51009D8B82 /* Build configuration list for PBXNativeTarget "MALInput" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F0579C414C05F51009D8B82 /* Debug */,
