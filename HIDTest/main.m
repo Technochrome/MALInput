@@ -25,13 +25,11 @@
 
 
 #import <Foundation/Foundation.h>
-#import "MALHid.h"
+#import "MALInput.h"
 
 
 int main (int argc, const char * argv[]) {
 	@autoreleasepool {
-		startMALHidListener();
-		
 		MALInputObserverBlock dumpEverything = ^(MALInputElement* input) {
 			NSLog(@"%@ : %lx",input, [input rawValue]);
 		};
@@ -47,7 +45,7 @@ int main (int argc, const char * argv[]) {
 				if([inputElement boolValue]) [inputElement addObserver:dumpEverything];
 			} else if(![inputElement isRelative]) {
 				float value = [inputElement floatValueFrom:-1 to:1 deadzone:.1];
-				if(value != 0) NSLog(@"%f, (%ld,%ld,%ld)",value,[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
+				if(value != 0) if(NO) NSLog(@"%f, (%ld,%ld,%ld)",value,[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
 			}
 		}];
 		
