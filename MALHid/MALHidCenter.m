@@ -73,50 +73,15 @@ static void deviceInput(void * context, IOReturn inResult, void * HIDManagerRef,
 	[[MALHidCenter shared] newValue:newValue];
 }
 
-void startMALHidListener() {
-	
-	// This data controls how devices and elements are handled
-	NSBundle * myBundle = [NSBundle bundleForClass:[MALHidCenter class]];
-	NSString * usageTablesPath = [myBundle pathForResource: @"MALHidUsageMap" ofType: @"plist"];
-	usageTables = [[NSDictionary dictionaryWithContentsOfFile: usageTablesPath] retain];
-	deviceNamespaces = [usageTables objectForKey:@"DeviceNamespace"];
-	connectedDevices = [[NSMutableSet alloc] init];
-	
-	IOHIDManagerRef io = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);
-	
-	// make an array of matching dictionaries for the HIDManager
-	int matches[] = {kHIDUsage_GD_Mouse, kHIDUsage_GD_Keyboard, kHIDUsage_GD_Keypad, kHIDUsage_GD_Pointer, kHIDUsage_GD_Joystick, kHIDUsage_GD_GamePad};
-	NSMutableArray * matchingValues = [NSMutableArray array];
-	
-	for(int i=0; i<sizeArr(matches); i++) {
-		[matchingValues addObject:@{@(kIOHIDDeviceUsagePageKey):@(kHIDPage_GenericDesktop), @(kIOHIDDeviceUsageKey):@(matches[i])}];
-	}
-	
-	IOHIDManagerSetDeviceMatchingMultiple(io, (CFMutableArrayRef)matchingValues);
-	
-	// Set Callback Routines
-	IOHIDManagerRegisterDeviceMatchingCallback(io, deviceConnection, NULL);
-	IOHIDManagerRegisterDeviceRemovalCallback(io, deviceRemoval, NULL);
-	IOHIDManagerRegisterInputValueCallback(io, deviceInput, NULL);
-	
-	IOHIDManagerScheduleWithRunLoop(io, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-	
-	// Opens all current and future devices for communication
-	IOHIDManagerOpen(io, kIOHIDManagerOptionNone);
-	
-	CFRetain(io);
-}
-
 #pragma mark Implementations
 @implementation MALHidCenter
-+(void) load {
++(void) initialize {
 	[self shared];
 }
 +(MALHidCenter *) shared {
 	static MALHidCenter * shared = nil;
 	if(!shared) {
 		shared = [[self alloc] _init];
-		startMALHidListener();
 	}
 	return shared;
 }
@@ -157,11 +122,42 @@ void startMALHidListener() {
 -(id) _init {
 	self = [super init]; if(!self) return nil;
 	
-	NSBundle * myBundle = [NSBundle bundleForClass:[MALHidCenter class]];
-	NSString * usageTablesPath = [myBundle pathForResource: @"HID_usage_strings" ofType: @"plist"];
-	mLookupTables = [[NSDictionary dictionaryWithContentsOfFile: usageTablesPath] retain];
+	NSBundle * myBundle = [NSBundle bundleForClass:[self class]];
+	NSString * usageDescriptionsPath = [myBundle pathForResource: @"HID_usage_strings" ofType: @"plist"];
+	mLookupTables = [[NSDictionary dictionaryWithContentsOfFile: usageDescriptionsPath] retain];
 	
 	rawValueDict = [[NSMutableDictionary alloc] init];
+	
+	
+	// This data controls how devices and elements are handled
+	NSString * usageTablesPath = [myBundle pathForResource: @"MALHidUsageMap" ofType: @"plist"];
+	usageTables = [[NSDictionary dictionaryWithContentsOfFile: usageTablesPath] retain];
+	deviceNamespaces = [usageTables objectForKey:@"DeviceNamespace"];
+	connectedDevices = [[NSMutableSet alloc] init];
+	
+	IOHIDManagerRef io = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);
+	
+	// make an array of matching dictionaries for the HIDManager
+	int matches[] = {kHIDUsage_GD_Mouse, kHIDUsage_GD_Keyboard, kHIDUsage_GD_Keypad, kHIDUsage_GD_Pointer, kHIDUsage_GD_Joystick, kHIDUsage_GD_GamePad};
+	NSMutableArray * matchingValues = [NSMutableArray array];
+	
+	for(int i=0; i<sizeArr(matches); i++) {
+		[matchingValues addObject:@{@(kIOHIDDeviceUsagePageKey):@(kHIDPage_GenericDesktop), @(kIOHIDDeviceUsageKey):@(matches[i])}];
+	}
+	
+	IOHIDManagerSetDeviceMatchingMultiple(io, (CFMutableArrayRef)matchingValues);
+	
+	// Set Callback Routines
+	IOHIDManagerRegisterDeviceMatchingCallback(io, deviceConnection, NULL);
+	IOHIDManagerRegisterDeviceRemovalCallback(io, deviceRemoval, NULL);
+	IOHIDManagerRegisterInputValueCallback(io, deviceInput, NULL);
+	
+	IOHIDManagerScheduleWithRunLoop(io, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+	
+	// Opens all current and future devices for communication
+	IOHIDManagerOpen(io, kIOHIDManagerOptionNone);
+	
+	CFRetain(io);
 	
 	return self;
 }

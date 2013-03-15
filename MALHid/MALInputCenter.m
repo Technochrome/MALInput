@@ -11,6 +11,9 @@
 @implementation MALInputCenter
 @synthesize inputListener;
 
++(void) initialize {
+	[MALHidCenter shared];
+}
 +(MALInputCenter*) shared {
 	static id shared = nil;
 	if(!shared) shared = [[self alloc] init];
