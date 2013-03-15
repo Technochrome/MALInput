@@ -22,6 +22,7 @@
 		2F37CF4F16F0110F001C6DD3 /* MALHidElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF38DD614EEC5680091504E /* MALHidElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FA2F014EF006F004C8126 /* MALInputCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FA2F114EF006F004C8126 /* MALInputCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */; };
+		2FB388A616F2AD910023CAAF /* MALHidStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF38DDB14EEC6A90091504E /* MALHidStructs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2FF38DDE14EEC7750091504E /* MALHidStructs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DDC14EEC6F40091504E /* MALHidStructs.c */; };
 		2FF38DDF14EEC7750091504E /* MALHidElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DD714EEC5680091504E /* MALHidElement.m */; };
 		2FF38DE414EED4020091504E /* MALHidUsageMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FF38DE314EED4020091504E /* MALHidUsageMap.plist */; };
@@ -199,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F37CF4E16F00F5D001C6DD3 /* MALInput.h in Headers */,
+				2FB388A616F2AD910023CAAF /* MALHidStructs.h in Headers */,
 				2F0579CD14C0636E009D8B82 /* MALHidCenter.h in Headers */,
 				2F37CF4F16F0110F001C6DD3 /* MALHidElement.h in Headers */,
 				2F4FA2F014EF006F004C8126 /* MALInputCenter.h in Headers */,
