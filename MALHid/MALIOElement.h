@@ -27,8 +27,8 @@ typedef void (^MALIOObserverBlock)(MALIOElement*);
 @property (readonly) BOOL isRelative,isWrapping;
 @property (readwrite) BOOL isDiscoverable;
 
--(void) addObserver:(MALIOObserverBlock)observer;
--(void) removeObserver:(MALIOObserverBlock)observer;
+-(void) addObserver:(id)observer;
+-(void) removeObserver:(id)observer;
 
 // Query input type
 -(BOOL) isBoolean;

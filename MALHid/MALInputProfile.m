@@ -9,6 +9,7 @@
 #import "MALInputProfile.h"
 
 @implementation MALInputProfile
+@synthesize inputs,outputs;
 
 -(id) init {
 	if((self = [super init])) {
@@ -40,6 +41,14 @@
 }
 -(NSDictionary*) bindingsByID {
 	return nil;
+}
+
+-(id) copyWithZone:(NSZone *)zone {
+	MALInputProfile * prof = [[[self class] allocWithZone:zone] init];
+	[prof->inputs release]; prof->inputs = [inputs mutableCopy];
+	[prof->outputs release]; prof->outputs = [outputs mutableCopy];
+	
+	return prof;
 }
 
 -(void) dealloc {

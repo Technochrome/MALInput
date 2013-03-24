@@ -21,16 +21,21 @@
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
 	oldValue = value; value = newValue;
 	oldTimestamp = timestamp; timestamp = t;
-	for(MALIOObserverBlock block in observers) {
-		block(self);
+	for(id obj in observers) {
+		if([(id)obj isKindOfClass:[MALIOElement class]]) {
+			[obj updateValue:value timestamp:t];
+		} else {
+			MALIOObserverBlock block = obj;
+			block(self);
+		}
 	}
 }
 
--(void) addObserver:(MALIOObserverBlock)observer {
+-(void) addObserver:(id)observer {
 	[observers addObject:observer];
 }
 
--(void) removeObserver:(MALIOObserverBlock)observer	{
+-(void) removeObserver:(id)observer	{
 	[observers removeObject:observer];
 }
 

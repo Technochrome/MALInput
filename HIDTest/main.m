@@ -34,7 +34,7 @@ int main (int argc, const char * argv[]) {
 			NSLog(@"%@ : %lx",input, [input rawValue]);
 		};
 		
-		MALInputProfile *a, *b=nil;
+		MALInputProfile *a;//, *b=nil;
 		a = [[MALInputProfile alloc] init];
 		MALOutputElement *output = [MALOutputElement boolElement];
 		[output addObserver:dumpEverything];

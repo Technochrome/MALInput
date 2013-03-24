@@ -47,9 +47,15 @@
 	if(inputListener) inputListener(element);
 }
 
--(void) setPath:(NSString*)path toProfile:(MALInputProfile*)profile {
-	////////
+-(MALInputProfile*) setPath:(NSString*)path toProfile:(MALInputProfile*)profile {
+	profile = [profile copy];
 	[userElements setValue:profile forKey:path];
+	
+	for(NSString *path in [profile allKeys]) {
+		MALIOElement *input = [profile inputElementForKey:path], *output = [profile outputElementForKey:path];
+		[input addObserver:output];
+	}
+	return profile;
 }
 -(void) removeProfileAtPath:(NSString*)path {
 	////////
