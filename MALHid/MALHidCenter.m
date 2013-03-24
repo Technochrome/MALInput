@@ -75,9 +75,6 @@ static void deviceInput(void * context, IOReturn inResult, void * HIDManagerRef,
 
 #pragma mark Implementations
 @implementation MALHidCenter
-+(void) initialize {
-	[self shared];
-}
 +(MALHidCenter *) shared {
 	static MALHidCenter * shared = nil;
 	if(!shared) {
@@ -85,42 +82,11 @@ static void deviceInput(void * context, IOReturn inResult, void * HIDManagerRef,
 	}
 	return shared;
 }
--(BOOL) addObserver:(MALHidElement*)o forElement:(IOHIDElementRef)e {
-	if(!o) return NO;
-	NSString * key = [MALHidElement keyForElement:e];
-	if([rawValueDict objectForKey:key]) return NO;
-	[rawValueDict setObject:o forKey:key];
-	return YES;
-}
--(void) removeObserver:(MALHidElement*)o {
-	for(id key in [rawValueDict allKeysForObject:o])
-		[rawValueDict removeObjectForKey:key];
-}
--(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usage {
 
-	static NSString * usageFmt = @"0x%04X";
-	NSString * usagePageString = [NSString stringWithFormat: usageFmt, usagePage];
-	NSString * usageString = [NSString stringWithFormat: usageFmt, usage];
-
-	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
-	if (usagePageLookup == nil)
-		return [NSString stringWithFormat:@"Unknown usage page %@,%@",usagePageString,usageString];
-
-	NSString * description = [usagePageLookup objectForKey: usageString];
-	if (description != nil)
-		return description;
-
-	// Buttons for instance don't have descriptions for each ID, default = @"button %d"
-	NSString * defaultUsage = [usagePageLookup objectForKey: @"default"];
-	if (defaultUsage != nil) {
-		description = [NSString stringWithFormat: defaultUsage, usage];
-		return description;
-	}
-
-	return @"Unknown usage";
-}
--(id) _init {
-	self = [super init]; if(!self) return nil;
+-(void) startListening {
+	static BOOL isListening = NO;
+	if(isListening) return;
+	isListening = YES;
 	
 	NSBundle * myBundle = [NSBundle bundleForClass:[self class]];
 	NSString * usageDescriptionsPath = [myBundle pathForResource: @"HID_usage_strings" ofType: @"plist"];
@@ -158,6 +124,44 @@ static void deviceInput(void * context, IOReturn inResult, void * HIDManagerRef,
 	IOHIDManagerOpen(io, kIOHIDManagerOptionNone);
 	
 	CFRetain(io);
+}
+
+-(BOOL) addObserver:(MALHidElement*)o forElement:(IOHIDElementRef)e {
+	if(!o) return NO;
+	NSString * key = [MALHidElement keyForElement:e];
+	if([rawValueDict objectForKey:key]) return NO;
+	[rawValueDict setObject:o forKey:key];
+	return YES;
+}
+-(void) removeObserver:(MALHidElement*)o {
+	for(id key in [rawValueDict allKeysForObject:o])
+		[rawValueDict removeObjectForKey:key];
+}
+-(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usage {
+
+	static NSString * usageFmt = @"0x%04X";
+	NSString * usagePageString = [NSString stringWithFormat: usageFmt, usagePage];
+	NSString * usageString = [NSString stringWithFormat: usageFmt, usage];
+
+	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
+	if (usagePageLookup == nil)
+		return [NSString stringWithFormat:@"Unknown usage page %@,%@",usagePageString,usageString];
+
+	NSString * description = [usagePageLookup objectForKey: usageString];
+	if (description != nil)
+		return description;
+
+	// Buttons for instance don't have descriptions for each ID, default = @"button %d"
+	NSString * defaultUsage = [usagePageLookup objectForKey: @"default"];
+	if (defaultUsage != nil) {
+		description = [NSString stringWithFormat: defaultUsage, usage];
+		return description;
+	}
+
+	return @"Unknown usage";
+}
+-(id) _init {
+	self = [super init]; if(!self) return nil;
 	
 	return self;
 }

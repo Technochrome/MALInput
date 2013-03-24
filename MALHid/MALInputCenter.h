@@ -6,18 +6,31 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-@class MALInputElement;
+@class MALInputElement,MALInputProfile;
 
 typedef void (^inputListenerType)(MALInputElement*);
+typedef BOOL (^inputElementModifier)(MALInputElement*);
+
+inputElementModifier fixHatswitch;
 
 @interface MALInputCenter : NSObject {
-	NSMutableDictionary * elements, *deviceToPath;
+	NSMutableDictionary *elements, *userElements;
+	
+	NSMutableArray *elementModifiers;
 	
 	inputListenerType inputListener;
 }
 @property (readwrite, strong) inputListenerType inputListener;
 
 +(MALInputCenter*) shared;
+-(void) startListening;
+
+-(void) addElementModifier:(inputElementModifier)mod;
+
+
+// NOT FOR USERS
+-(void) setPath:(NSString*)path toProfile:(MALInputProfile*)profile;
+-(void) removeProfileAtPath:(NSString*)path;
 
 -(void) valueChanged:(MALInputElement*)element path:(NSString*)path;
 

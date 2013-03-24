@@ -22,6 +22,9 @@
 		2F37CF4F16F0110F001C6DD3 /* MALHidElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF38DD614EEC5680091504E /* MALHidElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FA2F014EF006F004C8126 /* MALInputCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FA2F114EF006F004C8126 /* MALInputCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */; };
+		2F6DFCF316FE355E00C2BCCF /* MALInputProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF216FE355E00C2BCCF /* MALInputProfile.m */; };
+		2F6DFCFB16FE418B00C2BCCF /* MALIOElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF516FE3D4600C2BCCF /* MALIOElement.m */; };
+		2F6DFCFC16FE418F00C2BCCF /* MALOutputElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF916FE404A00C2BCCF /* MALOutputElement.m */; };
 		2FB388A616F2AD910023CAAF /* MALHidStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF38DDB14EEC6A90091504E /* MALHidStructs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2FF38DDE14EEC7750091504E /* MALHidStructs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DDC14EEC6F40091504E /* MALHidStructs.c */; };
 		2FF38DDF14EEC7750091504E /* MALHidElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DD714EEC5680091504E /* MALHidElement.m */; };
@@ -72,6 +75,12 @@
 		2F45597D14C0AF59004378A6 /* MALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MALMacros.h; path = /Users/rovolo/Stuff/Programming/Code/MALlib/MALMacros.h; sourceTree = "<absolute>"; };
 		2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALInputCenter.h; sourceTree = "<group>"; };
 		2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALInputCenter.m; sourceTree = "<group>"; };
+		2F6DFCF116FE355E00C2BCCF /* MALInputProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALInputProfile.h; sourceTree = "<group>"; };
+		2F6DFCF216FE355E00C2BCCF /* MALInputProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALInputProfile.m; sourceTree = "<group>"; };
+		2F6DFCF416FE3D4600C2BCCF /* MALIOElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALIOElement.h; sourceTree = "<group>"; };
+		2F6DFCF516FE3D4600C2BCCF /* MALIOElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALIOElement.m; sourceTree = "<group>"; };
+		2F6DFCF816FE404A00C2BCCF /* MALOutputElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALOutputElement.h; sourceTree = "<group>"; };
+		2F6DFCF916FE404A00C2BCCF /* MALOutputElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALOutputElement.m; sourceTree = "<group>"; };
 		2FF38DD614EEC5680091504E /* MALHidElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidElement.h; sourceTree = "<group>"; };
 		2FF38DD714EEC5680091504E /* MALHidElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALHidElement.m; sourceTree = "<group>"; };
 		2FF38DDA14EEC6330091504E /* MALHidInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidInternal.h; sourceTree = "<group>"; };
@@ -153,12 +162,13 @@
 		2F0579B914C05F51009D8B82 /* MALHid */ = {
 			isa = PBXGroup;
 			children = (
+				2F6DFCF716FE3E6D00C2BCCF /* Elements */,
 				2F45597D14C0AF59004378A6 /* MALMacros.h */,
 				2F37CF4D16F00F5D001C6DD3 /* MALInput.h */,
-				2FF38DE514EEE5600091504E /* MALInputElement.h */,
-				2FF38DE614EEE5600091504E /* MALInputElement.m */,
 				2F4FA2EE14EF006F004C8126 /* MALInputCenter.h */,
 				2F4FA2EF14EF006F004C8126 /* MALInputCenter.m */,
+				2F6DFCF116FE355E00C2BCCF /* MALInputProfile.h */,
+				2F6DFCF216FE355E00C2BCCF /* MALInputProfile.m */,
 				2F4FA2F214EF0091004C8126 /* HID */,
 				2F0579BA14C05F51009D8B82 /* Supporting Files */,
 			);
@@ -190,6 +200,19 @@
 				2FF38DD714EEC5680091504E /* MALHidElement.m */,
 			);
 			name = HID;
+			sourceTree = "<group>";
+		};
+		2F6DFCF716FE3E6D00C2BCCF /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				2F6DFCF416FE3D4600C2BCCF /* MALIOElement.h */,
+				2F6DFCF516FE3D4600C2BCCF /* MALIOElement.m */,
+				2FF38DE514EEE5600091504E /* MALInputElement.h */,
+				2FF38DE614EEE5600091504E /* MALInputElement.m */,
+				2F6DFCF816FE404A00C2BCCF /* MALOutputElement.h */,
+				2F6DFCF916FE404A00C2BCCF /* MALOutputElement.m */,
+			);
+			name = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0579A114C05B15009D8B82 /* main.m in Sources */,
+				2F6DFCF316FE355E00C2BCCF /* MALInputProfile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +330,8 @@
 				2F0579D014C06585009D8B82 /* MALHidCenter.m in Sources */,
 				2FF38DE814EEE5600091504E /* MALInputElement.m in Sources */,
 				2F4FA2F114EF006F004C8126 /* MALInputCenter.m in Sources */,
+				2F6DFCFB16FE418B00C2BCCF /* MALIOElement.m in Sources */,
+				2F6DFCFC16FE418F00C2BCCF /* MALOutputElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

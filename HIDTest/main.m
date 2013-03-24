@@ -30,19 +30,33 @@
 
 int main (int argc, const char * argv[]) {
 	@autoreleasepool {
-		MALInputObserverBlock dumpEverything = ^(MALInputElement* input) {
+		MALIOObserverBlock dumpEverything = ^(MALIOElement* input) {
 			NSLog(@"%@ : %lx",input, [input rawValue]);
 		};
 		
+		MALInputProfile *a, *b=nil;
+		a = [[MALInputProfile alloc] init];
+		MALOutputElement *output = [MALOutputElement boolElement];
+		[output addObserver:dumpEverything];
+		[a setOutput:output forKey:@"test"];
+		
+		__block MALInputProfile *profile = a;
+		
 		MALInputCenter *i = [MALInputCenter shared];
+		[i startListening];
+		
 		[i setInputListener:^(MALInputElement *inputElement) {
 			MALHidUsage usage = [inputElement usage];
 			if(usage.page == 0x7 && usage.ID == 0x29) {
-				[i setInputListener:nil];
+				[i setPath:@"testControl" toProfile:profile];
+//				c = (c==a? b : a);
 				return;
 			}
+			
 			if([inputElement isBoolean]) {
-				if([inputElement boolValue]) [inputElement addObserver:dumpEverything];
+				if([inputElement boolValue]) {
+					[profile setInput:inputElement forKey:@"test"];
+				}
 			} else if(![inputElement isRelative]) {
 				float value = [inputElement floatValueFrom:-1 to:1 deadzone:.1];
 				if(value != 0) if(NO) NSLog(@"%f, (%ld,%ld,%ld)",value,[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);

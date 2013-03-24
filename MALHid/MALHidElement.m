@@ -64,7 +64,7 @@
 		return nil;
 	}
 	
-	
+	isDiscoverable = YES; //FIXME
 	
 	[self setPath:[[self class] keyForElement:element]];
 	return self;

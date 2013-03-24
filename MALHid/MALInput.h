@@ -14,9 +14,13 @@
 
 #include "MALHidStructs.h"
 
+#import "MALIOElement.h"
 #import "MALInputElement.h"
+#import "MALOutputElement.h"
+
 #import "MALInputCenter.h"
 #import "MALHidElement.h"
 #import "MALHidCenter.h"
+#import "MALInputProfile.h"
 
 #endif

@@ -17,6 +17,8 @@
 	NSDictionary * mLookupTables;
 }
 +(MALHidCenter *) shared;
+-(void) startListening;
+
 -(BOOL) addObserver:(MALHidElement*)o forElement:(IOHIDElementRef)e;
 -(void) removeObserver:(MALHidElement*)o;
 -(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usage;
