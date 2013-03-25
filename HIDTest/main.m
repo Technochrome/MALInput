@@ -8,18 +8,7 @@
 
 
 /*
- As devices get added, their type determines what function handles them
- the default action is to ignore devices not on the white-list
- User-actions include
-	-changing the hat device to a joystick
-	-scaling the mouse/joystick correctly
- 
 	-Need to think about how to handle mouse input, because it's more difficult than buttons
- 
- The HIDCenter captures all input from those devices, effects user-defined values
- 
- 
- 
  */
 
 
@@ -27,35 +16,50 @@
 #import <Foundation/Foundation.h>
 #import "MALInput.h"
 
+MALIOObserverBlock dumpEverything(NSString* str);
+MALIOObserverBlock dumpEverything(NSString* str) {
+	return [[^(MALIOElement* input) {
+		NSLog(@"%@ %@ : %lx",str, input, [input rawValue]);
+	} copy] autorelease];
+}
+
 
 int main (int argc, const char * argv[]) {
 	@autoreleasepool {
-		MALIOObserverBlock dumpEverything = ^(MALIOElement* input) {
-			NSLog(@"%@ : %lx",input, [input rawValue]);
-		};
-		
 		MALInputProfile *a;//, *b=nil;
 		a = [[MALInputProfile alloc] init];
-		MALOutputElement *output = [MALOutputElement boolElement];
-		[output addObserver:dumpEverything];
-		[a setOutput:output forKey:@"test"];
+		MALOutputElement *output1 = [MALOutputElement boolElement], *output2 = [MALOutputElement boolElement];
+		[output1 addObserver:dumpEverything(@"1")];
+		[a setOutput:output1 forKey:@"1"];
+		[output2 addObserver:dumpEverything(@"2")];
+		[a setOutput:output2 forKey:@"2"];
 		
 		__block MALInputProfile *profile = a;
+		__block int bound = 1;
 		
 		MALInputCenter *i = [MALInputCenter shared];
 		[i startListening];
 		
+		NSDictionary * bindings = @{
+			@"1":@"7(1.30)(1.4)14200000.300",
+			@"2":@"6(1.30)(1.4)14200000.300"
+   };
+		
 		[i setInputListener:^(MALInputElement *inputElement) {
 			MALHidUsage usage = [inputElement usage];
+			
+			[profile loadBindings:bindings];
+			
 			if(usage.page == 0x7 && usage.ID == 0x29) {
 				[i setPath:@"testControl" toProfile:profile];
+				NSLog(@"%@",[profile bindingsByID]);
 //				c = (c==a? b : a);
 				return;
 			}
 			
 			if([inputElement isBoolean]) {
 				if([inputElement boolValue]) {
-					[profile setInput:inputElement forKey:@"test"];
+					[profile setInput:inputElement forKey:[NSString stringWithFormat:@"%d",bound++]];
 				}
 			} else if(![inputElement isRelative]) {
 				float value = [inputElement floatValueFrom:-1 to:1 deadzone:.1];

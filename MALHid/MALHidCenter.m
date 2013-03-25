@@ -46,11 +46,12 @@ static void deviceConnection(void * context, IOReturn inResult, void * HIDManage
 	// Things that will disqualify a device
 	if([ns isEqualToString:@"SKIP"] || location == 0) return;
 	
-	for(id element in (NSArray*)IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone)) {
+	for(id element in [(NSArray*)IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone) autorelease]) {
 		IOHIDElementType type = IOHIDElementGetType((IOHIDElementRef)element);
 		if(type == kIOHIDElementTypeCollection || type == kIOHIDElementTypeFeature) continue;
 		
-		[MALHidElement hidElementWithElement:(IOHIDElementRef)element];
+		MALHidElement *e = [MALHidElement hidElementWithElement:(IOHIDElementRef)element];
+		[[MALHidCenter shared] addObserver:e forElement:(IOHIDElementRef)element];
 	}
 	
 }
@@ -137,11 +138,11 @@ static void deviceInput(void * context, IOReturn inResult, void * HIDManagerRef,
 	for(id key in [rawValueDict allKeysForObject:o])
 		[rawValueDict removeObjectForKey:key];
 }
--(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usage {
+-(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usageID {
 
 	static NSString * usageFmt = @"0x%04X";
 	NSString * usagePageString = [NSString stringWithFormat: usageFmt, usagePage];
-	NSString * usageString = [NSString stringWithFormat: usageFmt, usage];
+	NSString * usageString = [NSString stringWithFormat: usageFmt, usageID];
 
 	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
 	if (usagePageLookup == nil)
@@ -151,10 +152,10 @@ static void deviceInput(void * context, IOReturn inResult, void * HIDManagerRef,
 	if (description != nil)
 		return description;
 
-	// Buttons for instance don't have descriptions for each ID, default = @"button %d"
+	// For instance, buttons don't have descriptions for each ID, so we use default = @"button %d"
 	NSString * defaultUsage = [usagePageLookup objectForKey: @"default"];
 	if (defaultUsage != nil) {
-		description = [NSString stringWithFormat: defaultUsage, usage];
+		description = [NSString stringWithFormat: defaultUsage, usageID];
 		return description;
 	}
 

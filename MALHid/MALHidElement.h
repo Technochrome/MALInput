@@ -15,7 +15,6 @@
 
 @interface MALHidElement : MALInputElement {
 @private
-	float scaleMax,scaleMin;
 	
 	IOHIDElementRef element;
 }
@@ -24,7 +23,7 @@
 
 +(NSString*) keyForElement:(IOHIDElementRef)e;
 +(id) hidElementWithElement:(IOHIDElementRef)e;
--(id) initWithElement:(IOHIDElementRef) e namespace:(NSString*)ns;
+-(id) initWithElement:(IOHIDElementRef)e;
 
 -(void) valueChanged:(IOHIDValueRef)value;
 @end

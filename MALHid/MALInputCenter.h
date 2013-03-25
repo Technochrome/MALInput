@@ -32,7 +32,7 @@ inputElementModifier fixHatswitch;
 -(MALInputProfile*) setPath:(NSString*)path toProfile:(MALInputProfile*)profile;
 -(void) removeProfileAtPath:(NSString*)path;
 
--(void) valueChanged:(MALInputElement*)element path:(NSString*)path;
+-(void) valueChanged:(MALInputElement*)element;
 
 -(void) addInput:(MALInputElement*)input atPath:(NSString*)path;
 -(MALInputElement*) inputAtPath:(NSString*)path;

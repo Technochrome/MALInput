@@ -9,6 +9,6 @@
 #include "MALHidStructs.h"
 
 MALHidUsage MakeMALHidUsage(unsigned page, unsigned ID) {
-	MALHidUsage ret = {page, ID};
-	return ret;
+	MALHidUsage usage = {page, ID};
+	return usage;
 }

@@ -19,6 +19,9 @@
 -(MALOutputElement*) outputElementForKey:(NSString*)key;
 -(MALInputElement*) inputElementForKey:(NSString*)key;
 
--(NSSet*) allKeys;
+-(NSSet*) boundKeys;
+-(NSSet*) unboundKeys;
+
 -(NSDictionary*) bindingsByID;
+-(void) loadBindings:(NSDictionary*)bindings;
 @end

@@ -18,7 +18,7 @@
 }
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
 	[super updateValue:newValue timestamp:t];
-	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self path:path];
+	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self];
 }
 
 -(void) setPath:(NSString*)p {

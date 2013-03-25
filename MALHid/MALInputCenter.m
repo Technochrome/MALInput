@@ -27,10 +27,10 @@
 
 +(MALInputCenter*) shared {
 	static id shared = nil;
-	if(!shared) shared = [[self alloc] init];
+	if(!shared) shared = [[self alloc] _init];
 	return shared;
 }
--(id) init {
+-(id) _init {
 	if((self = [super init])) {
 		elements = [[NSMutableDictionary alloc] init];
 		userElements = [[NSMutableDictionary alloc] init];
@@ -38,27 +38,41 @@
 	}
 	return self;
 }
+-(id) init {
+	@throw [NSException exceptionWithName:@"Don't call [[MALInputCenter alloc] init]"
+								   reason:@"Use [MALInputCenter shared] instead."
+								 userInfo:nil];
+}
 
 -(void) addElementModifier:(inputElementModifier)mod {
 	[elementModifiers addObject:mod];
 }
 
--(void) valueChanged:(MALInputElement*)element path:(NSString*)path {
+-(void) valueChanged:(MALInputElement*)element {
 	if(inputListener) inputListener(element);
 }
 
 -(MALInputProfile*) setPath:(NSString*)path toProfile:(MALInputProfile*)profile {
+	[self removeProfileAtPath:path];
+	
 	profile = [profile copy];
 	[userElements setValue:profile forKey:path];
+	[profile release];
 	
-	for(NSString *path in [profile allKeys]) {
+	for(NSString *path in [profile boundKeys]) {
 		MALIOElement *input = [profile inputElementForKey:path], *output = [profile outputElementForKey:path];
 		[input addObserver:output];
 	}
 	return profile;
 }
 -(void) removeProfileAtPath:(NSString*)path {
-	////////
+	MALInputProfile * profile = [userElements objectForKey:path];
+	
+	for(NSString *path in [profile boundKeys]) {
+		MALIOElement *input = [profile inputElementForKey:path], *output = [profile outputElementForKey:path];
+		[input removeObserver:output];
+	}
+	
 	[userElements removeObjectForKey:path];
 }
 

@@ -14,7 +14,7 @@
 #import "MALMacros.h"
 
 
-#define getHIDDeviceProperty(device, key) [(NSNumber*)IOHIDDeviceGetProperty(device, CFSTR(key)) autorelease]
+#define getHIDDeviceProperty(device, key) (NSNumber*)IOHIDDeviceGetProperty(device, CFSTR(key))
 #define getHIDElementProperty(element, key) [(NSNumber*)IOHIDElementGetProperty(element, CFSTR(key)) autorelease]
 
 #import "MALInput.h"

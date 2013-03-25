@@ -79,4 +79,8 @@
 	return el;
 }
 
+-(void) dealloc {
+	[observers release];
+	[super dealloc];
+}
 @end

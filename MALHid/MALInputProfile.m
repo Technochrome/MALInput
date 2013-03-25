@@ -7,6 +7,7 @@
 //
 
 #import "MALInputProfile.h"
+#import "MALInputCenter.h"
 
 @implementation MALInputProfile
 @synthesize inputs,outputs;
@@ -34,13 +35,29 @@
 	return [inputs valueForKey:key];
 }
 
--(NSSet*) allKeys {
-	NSMutableSet *set = [[NSMutableSet alloc] initWithArray:[outputs allKeys]];
+-(NSSet*) boundKeys {
+	NSMutableSet *set = [NSMutableSet setWithArray:[outputs allKeys]];
 	[set intersectSet:[NSSet setWithArray:[inputs allKeys]]];
 	return set;
 }
+-(NSSet*) unboundKeys {
+	NSMutableSet *set = [NSMutableSet setWithArray:[outputs allKeys]];
+	[set minusSet:[NSSet setWithArray:[inputs allKeys]]];
+	return set;
+}
+-(void) loadBindings:(NSDictionary*)bindings {
+	for(NSString * key in [bindings allKeys]) {
+		NSString * value = [bindings objectForKey:key];
+		MALInputElement * input = [[MALInputCenter shared] inputAtPath:value];
+		[self setInput:input forKey:key];
+	}
+}
 -(NSDictionary*) bindingsByID {
-	return nil;
+	NSMutableDictionary *ret = [NSMutableDictionary dictionary];
+	for(NSString * key in [self boundKeys]) {
+		[ret setValue:[[self inputElementForKey:key] path] forKey:key];
+	}
+	return ret;
 }
 
 -(id) copyWithZone:(NSZone *)zone {

@@ -33,7 +33,7 @@
 	return [[MALHidCenter shared] descriptionForPage:hidUsage.page
 											   usage:hidUsage.ID];
 }
--(id) initWithElement:(IOHIDElementRef) e namespace:(NSString*)ns {
+-(id) initWithElement:(IOHIDElementRef)e {
 	self = [super init];
 	if(!self) return nil;
 	
@@ -49,7 +49,6 @@
 	rawMin = IOHIDElementGetLogicalMin(element);
 	
 	NSString * desc = [[MALHidCenter shared] descriptionForPage:hidUsage.page usage:hidUsage.ID];
-	ns = [NSString stringWithFormat:@"%@.%@", ns, desc];
 	
 	if(![desc hasPrefix:@"Unknown"]) {
 //		[[MALHidCenter shared] addObserver:self forElement:element];
@@ -70,14 +69,7 @@
 	return self;
 }
 +(id) hidElementWithElement:(IOHIDElementRef)e {
-	MALHidElement * element = [[[self alloc] initWithElement:e namespace:nil] autorelease];
-	
-	if([[MALHidCenter shared] addObserver:element forElement:e]) {
-		return element;
-	} else {
-		[element setPath:nil];
-		return nil;
-	}
+	return [[[self alloc] initWithElement:e] autorelease];
 }
 
 -(void) valueChanged:(IOHIDValueRef)newValue {
