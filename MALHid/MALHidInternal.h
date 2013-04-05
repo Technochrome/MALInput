@@ -18,5 +18,6 @@
 #define getHIDElementProperty(element, key) [(NSNumber*)IOHIDElementGetProperty(element, CFSTR(key)) autorelease]
 
 #import "MALInput.h"
+#import "MALIODevice.h"
 
 #endif

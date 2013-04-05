@@ -9,11 +9,10 @@
 #import "MALHidInternal.h"
 
 @implementation MALInputElement
-@synthesize usage=hidUsage,path;
+@synthesize usage=hidUsage;
 
 -(id) init {
 	if((self = [super init])) {
-		observers = [[NSMutableSet alloc] init];
 	} return self;
 }
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
@@ -21,14 +20,9 @@
 	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self];
 }
 
--(void) setPath:(NSString*)p {
-	if(path) [[MALInputCenter shared] removeInputAtPath:path];
-	
-	path = [p copy];
-	
-	if(path) [[MALInputCenter shared] addInput:self atPath:path];
+-(NSString*) path {
+	return @"FIXME";
 }
-
 -(NSString*) controllerName {
 	return @"No controller name";
 }

@@ -12,12 +12,10 @@
 @class MALInputElement;
 
 @interface MALInputElement : MALIOElement {
-	NSString * path;
 	MALHidUsage hidUsage;
 }
 @property (readonly) MALHidUsage usage;
-@property (readwrite,copy,nonatomic) NSString * path;
-
+@property (readonly) NSString *path;
 
 // Somehow look at history
 

@@ -10,7 +10,7 @@
 
 @implementation MALIOElement
 @synthesize rawValue=value,rawMax,rawMin;
-@synthesize isRelative,isWrapping,isDiscoverable;
+@synthesize isRelative,isWrapping,isDiscoverable,inputModifier;
 
 -(id) init {
 	if((self = [super init])) {
@@ -19,7 +19,8 @@
 }
 
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
-	oldValue = value; value = newValue;
+	oldValue = value;
+	value = inputModifier ? inputModifier(newValue) : newValue;
 	oldTimestamp = timestamp; timestamp = t;
 	for(id obj in observers) {
 		if([(id)obj isKindOfClass:[MALIOElement class]]) {
@@ -71,6 +72,7 @@
 -(id) copyWithZone:(NSZone *)zone {
 	MALIOElement * el = [[[self class] allocWithZone:zone] init];
 	el->observers = [observers mutableCopy];
+	el->inputModifier = [inputModifier retain];
 	el->rawMin = rawMin; el->rawMax = rawMax;
 	el->value = value; el->oldValue = oldValue;
 	el->timestamp = timestamp; el->oldTimestamp = oldTimestamp;
@@ -81,6 +83,7 @@
 
 -(void) dealloc {
 	[observers release];
+	[inputModifier release];
 	[super dealloc];
 }
 @end

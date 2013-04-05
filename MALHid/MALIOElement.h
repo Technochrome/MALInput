@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class MALIOElement;
+@class MALIOElement,MALIODevice;
 
 typedef void (^MALIOObserverBlock)(MALIOElement*);
+typedef int (^MALInputValueModifier)(long);
 
 @interface MALIOElement : NSObject <NSCopying> {
+	MALIODevice * device;
+	
 	NSMutableSet * observers; // Takes blocks
 	
 	long rawMin,rawMax;
@@ -26,6 +29,7 @@ typedef void (^MALIOObserverBlock)(MALIOElement*);
 @property (readonly) long rawValue,rawMax,rawMin;
 @property (readonly) BOOL isRelative,isWrapping;
 @property (readwrite) BOOL isDiscoverable;
+@property (readwrite, copy) MALInputValueModifier inputModifier;
 
 -(void) addObserver:(id)observer;
 -(void) removeObserver:(id)observer;

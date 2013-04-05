@@ -13,8 +13,16 @@
 -(IOHIDDeviceRef) device { return IOHIDElementGetDevice(element); }
 -(int) cookie { return (int)IOHIDElementGetCookie(element); }
 
+
++(MALHidUsage) usageForElement:(IOHIDElementRef)e {
+	return MakeMALHidUsage(IOHIDElementGetUsagePage(e), IOHIDElementGetUsage(e));
+}
+
 #pragma mark new/delete
-+(NSString*) keyForElement:(IOHIDElementRef)element {
++(NSValue*) keyForElement:(IOHIDElementRef)element {
+	return [NSValue valueWithPointer:element];
+}
++(NSString*) pathForElement:(IOHIDElementRef)element {
 	IOHIDDeviceRef device = IOHIDElementGetDevice(element);
 	
 	int cookie = (int)IOHIDElementGetCookie(element);
@@ -30,42 +38,25 @@
 	return key;
 }
 -(NSString*) description {
-	return [[MALHidCenter shared] descriptionForPage:hidUsage.page
-											   usage:hidUsage.ID];
+	return [NSString stringWithFormat:@"%x.%x(%x)", hidUsage.page, hidUsage.ID, [self cookie]];
+	//[[MALHidCenter shared] descriptionForPage:hidUsage.page
+	//										   usage:hidUsage.ID];
 }
 -(id) initWithElement:(IOHIDElementRef)e {
-	self = [super init];
-	if(!self) return nil;
+	if(!(self = [super init])) return nil;
 	
 	element = e;
 	hidUsage = MakeMALHidUsage(IOHIDElementGetUsagePage(element), IOHIDElementGetUsage(element));
-	if(hidUsage.ID == 0xffffffff) { // Unknown Usage
-		[self release]; return nil;
-	}
 	
 	isRelative = IOHIDElementIsRelative(element);
 	isWrapping = IOHIDElementIsWrapping(element);
 	rawMax = IOHIDElementGetLogicalMax(element);
 	rawMin = IOHIDElementGetLogicalMin(element);
 	
-	NSString * desc = [[MALHidCenter shared] descriptionForPage:hidUsage.page usage:hidUsage.ID];
-	
-	if(![desc hasPrefix:@"Unknown"]) {
-//		[[MALHidCenter shared] addObserver:self forElement:element];
-		
-//		printf(" %s (%u) #%x_%x {%d %d} [%ld %ld]\n",
-//			   [ns UTF8String],IOHIDElementGetCookie(element),
-//			   usagePage, usageID,
-//			   rel, wrap,
-//			   min, max);
-	} else {
-		[self release];
-		return nil;
-	}
-	
 	isDiscoverable = YES; //FIXME
 	
-	[self setPath:[[self class] keyForElement:element]];
+	[[MALHidCenter shared] addObserver:self forElement:element];
+	
 	return self;
 }
 +(id) hidElementWithElement:(IOHIDElementRef)e {

@@ -21,7 +21,8 @@
 -(IOHIDDeviceRef) device;
 -(int) cookie;
 
-+(NSString*) keyForElement:(IOHIDElementRef)e;
++(MALHidUsage) usageForElement:(IOHIDElementRef)e;
++(NSValue*) keyForElement:(IOHIDElementRef)e;
 +(id) hidElementWithElement:(IOHIDElementRef)e;
 -(id) initWithElement:(IOHIDElementRef)e;
 

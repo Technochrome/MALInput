@@ -7,6 +7,7 @@
 //
 
 #import "MALHidInternal.h"
+#import "MALIODevice.h"
 
 @implementation MALInputCenter
 @synthesize inputListener;
@@ -33,8 +34,12 @@
 -(id) _init {
 	if((self = [super init])) {
 		elements = [[NSMutableDictionary alloc] init];
+		devices = [[NSMutableDictionary alloc] init];
 		userElements = [[NSMutableDictionary alloc] init];
 		elementModifiers = [[NSMutableArray alloc] init];
+		
+		[self addDevice:[MALIODevice device] atPath:@"mouse"];
+		[self addDevice:[MALIODevice device] atPath:@"key"];
 	}
 	return self;
 }
@@ -42,6 +47,10 @@
 	@throw [NSException exceptionWithName:@"Don't call [[MALInputCenter alloc] init]"
 								   reason:@"Use [MALInputCenter shared] instead."
 								 userInfo:nil];
+}
+-(void) dealloc {
+	[elements release]; [userElements release]; [elementModifiers release]; [devices release];
+	[super dealloc];
 }
 
 -(void) addElementModifier:(inputElementModifier)mod {
@@ -76,18 +85,24 @@
 	[userElements removeObjectForKey:path];
 }
 
--(void) removeInputAtPath:(NSString *)path {
-	[elements removeObjectForKey:path];
-}
+#pragma mark element/device management
+
 -(void) addInput:(MALInputElement*)input atPath:(NSString*)path {
 	[elements setObject:input forKey:path];
 }
 -(MALInputElement*) inputAtPath:(NSString *)path {
 	return [elements objectForKey:path];
 }
-
--(void) dealloc {
-	[elements release]; [userElements release]; [elementModifiers release];
-	[super dealloc];
+-(void) removeInputAtPath:(NSString *)path {
+	[elements removeObjectForKey:path];
+}
+-(void) addDevice:(MALIODevice*)device atPath:(NSString*)path {
+	[devices setObject:device forKey:path];
+}
+-(MALIODevice*) deviceAtPath:(NSString*)path {
+	return [devices objectForKey:path];
+}
+-(void) removeDeviceAtPath:(NSString*)path {
+	[devices removeObjectForKey:path];
 }
 @end

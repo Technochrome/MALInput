@@ -19,13 +19,14 @@
 MALIOObserverBlock dumpEverything(NSString* str);
 MALIOObserverBlock dumpEverything(NSString* str) {
 	return [[^(MALIOElement* input) {
-		NSLog(@"%@ %@ : %lx",str, input, [input rawValue]);
+		NSLog(@"%@ : %lx",str, [input rawValue]);
 	} copy] autorelease];
 }
 
 
 int main (int argc, const char * argv[]) {
 	@autoreleasepool {
+		
 		MALInputProfile *a;//, *b=nil;
 		a = [[MALInputProfile alloc] init];
 		MALOutputElement *output1 = [MALOutputElement boolElement], *output2 = [MALOutputElement boolElement];
@@ -43,22 +44,28 @@ int main (int argc, const char * argv[]) {
 		NSDictionary * bindings = @{
 			@"1":@"7(1.30)(1.4)14200000.300",
 			@"2":@"6(1.30)(1.4)14200000.300"
-   };
+		};
+		NSDictionary * goodBindings = @{
+			@"1": @"mouse.1.30", //@"mouse.x"
+			@"2": @"key.9.4", //@"key.a"
+			@"3": @"joy(14200000.300).1.30.7"
+		};
+		goodBindings = nil;
 		
 		[i setInputListener:^(MALInputElement *inputElement) {
 			MALHidUsage usage = [inputElement usage];
 			
 			[profile loadBindings:bindings];
 			
-			if(usage.page == 0x7 && usage.ID == 0x29) {
-				[i setPath:@"testControl" toProfile:profile];
-				NSLog(@"%@",[profile bindingsByID]);
-//				c = (c==a? b : a);
-				return;
-			}
-			
 			if([inputElement isBoolean]) {
 				if([inputElement boolValue]) {
+					NSLog(@"%@",[inputElement path]);
+					if(usage.page == 0x7 && usage.ID == 0x29) {
+						[i setPath:@"testControl" toProfile:profile];
+//						NSLog(@"%@",[profile bindingsByID]);
+						//				c = (c==a? b : a);
+						return;
+					}
 					[profile setInput:inputElement forKey:[NSString stringWithFormat:@"%d",bound++]];
 				}
 			} else if(![inputElement isRelative]) {

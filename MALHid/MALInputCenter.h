@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-@class MALInputElement,MALInputProfile;
+#import "MALHidInternal.h"
+
+@class MALInputElement,MALInputProfile,MALIODevice;
 
 typedef void (^inputListenerType)(MALInputElement*);
 typedef BOOL (^inputElementModifier)(MALInputElement*);
@@ -15,6 +17,7 @@ inputElementModifier fixHatswitch;
 
 @interface MALInputCenter : NSObject {
 	NSMutableDictionary *elements, *userElements;
+	NSMutableDictionary *devices;
 	
 	NSMutableArray *elementModifiers;
 	
@@ -27,14 +30,17 @@ inputElementModifier fixHatswitch;
 
 -(void) addElementModifier:(inputElementModifier)mod;
 
-
-// NOT FOR USERS
 -(MALInputProfile*) setPath:(NSString*)path toProfile:(MALInputProfile*)profile;
 -(void) removeProfileAtPath:(NSString*)path;
 
+// NOT FOR USERS
 -(void) valueChanged:(MALInputElement*)element;
 
 -(void) addInput:(MALInputElement*)input atPath:(NSString*)path;
 -(MALInputElement*) inputAtPath:(NSString*)path;
 -(void) removeInputAtPath:(NSString*)path;
+
+-(void) addDevice:(MALIODevice*)device atPath:(NSString*)path;
+-(MALIODevice*) deviceAtPath:(NSString*)path;
+-(void) removeDeviceAtPath:(NSString*)path;
 @end
