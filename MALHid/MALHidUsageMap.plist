@@ -474,7 +474,7 @@
 			<key>0x00E2</key>
 			<string>Left Alt</string>
 			<key>0x00E3</key>
-			<string>Left GUI</string>
+			<string>Left Command</string>
 			<key>0x00E4</key>
 			<string>Right Control</string>
 			<key>0x00E5</key>
@@ -482,7 +482,7 @@
 			<key>0x00E6</key>
 			<string>Right Alt</string>
 			<key>0x00E7</key>
-			<string>Right GUI</string>
+			<string>Right Command</string>
 			<key>Name</key>
 			<string>Keyboard or Keypad</string>
 		</dict>

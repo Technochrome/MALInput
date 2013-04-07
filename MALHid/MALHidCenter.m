@@ -22,15 +22,58 @@ static NSDictionary * usageTables = nil;
 static NSMutableSet * connectedDevices = nil;
 static NSDictionary * deviceNamespaces = nil;
 
-#pragma mark Implementations
 @implementation MALHidCenter
-+(MALHidCenter *) shared {
-	static MALHidCenter * shared = nil;
-	if(!shared) {
-		shared = [[self alloc] _init];
-	}
-	return shared;
+;
+#pragma mark element/device descriptions
+
+-(NSString *) descriptionForDevice:(IOHIDDeviceRef)device {
+	MALHidUsage usage = [MALIODevice usageForDevice:device];
+	
+	NSDictionary * generalDescriptions = [usageTables objectForKey:@"DeviceIdentifier"];
+	NSString * format = [generalDescriptions objectForKey:[NSString stringWithFormat:@"%d.%d",usage.page,usage.ID]];
+	
+	return [NSString stringWithFormat:format,
+			[getHIDDeviceProperty(device, kIOHIDVendorIDKey) intValue],
+			[getHIDDeviceProperty(device, kIOHIDProductIDKey) intValue],
+			[getHIDDeviceProperty(device, kIOHIDVersionNumberKey) intValue]];
 }
+-(NSString *) descriptionForElement:(IOHIDElementRef)element {
+	MALHidUsage usage = [MALHidElement usageForElement:element];
+	NSString * deviceID = [self descriptionForDevice:IOHIDElementGetDevice(element)];
+	
+	NSDictionary * elementDescriptions = usageTables[@"ElementIdentifier"][deviceID];
+	if(elementDescriptions) {
+		NSString * desc = elementDescriptions[[NSString stringWithFormat:@"%x.%x", usage.page, usage.ID]];
+		if(desc) return desc;
+	}
+	
+	return [self descriptionForPage:usage.page usage:usage.ID];
+}
+-(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usageID {
+	
+	static NSString * usageFmt = @"0x%04X";
+	NSString * usagePageString = [NSString stringWithFormat: usageFmt, usagePage];
+	NSString * usageString = [NSString stringWithFormat: usageFmt, usageID];
+	
+	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
+	if (usagePageLookup == nil)
+		return [NSString stringWithFormat:@"Unknown usage page %@,%@",usagePageString,usageString];
+	
+	NSString * description = [usagePageLookup objectForKey: usageString];
+	if (description != nil)
+		return description;
+	
+	// For instance, buttons don't have descriptions for each ID, so we use default = @"button %d"
+	NSString * defaultUsage = [usagePageLookup objectForKey: @"default"];
+	if (defaultUsage != nil) {
+		description = [NSString stringWithFormat: defaultUsage, usageID];
+		return description;
+	}
+	
+	return @"Unknown usage";
+}
+
+#pragma mark IOHIDCenter callbacks
 
 -(void) deviceInput:(IOHIDValueRef)value {
 	IOHIDElementRef element = IOHIDValueGetElement(value);
@@ -85,13 +128,19 @@ static NSDictionary * deviceNamespaces = nil;
 		if(type == kIOHIDElementTypeCollection || type == kIOHIDElementTypeFeature) continue;
 		
 		for(MALElementConnectionObserver modifier in elementConnectionObservers) {
-			id newElements = modifier(element);
+			NSArray* newElements = modifier(element);
+			if(!newElements) continue;
 			
-			[deviceSpecific.elements addEntriesFromDictionary:newElements];
+			for(MALInputElement* element in newElements) {
+				[deviceSpecific setElement:element forPath:element.elementID];
+				[deviceGeneral setElement:element forPath:element.elementID];
+			}
+			
+			break;
 		}
 	}
 	
-	NSLog(@"Input Device connection :: %@ %@", deviceSpecific.devicePath, deviceSpecific.elements);
+	NSLog(@"Device connection :: %@", deviceSpecific.devicePath);
 }
 
 static void deviceInput(void * inputCenter, IOReturn inResult, void * HIDManagerRef, IOHIDValueRef newValue) {
@@ -140,51 +189,14 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 	for(id key in [hidElements allKeysForObject:o])
 		[hidElements removeObjectForKey:key];
 }
--(NSString *) descriptionForDevice:(IOHIDDeviceRef)device {
-	MALHidUsage usage = [MALIODevice usageForDevice:device];
-	
-	NSDictionary * generalDescriptions = [usageTables objectForKey:@"DeviceIdentifier"];
-	NSString * format = [generalDescriptions objectForKey:[NSString stringWithFormat:@"%d.%d",usage.page,usage.ID]];
-	
-	return [NSString stringWithFormat:format,
-			[getHIDDeviceProperty(device, kIOHIDVendorIDKey) intValue],
-			[getHIDDeviceProperty(device, kIOHIDProductIDKey) intValue],
-			[getHIDDeviceProperty(device, kIOHIDVersionNumberKey) intValue]];
-}
--(NSString *) descriptionForElement:(IOHIDElementRef)element {
-	MALHidUsage usage = [MALHidElement usageForElement:element];
-	NSString * deviceID = [self descriptionForDevice:IOHIDElementGetDevice(element)];
-	
-	NSDictionary * elementDescriptions = usageTables[@"ElementIdentifier"][deviceID];
-	if(elementDescriptions) {
-		NSString * desc = elementDescriptions[[NSString stringWithFormat:@"%x.%x", usage.page, usage.ID]];
-		if(desc) return desc;
+
+#pragma mark creation/destruction
++(MALHidCenter *) shared {
+	static MALHidCenter * shared = nil;
+	if(!shared) {
+		shared = [[self alloc] _init];
 	}
-	
-	return [self descriptionForPage:usage.page usage:usage.ID];
-}
--(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usageID {
-
-	static NSString * usageFmt = @"0x%04X";
-	NSString * usagePageString = [NSString stringWithFormat: usageFmt, usagePage];
-	NSString * usageString = [NSString stringWithFormat: usageFmt, usageID];
-
-	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
-	if (usagePageLookup == nil)
-		return [NSString stringWithFormat:@"Unknown usage page %@,%@",usagePageString,usageString];
-
-	NSString * description = [usagePageLookup objectForKey: usageString];
-	if (description != nil)
-		return description;
-
-	// For instance, buttons don't have descriptions for each ID, so we use default = @"button %d"
-	NSString * defaultUsage = [usagePageLookup objectForKey: @"default"];
-	if (defaultUsage != nil) {
-		description = [NSString stringWithFormat: defaultUsage, usageID];
-		return description;
-	}
-
-	return @"Unknown usage";
+	return shared;
 }
 -(id) _init {
 	if((self = [super init])) {
@@ -203,9 +215,8 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 		hidElements = [[NSMutableDictionary alloc] init];
 		devices = [[NSMutableDictionary alloc] init];
 		elementConnectionObservers = [[NSMutableArray alloc] init];
-		[self addElementConnectionObserver:^NSDictionary*(IOHIDElementRef element) {
-			MALHidElement * e = [MALHidElement hidElementWithElement:element];
-			return @{[[MALHidCenter shared] descriptionForElement:element]: e};
+		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
+			return @[[MALHidElement hidElementWithElement:element]];
 		}];
 		
 		ioManager = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);

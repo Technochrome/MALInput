@@ -9,7 +9,7 @@
 #import "MALHidInternal.h"
 
 @implementation MALInputElement
-@synthesize usage=hidUsage;
+@synthesize usage=hidUsage,elementID;
 
 -(id) init {
 	if((self = [super init])) {
@@ -19,9 +19,14 @@
 	[super updateValue:newValue timestamp:t];
 	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self];
 }
-
--(NSString*) path {
-	return @"FIXME";
+-(NSString*) fullID {
+	return [NSString stringWithFormat:@"%@.%@", generalDevice.deviceID, self.elementID];
+}
+-(NSString*) specificPath {
+	return [NSString stringWithFormat:@"%@.%@", specificDevice.devicePath, self.elementID];
+}
+-(NSString*) generalPath {
+	return [NSString stringWithFormat:@"%@.%@", generalDevice.devicePath, self.elementID];
 }
 -(NSString*) controllerName {
 	return @"No controller name";

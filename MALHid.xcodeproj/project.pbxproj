@@ -16,7 +16,6 @@
 		2F0579D014C06585009D8B82 /* MALHidCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0579C614C06002009D8B82 /* MALHidCenter.m */; };
 		2F0579D214C06693009D8B82 /* MALInput.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0579B214C05F51009D8B82 /* MALInput.framework */; };
 		2F0579D314C06879009D8B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797E14C05A70009D8B82 /* Foundation.framework */; };
-		2F0579D514C06966009D8B82 /* DDHidStandardUsages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */; };
 		2F1C92BA170E1D5900D35EA5 /* HID_usage_strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */; };
 		2F1C92BD170E2DDF00D35EA5 /* MALIODevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F1C92BB170E2DDF00D35EA5 /* MALIODevice.h */; };
 		2F1C92BE170E2DDF00D35EA5 /* MALIODevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1C92BC170E2DDF00D35EA5 /* MALIODevice.m */; };
@@ -74,7 +73,6 @@
 		2F0579C614C06002009D8B82 /* MALHidCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALHidCenter.m; sourceTree = "<group>"; };
 		2F0579C814C0613B009D8B82 /* MALHidCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidCenter.h; sourceTree = "<group>"; };
 		2F0579D114C065B8009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
-		2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DDHidStandardUsages.plist; sourceTree = "<group>"; };
 		2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HID_usage_strings.plist; sourceTree = "<group>"; };
 		2F1C92BB170E2DDF00D35EA5 /* MALIODevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALIODevice.h; sourceTree = "<group>"; };
 		2F1C92BC170E2DDF00D35EA5 /* MALIODevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALIODevice.m; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */,
-				2F0579D414C06966009D8B82 /* DDHidStandardUsages.plist */,
 				2FF38DE314EED4020091504E /* MALHidUsageMap.plist */,
 				2F0579BB14C05F51009D8B82 /* MALHid-Info.plist */,
 				2F0579BC14C05F51009D8B82 /* InfoPlist.strings */,
@@ -316,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0579BE14C05F51009D8B82 /* InfoPlist.strings in Resources */,
-				2F0579D514C06966009D8B82 /* DDHidStandardUsages.plist in Resources */,
 				2FF38DE414EED4020091504E /* MALHidUsageMap.plist in Resources */,
 				2F1C92BA170E1D5900D35EA5 /* HID_usage_strings.plist in Resources */,
 			);

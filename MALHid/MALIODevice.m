@@ -11,6 +11,18 @@
 @implementation MALIODevice
 @synthesize location, elements, name, deviceID;
 
+-(BOOL) isSpecific {
+	return location != 0;
+}
+
+-(void) setElement:(MALIOElement*)element forPath:(NSString*)path {
+	[elements setObject:element forKey:path];
+	if([self isSpecific])
+		element.specificDevice = self;
+	else
+		element.generalDevice = self;
+}
+
 -(NSString*) devicePath {
 	return [NSString stringWithFormat:@"%@#%x",deviceID,location];
 }

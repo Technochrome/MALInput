@@ -55,14 +55,11 @@ int main (int argc, const char * argv[]) {
 		[i setInputListener:^(MALInputElement *inputElement) {
 			MALHidUsage usage = [inputElement usage];
 			
-			[profile loadBindings:bindings];
-			
 			if([inputElement isBoolean]) {
 				if([inputElement boolValue]) {
-					NSLog(@"%@",[inputElement path]);
+					NSLog(@"%@",[inputElement fullID]);
 					if(usage.page == 0x7 && usage.ID == 0x29) {
-						[i setPath:@"testControl" toProfile:profile];
-//						NSLog(@"%@",[profile bindingsByID]);
+						NSLog(@"%@",[profile bindingsByID]);
 						//				c = (c==a? b : a);
 						return;
 					}

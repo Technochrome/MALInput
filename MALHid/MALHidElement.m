@@ -38,9 +38,7 @@
 	return key;
 }
 -(NSString*) description {
-	return [NSString stringWithFormat:@"%x.%x(%x)", hidUsage.page, hidUsage.ID, [self cookie]];
-	//[[MALHidCenter shared] descriptionForPage:hidUsage.page
-	//										   usage:hidUsage.ID];
+	return self.fullID;
 }
 -(id) initWithElement:(IOHIDElementRef)e {
 	if(!(self = [super init])) return nil;
@@ -53,7 +51,8 @@
 	rawMax = IOHIDElementGetLogicalMax(element);
 	rawMin = IOHIDElementGetLogicalMin(element);
 	
-	isDiscoverable = YES; //FIXME
+	isDiscoverable = YES;
+	self.elementID = [[MALHidCenter shared] descriptionForElement:element];
 	
 	[[MALHidCenter shared] addObserver:self forElement:element];
 	
@@ -65,5 +64,10 @@
 
 -(void) valueChanged:(IOHIDValueRef)newValue {
 	[self updateValue:IOHIDValueGetIntegerValue(newValue) timestamp:IOHIDValueGetTimeStamp(newValue)];
+}
+
+-(void) dealloc {
+	[[MALHidCenter shared] removeObserver:self];
+	[super dealloc];
 }
 @end

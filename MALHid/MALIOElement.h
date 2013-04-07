@@ -11,16 +11,17 @@
 @class MALIOElement,MALIODevice;
 
 typedef void (^MALIOObserverBlock)(MALIOElement*);
-typedef int (^MALInputValueModifier)(long);
+typedef long (^MALInputValueModifier)(long);
 
 @interface MALIOElement : NSObject <NSCopying> {
-	MALIODevice * device;
+	__weak MALIODevice * specificDevice, *generalDevice;
 	
 	NSMutableSet * observers; // Takes blocks
 	
 	long rawMin,rawMax;
 	long value,oldValue;
 	uint64_t timestamp,oldTimestamp;
+	float fMax,fMin,fDeadzone;
 	
 	BOOL isRelative:1;
 	BOOL isWrapping:1;
@@ -30,6 +31,8 @@ typedef int (^MALInputValueModifier)(long);
 @property (readonly) BOOL isRelative,isWrapping;
 @property (readwrite) BOOL isDiscoverable;
 @property (readwrite, copy) MALInputValueModifier inputModifier;
+@property (readwrite, weak) MALIODevice * specificDevice, *generalDevice;
+@property (readwrite) float fMax,fMin,fDeadzone;
 
 -(void) addObserver:(id)observer;
 -(void) removeObserver:(id)observer;

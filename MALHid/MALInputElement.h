@@ -15,7 +15,8 @@
 	MALHidUsage hidUsage;
 }
 @property (readonly) MALHidUsage usage;
-@property (readonly) NSString *path;
+@property (readwrite, copy) NSString *elementID;
+@property (readonly) NSString *fullID,*specificPath,*generalPath;
 
 // Somehow look at history
 

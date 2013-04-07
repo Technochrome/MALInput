@@ -54,8 +54,9 @@
 }
 -(NSDictionary*) bindingsByID {
 	NSMutableDictionary *ret = [NSMutableDictionary dictionary];
+	NSLog(@"test %@",inputs);
 	for(NSString * key in [self boundKeys]) {
-		[ret setValue:[[self inputElementForKey:key] path] forKey:key];
+		[ret setValue:[[self inputElementForKey:key] fullID] forKey:key];
 	}
 	return ret;
 }

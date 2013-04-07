@@ -12,7 +12,7 @@
 
 @class MALHidElement,MALIODevice;
 
-typedef NSDictionary* (^MALElementConnectionObserver)(IOHIDElementRef element);
+typedef NSArray* (^MALElementConnectionObserver)(IOHIDElementRef element);
 
 @interface MALHidCenter : NSObject {
 	NSMutableDictionary * hidElements, *devices;

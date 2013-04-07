@@ -10,7 +10,8 @@
 
 @implementation MALIOElement
 @synthesize rawValue=value,rawMax,rawMin;
-@synthesize isRelative,isWrapping,isDiscoverable,inputModifier;
+@synthesize isRelative,isWrapping,isDiscoverable,inputModifier,specificDevice, generalDevice;
+@synthesize fMax,fMin,fDeadzone;
 
 -(id) init {
 	if((self = [super init])) {
@@ -48,10 +49,10 @@
 	return value;
 }
 -(float) floatValue {
-	return [self floatValueFrom:1 to:0];
+	return [self floatValueFrom:fMin to:fMax deadzone:fDeadzone];
 }
 -(float) floatValueFrom:(float)from to:(float)to {
-	return [self floatValueFrom:from to:to deadzone:0];
+	return [self floatValueFrom:from to:to deadzone:fDeadzone];
 }
 -(float) floatValueFrom:(float)from to:(float)to deadzone:(float)deadzone {
 	
@@ -77,6 +78,7 @@
 	el->value = value; el->oldValue = oldValue;
 	el->timestamp = timestamp; el->oldTimestamp = oldTimestamp;
 	el->isRelative = isRelative; el->isWrapping = isWrapping; el->isDiscoverable = isDiscoverable;
+	el->fDeadzone = fDeadzone; el->fMin = fMin; el->fMax = fMax;
 	
 	return el;
 }
