@@ -50,7 +50,6 @@ int main (int argc, const char * argv[]) {
 			
 			if([inputElement isBoolean]) {
 				if([inputElement boolValue]) {
-//					NSLog(@"%@",[inputElement fullID]);
 					if(usage.page == 0x7 && usage.ID == 0x29) {
 						[a loadBindings:goodBindings];
 						
@@ -60,10 +59,6 @@ int main (int argc, const char * argv[]) {
 							[devices addObject:matchingDevices[0]];
 						}
 						[i addDeviceAtPath:@"input" usingProfile:a withDevices:devices];
-						
-						//				c = (c==a? b : a);
-//						NSLog(@"\n%@",[@{@"bindings":[a bindingsByID]} toINI]);
-//						[[[a bindingsByID] toINI] writeToFile:@"bindings.ini" atomically:YES encoding:NSUTF8StringEncoding error:NULL];
 						return;
 					}
 					[profile setInput:inputElement forKey:[NSString stringWithFormat:@"%d",bound++]];

@@ -73,7 +73,7 @@
 		NSString * inputID = [profile inputIDForKey:key];
 		for(MALIODevice * d in inputDevices) {
 			if([inputID hasPrefix:d.deviceID]) {
-				NSString * elementID = [inputID substringFromIndex:[d.deviceID length] + 1];
+				NSString * elementID = [MALInputElement elementIDFromFullID:inputID];
 				[[d.elements objectForKey:elementID] addObserver:output];
 				break;
 			}
