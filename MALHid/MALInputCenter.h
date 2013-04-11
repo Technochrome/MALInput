@@ -30,8 +30,9 @@ inputElementModifier fixHatswitch;
 
 -(void) addElementModifier:(inputElementModifier)mod;
 
--(MALInputProfile*) setPath:(NSString*)path toProfile:(MALInputProfile*)profile;
--(void) removeProfileAtPath:(NSString*)path;
+-(MALIODevice*) addDeviceAtPath:(NSString*)path usingProfile:(MALInputProfile*)profile withDevices:(NSArray*)devices;
+
+-(NSArray*) devicesWithID:(NSString*)deviceID;
 
 // NOT FOR USERS
 -(void) valueChanged:(MALInputElement*)element;

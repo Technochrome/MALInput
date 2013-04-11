@@ -15,6 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MALInput.h"
+#import "NSDictionary+toINI.h"
 
 MALIOObserverBlock dumpEverything(NSString* str);
 MALIOObserverBlock dumpEverything(NSString* str) {
@@ -23,44 +24,46 @@ MALIOObserverBlock dumpEverything(NSString* str) {
 	} copy] autorelease];
 }
 
-
 int main (int argc, const char * argv[]) {
 	@autoreleasepool {
 		
 		MALInputProfile *a;//, *b=nil;
 		a = [[MALInputProfile alloc] init];
-		MALOutputElement *output1 = [MALOutputElement boolElement], *output2 = [MALOutputElement boolElement];
-		[output1 addObserver:dumpEverything(@"1")];
-		[a setOutput:output1 forKey:@"1"];
-		[output2 addObserver:dumpEverything(@"2")];
-		[a setOutput:output2 forKey:@"2"];
-		
+		for(int i=0; i<10; i++) {
+			MALOutputElement * el = [MALOutputElement boolElement];
+			id key = [NSString stringWithFormat:@"%d",i];
+			[el addObserver:dumpEverything(key)];
+			[a setOutput:el forKey:key];
+		}		
 		__block MALInputProfile *profile = a;
-		__block int bound = 1;
+		__block int bound = 0;
 		
 		MALInputCenter *i = [MALInputCenter shared];
 		[i startListening];
 		
-		NSDictionary * bindings = @{
-			@"1":@"7(1.30)(1.4)14200000.300",
-			@"2":@"6(1.30)(1.4)14200000.300"
-		};
-		NSDictionary * goodBindings = @{
-			@"1": @"mouse.1.30", //@"mouse.x"
-			@"2": @"key.9.4", //@"key.a"
-			@"3": @"joy(14200000.300).1.30.7"
-		};
-		goodBindings = nil;
+		NSString * goodBindingsINI = [NSString stringWithContentsOfFile:@"bindings.ini" encoding:NSUTF8StringEncoding error:NULL];
+		NSDictionary * goodBindings = [[NSDictionary dictionaryWithINI:goodBindingsINI] retain];
+		NSLog(@"%@",goodBindings);
 		
 		[i setInputListener:^(MALInputElement *inputElement) {
 			MALHidUsage usage = [inputElement usage];
 			
 			if([inputElement isBoolean]) {
 				if([inputElement boolValue]) {
-					NSLog(@"%@",[inputElement fullID]);
+//					NSLog(@"%@",[inputElement fullID]);
 					if(usage.page == 0x7 && usage.ID == 0x29) {
-						NSLog(@"%@",[profile bindingsByID]);
+						[a loadBindings:goodBindings];
+						
+						NSMutableArray * devices = [NSMutableArray array];
+						for(NSString * deviceID in [a inputDevices]) {
+							NSArray * matchingDevices = [i devicesWithID:deviceID];
+							[devices addObject:matchingDevices[0]];
+						}
+						[i addDeviceAtPath:@"input" usingProfile:a withDevices:devices];
+						
 						//				c = (c==a? b : a);
+//						NSLog(@"\n%@",[@{@"bindings":[a bindingsByID]} toINI]);
+//						[[[a bindingsByID] toINI] writeToFile:@"bindings.ini" atomically:YES encoding:NSUTF8StringEncoding error:NULL];
 						return;
 					}
 					[profile setInput:inputElement forKey:[NSString stringWithFormat:@"%d",bound++]];

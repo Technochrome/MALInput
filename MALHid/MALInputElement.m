@@ -20,13 +20,19 @@
 	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self];
 }
 -(NSString*) fullID {
-	return [NSString stringWithFormat:@"%@.%@", generalDevice.deviceID, self.elementID];
+	return [NSString stringWithFormat:@"%@~%@", generalDevice.deviceID, self.elementID];
 }
 -(NSString*) specificPath {
-	return [NSString stringWithFormat:@"%@.%@", specificDevice.devicePath, self.elementID];
+	return [NSString stringWithFormat:@"%@~%@", specificDevice.devicePath, self.elementID];
 }
 -(NSString*) generalPath {
-	return [NSString stringWithFormat:@"%@.%@", generalDevice.devicePath, self.elementID];
+	return [NSString stringWithFormat:@"%@~%@", generalDevice.devicePath, self.elementID];
+}
++(NSString*) deviceIDFromFullID:(NSString*)fullID {
+	return [fullID componentsSeparatedByString:@"~"][0];
+}
++(NSString*) elementIDFromFullID:(NSString*)fullID {
+	return [fullID componentsSeparatedByString:@"~"][1];
 }
 -(NSString*) controllerName {
 	return @"No controller name";

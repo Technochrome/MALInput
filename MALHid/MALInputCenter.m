@@ -37,9 +37,6 @@
 		devices = [[NSMutableDictionary alloc] init];
 		userElements = [[NSMutableDictionary alloc] init];
 		elementModifiers = [[NSMutableArray alloc] init];
-		
-		[self addDevice:[MALIODevice device] atPath:@"mouse"];
-		[self addDevice:[MALIODevice device] atPath:@"key"];
 	}
 	return self;
 }
@@ -61,28 +58,39 @@
 	if(inputListener) inputListener(element);
 }
 
--(MALInputProfile*) setPath:(NSString*)path toProfile:(MALInputProfile*)profile {
-	[self removeProfileAtPath:path];
+-(MALIODevice*) addDeviceAtPath:(NSString *)path usingProfile:(MALInputProfile *)profile withDevices:(NSArray *)inputDevices {
+	[self removeDeviceAtPath:path];
 	
-	profile = [profile copy];
-	[userElements setValue:profile forKey:path];
-	[profile release];
+	MALIODevice * outputDevice = [MALIODevice device];
+	[self addDevice:outputDevice atPath:path];
 	
-	for(NSString *path in [profile boundKeys]) {
-		MALIOElement *input = [profile inputElementForKey:path], *output = [profile outputElementForKey:path];
-		[input addObserver:output];
+	for(NSString * key in [profile boundKeys]) {
+		MALIOElement * output = [[profile outputElementForKey:key] copy];
+		[outputDevice.elements setObject:output forKey:key];
+		[output release];
+
+		// bind the new output to the specified input
+		NSString * inputID = [profile inputIDForKey:key];
+		for(MALIODevice * d in inputDevices) {
+			if([inputID hasPrefix:d.deviceID]) {
+				NSString * elementID = [inputID substringFromIndex:[d.deviceID length] + 1];
+				[[d.elements objectForKey:elementID] addObserver:output];
+				break;
+			}
+		}
 	}
-	return profile;
+	return outputDevice;
 }
--(void) removeProfileAtPath:(NSString*)path {
-	MALInputProfile * profile = [userElements objectForKey:path];
-	
-	for(NSString *path in [profile boundKeys]) {
-		MALIOElement *input = [profile inputElementForKey:path], *output = [profile outputElementForKey:path];
-		[input removeObserver:output];
+
+-(NSArray*) devicesWithID:(NSString*)deviceID {
+	NSMutableArray * output = [NSMutableArray array];
+	for(id key in devices) {
+		MALIODevice * device = devices[key];
+		if(device.location!=0 && [device.deviceID caseInsensitiveCompare:deviceID] == NSOrderedSame) {
+			[output addObject:device];
+		}
 	}
-	
-	[userElements removeObjectForKey:path];
+	return output;
 }
 
 #pragma mark element/device management

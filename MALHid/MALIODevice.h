@@ -15,7 +15,7 @@
 @interface MALIODevice : NSObject
 @property (readwrite) int location;
 @property (readwrite,copy) NSString * name, *deviceID;
-@property (readonly) NSString * path, *devicePath;
+@property (readonly) NSString *devicePath;
 @property (readonly) NSMutableDictionary * elements;
 @property (readonly) BOOL isSpecific;
 

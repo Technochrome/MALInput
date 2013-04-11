@@ -85,7 +85,7 @@ static NSDictionary * deviceNamespaces = nil;
 	int usageID = [getHIDDeviceProperty(device, kIOHIDPrimaryUsageKey) intValue];
 	int location = [getHIDDeviceProperty(device, kIOHIDLocationIDKey) intValue];
 	
-	NSString * desc = [[MALHidCenter shared] descriptionForPage:usagePage usage:usageID];
+	NSString * desc = [[MALHidCenter shared] descriptionForDevice:device];
 	
 	printf("Disconnect: %x %s #%x_%x\n",location, [desc UTF8String], usagePage, usageID);
 	
@@ -110,6 +110,8 @@ static NSDictionary * deviceNamespaces = nil;
 		deviceSpecific.deviceID = deviceID;
 		deviceSpecific.location = deviceGeneral.location;
 		[[MALInputCenter shared] addDevice:deviceSpecific atPath:deviceSpecific.devicePath];
+		
+		NSLog(@"Device connection :: %@", deviceSpecific.devicePath);
 	}
 	deviceGeneral.location = 0;
 	
@@ -139,8 +141,6 @@ static NSDictionary * deviceNamespaces = nil;
 			break;
 		}
 	}
-	
-	NSLog(@"Device connection :: %@", deviceSpecific.devicePath);
 }
 
 static void deviceInput(void * inputCenter, IOReturn inResult, void * HIDManagerRef, IOHIDValueRef newValue) {

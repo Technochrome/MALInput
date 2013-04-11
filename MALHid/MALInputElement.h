@@ -18,6 +18,9 @@
 @property (readwrite, copy) NSString *elementID;
 @property (readonly) NSString *fullID,*specificPath,*generalPath;
 
++(NSString*) deviceIDFromFullID:(NSString*)fullID;
++(NSString*) elementIDFromFullID:(NSString*)fullID;
+
 // Somehow look at history
 
 -(NSString*) controllerName;

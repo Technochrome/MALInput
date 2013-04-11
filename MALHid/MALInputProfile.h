@@ -17,10 +17,12 @@
 -(void) setOutput:(MALOutputElement*)e forKey:(NSString*)key;
 -(void) setInput:(MALInputElement*)e forKey:(NSString*)key;
 -(MALOutputElement*) outputElementForKey:(NSString*)key;
--(MALInputElement*) inputElementForKey:(NSString*)key;
+-(NSString*) inputIDForKey:(NSString*)key;
 
 -(NSSet*) boundKeys;
 -(NSSet*) unboundKeys;
+
+-(NSSet*) inputDevices;
 
 -(NSDictionary*) bindingsByID;
 -(void) loadBindings:(NSDictionary*)bindings;

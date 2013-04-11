@@ -26,15 +26,23 @@
 }
 -(void) setInput:(MALInputElement*)e forKey:(NSString*)key {
 	if(!e) [inputs removeObjectForKey:key];
-	else [inputs setValue:e forKey:key];
+	else [inputs setValue:[e fullID] forKey:key];
 }
 -(MALOutputElement*) outputElementForKey:(NSString*)key {
 	return [outputs valueForKey:key];
 }
--(MALInputElement*) inputElementForKey:(NSString*)key {
+-(NSString*) inputIDForKey:(NSString*)key {
 	return [inputs valueForKey:key];
 }
 
+-(NSSet*) inputDevices {
+	NSMutableSet * set = [NSMutableSet set];
+	for(NSString * inputID in [inputs allValues]) {
+		NSString * deviceID = [MALInputElement deviceIDFromFullID:inputID];
+		[set addObject:deviceID];
+	}
+	return set;
+}
 -(NSSet*) boundKeys {
 	NSMutableSet *set = [NSMutableSet setWithArray:[outputs allKeys]];
 	[set intersectSet:[NSSet setWithArray:[inputs allKeys]]];
@@ -47,16 +55,14 @@
 }
 -(void) loadBindings:(NSDictionary*)bindings {
 	for(NSString * key in [bindings allKeys]) {
-		NSString * value = [bindings objectForKey:key];
-		MALInputElement * input = [[MALInputCenter shared] inputAtPath:value];
-		[self setInput:input forKey:key];
+		NSString * input = [bindings objectForKey:key];
+		[inputs setValue:input forKey:key];
 	}
 }
 -(NSDictionary*) bindingsByID {
 	NSMutableDictionary *ret = [NSMutableDictionary dictionary];
-	NSLog(@"test %@",inputs);
 	for(NSString * key in [self boundKeys]) {
-		[ret setValue:[[self inputElementForKey:key] fullID] forKey:key];
+		[ret setValue:[self inputIDForKey:key] forKey:key];
 	}
 	return ret;
 }
