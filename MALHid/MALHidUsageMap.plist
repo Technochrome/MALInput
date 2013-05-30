@@ -19,6 +19,39 @@
 	</dict>
 	<key>ElementIdentifier</key>
 	<dict>
+		<key>Gamepad(79.6.109)</key>
+		<dict>
+			<key>Description</key>
+			<string>Retrolink N64 Controller</string>
+			<key>9.1</key>
+			<string>c.up</string>
+			<key>9.2</key>
+			<string>c.right</string>
+			<key>9.3</key>
+			<string>c.down</string>
+			<key>9.4</key>
+			<string>c.left</string>
+			<key>9.5</key>
+			<string>L</string>
+			<key>9.6</key>
+			<string>R</string>
+			<key>9.7</key>
+			<string>A</string>
+			<key>9.8</key>
+			<string>Z</string>
+			<key>9.9</key>
+			<string>B</string>
+			<key>9.a</key>
+			<string>start</string>
+			<key>1.30</key>
+			<string>analog.x</string>
+			<key>1.31</key>
+			<string>analog.y</string>
+			<key>1.32</key>
+			<string>_ignore_</string>
+			<key>1.35</key>
+			<string>_ignore_</string>
+		</dict>
 		<key>Mouse</key>
 		<dict>
 			<key>1.30</key>

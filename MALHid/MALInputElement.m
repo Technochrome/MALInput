@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MALHidInternal.h"
+#import "MALInputPrivate.h"
 
 @implementation MALInputElement
 @synthesize usage=hidUsage,elementID;
@@ -34,10 +34,61 @@
 +(NSString*) elementIDFromFullID:(NSString*)fullID {
 	return [fullID componentsSeparatedByString:@"~"][1];
 }
--(NSString*) controllerName {
-	return @"No controller name";
+@end
+
+@implementation MALInputElement (HID)
+#pragma mark accessors
+
++(MALHidUsage) usageForElement:(IOHIDElementRef)e {
+	return MakeMALHidUsage(IOHIDElementGetUsagePage(e), IOHIDElementGetUsage(e));
 }
--(NSString*) inputName {
-	return @"No input name";
++(NSValue*) keyForElement:(IOHIDElementRef)element {
+	return [NSValue valueWithPointer:element];
+}
++(NSString*) pathForElement:(IOHIDElementRef)element {
+	IOHIDDeviceRef device = IOHIDElementGetDevice(element);
+	
+	int cookie = (int)IOHIDElementGetCookie(element);
+	
+	NSMutableString * key = [NSMutableString stringWithFormat:@"%x",cookie];
+	for (IOHIDElementRef e = element; (e = IOHIDElementGetParent(e));) {
+		[key appendFormat:@"(%x.%x)",IOHIDElementGetUsagePage(e),IOHIDElementGetUsage(e)];
+	}
+	[key appendFormat:@"%x.%x",
+	 [getHIDDeviceProperty(device, kIOHIDLocationIDKey) intValue],
+	 [getHIDDeviceProperty(device, kIOHIDVersionNumberKey) intValue]];
+	
+	return key;
+}
+
+#pragma mark new/delete
+-(MALInputElement*) initWithHIDElement:(IOHIDElementRef)element {
+	if(!(self = [super init])) return nil;
+	
+	hidUsage = MakeMALHidUsage(IOHIDElementGetUsagePage(element), IOHIDElementGetUsage(element));
+	
+	isRelative = IOHIDElementIsRelative(element);
+	isWrapping = IOHIDElementIsWrapping(element);
+	rawMax = IOHIDElementGetLogicalMax(element);
+	rawMin = IOHIDElementGetLogicalMin(element);
+	
+	isDiscoverable = YES;
+	self.elementID = [[MALHidCenter shared] descriptionForElement:element];
+	
+	[[MALHidCenter shared] addObserver:self forHIDElement:element];
+	
+	return self;
+}
++(MALInputElement*) elementWithHIDElement:(IOHIDElementRef)e {
+	return [[[self alloc] initWithHIDElement:e] autorelease];
+}
+
+-(void) valueChanged:(IOHIDValueRef)newValue {
+	[self updateValue:IOHIDValueGetIntegerValue(newValue) timestamp:IOHIDValueGetTimeStamp(newValue)];
+}
+
+-(void) dealloc {
+	[[MALHidCenter shared] removeObserver:self];
+	[super dealloc];
 }
 @end

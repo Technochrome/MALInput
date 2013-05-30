@@ -6,12 +6,12 @@
 //
 //
 
-#import "MALIOElement.h"
+#import "MALInputPrivate.h"
 
 @implementation MALIOElement
 @synthesize rawValue=value,rawMax,rawMin;
-@synthesize isRelative,isWrapping,isDiscoverable,inputModifier,specificDevice, generalDevice;
-@synthesize fMax,fMin,fDeadzone;
+@synthesize isRelative,isWrapping,isDiscoverable,specificDevice, generalDevice;
+@synthesize fMax,fMin,fDeadzone,timestamp,oldTimestamp,valueModifier;
 
 -(id) init {
 	if((self = [super init])) {
@@ -19,13 +19,16 @@
 	} return self;
 }
 
+-(void) valueUpdated:(MALIOElement*)element {
+	if(valueModifier) valueModifier(element,self);
+	else [self updateValue:element.rawValue timestamp:element.timestamp];
+}
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
-	oldValue = value;
-	value = inputModifier ? inputModifier(newValue) : newValue;
+	oldValue = value; value = newValue;
 	oldTimestamp = timestamp; timestamp = t;
 	for(id obj in observers) {
 		if([(id)obj isKindOfClass:[MALIOElement class]]) {
-			[obj updateValue:value timestamp:t];
+			[obj valueUpdated:self];
 		} else {
 			MALIOObserverBlock block = obj;
 			block(self);
@@ -73,7 +76,6 @@
 -(id) copyWithZone:(NSZone *)zone {
 	MALIOElement * el = [[[self class] allocWithZone:zone] init];
 	el->observers = [observers mutableCopy];
-	el->inputModifier = [inputModifier retain];
 	el->rawMin = rawMin; el->rawMax = rawMax;
 	el->value = value; el->oldValue = oldValue;
 	el->timestamp = timestamp; el->oldTimestamp = oldTimestamp;
@@ -85,7 +87,6 @@
 
 -(void) dealloc {
 	[observers release];
-	[inputModifier release];
 	[super dealloc];
 }
 @end

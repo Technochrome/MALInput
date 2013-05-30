@@ -6,8 +6,7 @@
 //
 //
 
-#import "MALInputProfile.h"
-#import "MALInputCenter.h"
+#import "MALInputPrivate.h"
 
 @implementation MALInputProfile
 @synthesize inputs,outputs;

@@ -6,9 +6,9 @@
 //
 //
 
-#import "MALIODevice.h"
+#import "MALInputPrivate.h"
 
-@implementation MALIODevice
+@implementation MALInputDevice
 @synthesize location, elements, name, deviceID;
 
 -(BOOL) isSpecific {
@@ -34,8 +34,8 @@
 	return self;
 }
 
-+(MALIODevice*) device{
-	MALIODevice * d = [[MALIODevice alloc] init];
++(MALInputDevice*) device{
+	MALInputDevice * d = [[MALInputDevice alloc] init];
 	return [d autorelease];
 }
 +(MALHidUsage) usageForDevice:(IOHIDDeviceRef)device {

@@ -1,14 +1,4 @@
 //
-//  MALHid.c
-//  MALHid
-//
-//  Created by Rovolo on 1/13/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
-
-#import "MALHidInternal.h"
-
-//
 //  MALHid.m
 //  MALHid
 //
@@ -16,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MALHidInternal.h"
+#import "MALInputPrivate.h"
 
 static NSDictionary * usageTables = nil;
 static NSMutableSet * connectedDevices = nil;
@@ -27,7 +17,7 @@ static NSDictionary * deviceNamespaces = nil;
 #pragma mark element/device descriptions
 
 -(NSString *) descriptionForDevice:(IOHIDDeviceRef)device {
-	MALHidUsage usage = [MALIODevice usageForDevice:device];
+	MALHidUsage usage = [MALInputDevice usageForDevice:device];
 	
 	NSDictionary * generalDescriptions = [usageTables objectForKey:@"DeviceIdentifier"];
 	NSString * format = [generalDescriptions objectForKey:[NSString stringWithFormat:@"%d.%d",usage.page,usage.ID]];
@@ -38,7 +28,7 @@ static NSDictionary * deviceNamespaces = nil;
 			[getHIDDeviceProperty(device, kIOHIDVersionNumberKey) intValue]];
 }
 -(NSString *) descriptionForElement:(IOHIDElementRef)element {
-	MALHidUsage usage = [MALHidElement usageForElement:element];
+	MALHidUsage usage = [MALInputElement usageForElement:element];
 	NSString * deviceID = [self descriptionForDevice:IOHIDElementGetDevice(element)];
 	
 	NSDictionary * elementDescriptions = usageTables[@"ElementIdentifier"][deviceID];
@@ -77,7 +67,7 @@ static NSDictionary * deviceNamespaces = nil;
 
 -(void) deviceInput:(IOHIDValueRef)value {
 	IOHIDElementRef element = IOHIDValueGetElement(value);
-	MALHidElement * obj = [hidElements objectForKey:[MALHidElement keyForElement:element]];
+	MALInputElement * obj = [hidElements objectForKey:[MALInputElement keyForElement:element]];
 	[obj valueChanged:value];
 }
 -(void) deviceRemoval:(IOHIDDeviceRef)device {
@@ -96,17 +86,17 @@ static NSDictionary * deviceNamespaces = nil;
 	if(!deviceID) return;
 	
 	// Get/Make the aliases that this device matches
-	MALIODevice * deviceGeneral = [[MALInputCenter shared] deviceAtPath:deviceID];
+	MALInputDevice * deviceGeneral = [[MALInputCenter shared] deviceAtPath:deviceID];
 	if(!deviceGeneral) {
-		deviceGeneral = [MALIODevice device];
+		deviceGeneral = [MALInputDevice device];
 		deviceGeneral.deviceID = deviceID;
 		deviceGeneral.location = 0;
 		[[MALInputCenter shared] addDevice:deviceGeneral atPath:deviceID];
 	}
 	deviceGeneral.location = [getHIDDeviceProperty(deviceRef, kIOHIDLocationIDKey) intValue];
-	MALIODevice * deviceSpecific = [[MALInputCenter shared] deviceAtPath:deviceGeneral.devicePath];
+	MALInputDevice * deviceSpecific = [[MALInputCenter shared] deviceAtPath:deviceGeneral.devicePath];
 	if(!deviceSpecific) {
-		deviceSpecific = [MALIODevice device];
+		deviceSpecific = [MALInputDevice device];
 		deviceSpecific.deviceID = deviceID;
 		deviceSpecific.location = deviceGeneral.location;
 		[[MALInputCenter shared] addDevice:deviceSpecific atPath:deviceSpecific.devicePath];
@@ -121,7 +111,7 @@ static NSDictionary * deviceNamespaces = nil;
 	for(id _element in elements) {
 		IOHIDElementRef element = (IOHIDElementRef)_element;
 		
-		MALHidUsage hidUsage = [MALHidElement usageForElement:element];
+		MALHidUsage hidUsage = [MALInputElement usageForElement:element];
 		if([[[MALHidCenter shared] descriptionForPage:hidUsage.page usage:hidUsage.ID] hasPrefix:@"Unknown"])
 			continue;
 		
@@ -178,14 +168,14 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 -(void) addElementConnectionObserver:(MALElementConnectionObserver)modifier {
 	[elementConnectionObservers insertObject:modifier atIndex:0];
 }
--(BOOL) addObserver:(MALHidElement*)o forElement:(IOHIDElementRef)e {
+-(BOOL) addObserver:(MALInputElement*)o forHIDElement:(IOHIDElementRef)e {
 	if(!o) return NO;
 	id key = [NSValue valueWithPointer:e];
 	if([hidElements objectForKey:key]) return NO;
 	[hidElements setObject:o forKey:key];
 	return YES;
 }
--(void) removeObserver:(MALHidElement*)o {
+-(void) removeObserver:(MALInputElement*)o {
 	for(id key in [hidElements allKeysForObject:o])
 		[hidElements removeObjectForKey:key];
 }
@@ -216,7 +206,7 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 		devices = [[NSMutableDictionary alloc] init];
 		elementConnectionObservers = [[NSMutableArray alloc] init];
 		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
-			return @[[MALHidElement hidElementWithElement:element]];
+			return @[[MALInputElement elementWithHIDElement:element]];
 		}];
 		
 		ioManager = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);

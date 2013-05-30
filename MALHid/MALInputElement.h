@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MALHidStructs.h"
-#import "MALIOElement.h"
+#import "MALInput.h"
 
 @class MALInputElement;
 
@@ -20,9 +19,4 @@
 
 +(NSString*) deviceIDFromFullID:(NSString*)fullID;
 +(NSString*) elementIDFromFullID:(NSString*)fullID;
-
-// Somehow look at history
-
--(NSString*) controllerName;
--(NSString*) inputName;
 @end

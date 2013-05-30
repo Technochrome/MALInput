@@ -10,7 +10,7 @@
 // refer by Joy, Joy[0]
 // each device should have a connected/disconnected attribute (or should absense be attribute?)
 
-@class MALHidElement,MALIODevice;
+@class MALInputDevice;
 
 typedef NSArray* (^MALElementConnectionObserver)(IOHIDElementRef element);
 
@@ -26,11 +26,10 @@ typedef NSArray* (^MALElementConnectionObserver)(IOHIDElementRef element);
 +(MALHidCenter *) shared;
 -(void) startListening;
 
-// The block returns YES if the element should still be modified
 -(void) addElementConnectionObserver:(MALElementConnectionObserver)modifier;
 
--(BOOL) addObserver:(MALHidElement*)o forElement:(IOHIDElementRef)e;
--(void) removeObserver:(MALHidElement*)o;
+-(BOOL) addObserver:(MALInputElement*)o forHIDElement:(IOHIDElementRef)e;
+-(void) removeObserver:(MALInputElement*)o;
 -(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usage;
 -(NSString *) descriptionForDevice:(IOHIDDeviceRef)device;
 -(NSString *) descriptionForElement:(IOHIDElementRef)element;

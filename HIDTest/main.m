@@ -14,7 +14,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "MALInput.h"
+#import <MALInput/MALInput.h>
 #import "NSDictionary+toINI.h"
 
 MALIOObserverBlock dumpEverything(NSString* str);
@@ -61,11 +61,12 @@ int main (int argc, const char * argv[]) {
 						[i addDeviceAtPath:@"input" usingProfile:a withDevices:devices];
 						return;
 					}
+					NSLog(@"[%@] %lx", [inputElement fullID], [inputElement rawValue]);
 					[profile setInput:inputElement forKey:[NSString stringWithFormat:@"%d",bound++]];
 				}
 			} else if(![inputElement isRelative]) {
 				float value = [inputElement floatValueFrom:-1 to:1 deadzone:.1];
-				if(value != 0) if(NO) NSLog(@"%f, (%ld,%ld,%ld)",value,[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
+				if(value != 0) if(YES) NSLog(@"[%@] %f, (%ld,%ld,%ld)", [inputElement fullID],value,[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
 			}
 		}];
 		

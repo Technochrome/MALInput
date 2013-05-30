@@ -6,8 +6,7 @@
 //
 //
 
-#import "MALIOElement.h"
-#import "MALOutputElement.h"
+#import "MALInputPrivate.h"
 
 @implementation MALOutputElement
 

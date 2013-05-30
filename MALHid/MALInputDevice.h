@@ -6,13 +6,12 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-
-#import "MALHidStructs.h"
-#import "MALHidInternal.h"
+#import "MALInput.h"
 
 
-@interface MALIODevice : NSObject
+@class MALIOElement;
+
+@interface MALInputDevice : NSObject
 @property (readwrite) int location;
 @property (readwrite,copy) NSString * name, *deviceID;
 @property (readonly) NSString *devicePath;
@@ -21,6 +20,5 @@
 
 -(void) setElement:(MALIOElement*)element forPath:(NSString*)path;
 
-+(MALIODevice*) device;
-+(MALHidUsage) usageForDevice:(IOHIDDeviceRef)device;
++(MALInputDevice*) device;
 @end
