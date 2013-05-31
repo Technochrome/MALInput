@@ -11,11 +11,17 @@
 
 #define getHIDDeviceProperty(device, key) (NSNumber*)IOHIDDeviceGetProperty(device, CFSTR(key))
 
+@interface MALIOElement ()
+@property (readwrite) long rawValue,rawMax,rawMin;
+@end
+
 @interface MALInputElement (HID)
 +(MALHidUsage) usageForElement:(IOHIDElementRef)e;
 +(NSValue*) keyForElement:(IOHIDElementRef)e;
-+(MALInputElement*) elementWithHIDElement:(IOHIDElementRef)e;
+
 -(MALInputElement*) initWithHIDElement:(IOHIDElementRef)e;
++(MALInputElement*) elementWithHIDElement:(IOHIDElementRef)e;
++(MALInputElement*) element;
 
 -(void) valueChanged:(IOHIDValueRef)value;
 @end

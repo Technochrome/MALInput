@@ -16,6 +16,7 @@
 -(id) init {
 	if((self = [super init])) {
 		observers = [[NSMutableSet alloc] init];
+		fMax = 1.0; fMin = -1.0;
 	} return self;
 }
 
@@ -24,6 +25,7 @@
 	else [self updateValue:element.rawValue timestamp:element.timestamp];
 }
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
+	if(newValue == value) return;
 	oldValue = value; value = newValue;
 	oldTimestamp = timestamp; timestamp = t;
 	for(id obj in observers) {
@@ -37,7 +39,10 @@
 }
 
 -(void) addObserver:(id)observer {
-	[observers addObject:observer];
+	if(![observer isKindOfClass:[MALIOElement class]]) // isa block
+		[observers addObject:[[observer copy] autorelease]];
+	else
+		[observers addObject:observer];
 }
 
 -(void) removeObserver:(id)observer	{
@@ -49,7 +54,7 @@
 
 #pragma makr Query Input Value
 -(BOOL) boolValue {
-	return value;
+	return value != 0;
 }
 -(float) floatValue {
 	return [self floatValueFrom:fMin to:fMax deadzone:fDeadzone];

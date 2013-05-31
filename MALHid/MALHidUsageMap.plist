@@ -51,6 +51,8 @@
 			<string>_ignore_</string>
 			<key>1.35</key>
 			<string>_ignore_</string>
+			<key>1.39</key>
+			<string>dpad</string>
 		</dict>
 		<key>Mouse</key>
 		<dict>

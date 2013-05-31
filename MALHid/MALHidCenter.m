@@ -124,6 +124,10 @@ static NSDictionary * deviceNamespaces = nil;
 			if(!newElements) continue;
 			
 			for(MALInputElement* element in newElements) {
+				if([[element elementID] isEqualToString:@"_ignore_"])
+					[element setIsDiscoverable:NO];
+				if(![[deviceGeneral deviceID] isEqualToString:@"Key"])
+					NSLog(@"add: %@ %@",[deviceGeneral devicePath], [element elementID]);
 				[deviceSpecific setElement:element forPath:element.elementID];
 				[deviceGeneral setElement:element forPath:element.elementID];
 			}
@@ -205,8 +209,60 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 		hidElements = [[NSMutableDictionary alloc] init];
 		devices = [[NSMutableDictionary alloc] init];
 		elementConnectionObservers = [[NSMutableArray alloc] init];
+		// default
 		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
 			return @[[MALInputElement elementWithHIDElement:element]];
+		}];
+		// fixes up Hatswitches so that they're easier to work with
+		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
+			MALHidUsage usage = [MALInputElement usageForElement:element];
+			if(usage.page == 0x1 && usage.ID == 0x39) {
+				
+#define setElementID(element,ID) element.elementID = [NSString stringWithFormat:@"%@." ID , draw.elementID]
+#define one 0x1000
+				
+				MALInputElement *draw = [MALInputElement elementWithHIDElement:element];
+				draw.isDiscoverable = NO;
+				
+				MALInputElement *dup=[MALInputElement element],*ddown=[MALInputElement element],
+								*dright=[MALInputElement element],*dleft=[MALInputElement element],
+								*dx=[MALInputElement element],*dy=[MALInputElement element];
+				
+				setElementID(dup, "up"); setElementID(ddown, "down"); setElementID(dright, "right");
+				setElementID(dleft, "left"); setElementID(dx, "x"); setElementID(dy, "y");
+				
+				dx.rawMax = one; dy.rawMax = one;
+				dx.rawMin = -one; dy.rawMin = -one;
+				[draw addObserver:^(MALIOElement *e) {
+					// Some hatswitches don't have NW SW NE SE, i.e. just N E S W
+					long value8 = (e.rawMax == 3 ? 2*e.rawValue : e.rawValue);
+					long x, y, s2 = sqrtf(.5)*one;
+					uint64_t t = e.timestamp;
+					
+					switch (value8) { // clockwise from north
+						case 0: x=0; y=one; break;
+						case 1: x=s2; y=s2; break;
+						case 2: x=one; y=0; break;
+						case 3: x=s2; y=-s2; break;
+						case 4: x=0; y=-one; break;
+						case 5: x=-s2; y=-s2; break;
+						case 6: x=-one; y=0; break;
+						case 7: x=-s2; y=s2; break;
+						default: x=0;y=0; break; // null value
+					}
+					
+					[dx updateValue:x timestamp:t];
+					[dy updateValue:y timestamp:t];
+					[dup    updateValue:y > 0 ? 1:0 timestamp:t];
+					[dright updateValue:x > 0 ? 1:0 timestamp:t];
+					[ddown  updateValue:y < 0 ? 1:0 timestamp:t];
+					[dleft  updateValue:x < 0 ? 1:0 timestamp:t];
+				}];
+				return @[draw,dup,ddown,dright,dleft,dx,dy];
+#undef setElementID
+#undef one
+			}
+			return nil;
 		}];
 		
 		ioManager = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);

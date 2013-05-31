@@ -47,6 +47,10 @@ int main (int argc, const char * argv[]) {
 		
 		[i setInputListener:^(MALInputElement *inputElement) {
 			MALHidUsage usage = [inputElement usage];
+			if([[inputElement elementID] hasPrefix:@"dpad"]) { // Test Dpad modifier
+				NSLog(@"[%@] %d (%f) {%ld,%ld,%ld}",[inputElement fullID], [inputElement boolValue], [inputElement floatValue],[inputElement rawValue],[inputElement rawMin],[inputElement rawMax]);
+			}
+			return;
 			
 			if([inputElement isBoolean]) {
 				if([inputElement boolValue]) {

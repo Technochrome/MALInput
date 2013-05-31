@@ -13,11 +13,17 @@
 
 -(id) init {
 	if((self = [super init])) {
+		isDiscoverable = YES;
+		
+		isRelative = NO;
+		isWrapping = NO;
+		rawMax = 1;
+		rawMin = 0;
 	} return self;
 }
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
 	[super updateValue:newValue timestamp:t];
-	if(isDiscoverable) [[MALInputCenter shared] valueChanged:self];
+	if(isDiscoverable && timestamp == t) [[MALInputCenter shared] valueChanged:self];
 }
 -(NSString*) fullID {
 	return [NSString stringWithFormat:@"%@~%@", generalDevice.deviceID, self.elementID];
@@ -81,6 +87,9 @@
 }
 +(MALInputElement*) elementWithHIDElement:(IOHIDElementRef)e {
 	return [[[self alloc] initWithHIDElement:e] autorelease];
+}
++(MALInputElement*) element {
+	return [[[self alloc] init] autorelease];
 }
 
 -(void) valueChanged:(IOHIDValueRef)newValue {
