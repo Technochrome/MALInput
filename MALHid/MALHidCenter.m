@@ -16,11 +16,14 @@ static NSDictionary * deviceNamespaces = nil;
 ;
 #pragma mark element/device descriptions
 
+-(NSDictionary *) descriptionsForDevice:(IOHIDDeviceRef)device {
+	return usageTables[@"ElementIdentifier"][[self descriptionForDevice:device]];
+}
 -(NSString *) descriptionForDevice:(IOHIDDeviceRef)device {
 	MALHidUsage usage = [MALInputDevice usageForDevice:device];
 	
 	NSDictionary * generalDescriptions = [usageTables objectForKey:@"DeviceIdentifier"];
-	NSString * format = [generalDescriptions objectForKey:[NSString stringWithFormat:@"%d.%d",usage.page,usage.ID]];
+	NSString * format = [generalDescriptions objectForKey:[NSString stringWithFormat:@"%x.%x",usage.page,usage.ID]];
 	
 	return [NSString stringWithFormat:format,
 			[getHIDDeviceProperty(device, kIOHIDVendorIDKey) intValue],
@@ -29,9 +32,8 @@ static NSDictionary * deviceNamespaces = nil;
 }
 -(NSString *) descriptionForElement:(IOHIDElementRef)element {
 	MALHidUsage usage = [MALInputElement usageForElement:element];
-	NSString * deviceID = [self descriptionForDevice:IOHIDElementGetDevice(element)];
+	NSDictionary * elementDescriptions = [self descriptionsForDevice:IOHIDElementGetDevice(element)];
 	
-	NSDictionary * elementDescriptions = usageTables[@"ElementIdentifier"][deviceID];
 	if(elementDescriptions) {
 		NSString * desc = elementDescriptions[[NSString stringWithFormat:@"%x.%x", usage.page, usage.ID]];
 		if(desc) return desc;
@@ -85,11 +87,15 @@ static NSDictionary * deviceNamespaces = nil;
 	NSString * deviceID = [self descriptionForDevice:deviceRef];
 	if(!deviceID) return;
 	
+	NSString * deviceName = [self descriptionsForDevice:deviceRef][@"Description"];
+	if(!deviceName) deviceName = deviceID;
+	
 	// Get/Make the aliases that this device matches
 	MALInputDevice * deviceGeneral = [[MALInputCenter shared] deviceAtPath:deviceID];
 	if(!deviceGeneral) {
 		deviceGeneral = [MALInputDevice device];
 		deviceGeneral.deviceID = deviceID;
+		deviceGeneral.name = deviceName;
 		deviceGeneral.location = 0;
 		[[MALInputCenter shared] addDevice:deviceGeneral atPath:deviceID];
 	}
@@ -98,6 +104,7 @@ static NSDictionary * deviceNamespaces = nil;
 	if(!deviceSpecific) {
 		deviceSpecific = [MALInputDevice device];
 		deviceSpecific.deviceID = deviceID;
+		deviceSpecific.name = deviceName;
 		deviceSpecific.location = deviceGeneral.location;
 		[[MALInputCenter shared] addDevice:deviceSpecific atPath:deviceSpecific.devicePath];
 		
@@ -125,9 +132,9 @@ static NSDictionary * deviceNamespaces = nil;
 			
 			for(MALInputElement* element in newElements) {
 				if([[element elementID] isEqualToString:@"_ignore_"])
-					[element setIsDiscoverable:NO];
-				if(![[deviceGeneral deviceID] isEqualToString:@"Key"])
-					NSLog(@"add: %@ %@",[deviceGeneral devicePath], [element elementID]);
+					continue;
+//				if(![[deviceGeneral deviceID] isEqualToString:@"Key"])
+//					NSLog(@"add: %@ %@",[deviceGeneral devicePath], [element elementID]);
 				[deviceSpecific setElement:element forPath:element.elementID];
 				[deviceGeneral setElement:element forPath:element.elementID];
 			}

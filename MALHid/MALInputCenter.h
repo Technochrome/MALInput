@@ -11,6 +11,9 @@
 
 typedef void (^inputListenerType)(MALInputElement*);
 
+extern NSString * MALInputDeviceConnectionNotification;
+extern NSString * MALInputDeviceDisconnectionNotification;
+
 @interface MALInputCenter : NSObject {
 	NSMutableDictionary *devices;
 	
@@ -22,7 +25,15 @@ typedef void (^inputListenerType)(MALInputElement*);
 -(void) startListening;
 
 -(MALInputDevice*) addDeviceAtPath:(NSString*)path usingProfile:(MALInputProfile*)profile withDevices:(NSArray*)devices;
+
+-(NSArray*) devicesPassingTest:(BOOL (^) (MALInputDevice*))test;
 -(NSArray*) devicesWithID:(NSString*)deviceID;
+-(NSArray*) devicesWithIDPrefix:(NSString*)deviceIDPrefix;
+-(NSArray*) allDevices;
+
+-(MALInputDevice*) keyboard;
+-(MALInputDevice*) mouse;
+-(NSArray*) gamepads;
 
 // NOT FOR USERS
 -(void) valueChanged:(MALInputElement*)element;

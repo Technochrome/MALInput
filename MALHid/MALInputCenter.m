@@ -11,6 +11,8 @@
 @implementation MALInputCenter
 @synthesize inputListener;
 
+NSString * MALInputDeviceConnectionNotification = @"MALInput device connected";
+NSString * MALInputDeviceDisconnectionNotification = @"MALInput device disconnected";
 
 -(void) startListening {
 	[[MALHidCenter shared] startListening];
@@ -65,26 +67,56 @@
 	return outputDevice;
 }
 
--(NSArray*) devicesWithID:(NSString*)deviceID {
+-(NSArray*) devicesPassingTest:(BOOL (^) (MALInputDevice*))test {
 	NSMutableArray * output = [NSMutableArray array];
 	for(id key in devices) {
 		MALInputDevice * device = devices[key];
-		if(device.location!=0 && [device.deviceID caseInsensitiveCompare:deviceID] == NSOrderedSame) {
+		if(test(device)) {
 			[output addObject:device];
 		}
 	}
 	return output;
+}
+-(NSArray*) devicesWithID:(NSString*)deviceID {
+	return [self devicesPassingTest:^BOOL(MALInputDevice * device) {
+		return device.location!=0 && [device.deviceID caseInsensitiveCompare:deviceID] == NSOrderedSame;
+	}];
+}
+-(NSArray*) devicesWithIDPrefix:(NSString*)deviceIDPrefix {
+	return [self devicesPassingTest:^BOOL(MALInputDevice * device) {
+		return [device.deviceID hasPrefix:deviceIDPrefix];
+	}];
+}
+-(NSArray*) allDevices {
+	return [self devicesPassingTest:^BOOL(MALInputDevice * device) {
+		return device.location!=0;
+	}];
+}
+-(MALInputDevice*) keyboard {
+	return [self deviceAtPath:@"Key#0"];
+}
+-(MALInputDevice*) mouse {
+	return [self deviceAtPath:@"Mouse#0"];
+}
+-(NSArray*) gamepads {
+	return [self devicesPassingTest:^BOOL(MALInputDevice * device) {
+		return [device.deviceID hasPrefix:@"Gamepad"] && device.location != 0;
+	}];
 }
 
 #pragma mark element/device management
 
 -(void) addDevice:(MALInputDevice*)device atPath:(NSString*)path {
 	[devices setObject:device forKey:path];
+	[[NSNotificationCenter defaultCenter] postNotificationName:MALInputDeviceConnectionNotification
+														object:nil userInfo:@{@"path":path}];
 }
 -(MALInputDevice*) deviceAtPath:(NSString*)path {
 	return [devices objectForKey:path];
 }
 -(void) removeDeviceAtPath:(NSString*)path {
+	[[NSNotificationCenter defaultCenter] postNotificationName:MALInputDeviceDisconnectionNotification
+														object:nil userInfo:@{@"path":path}];
 	[devices removeObjectForKey:path];
 }
 @end
