@@ -14,8 +14,13 @@
 	NSMutableDictionary * inputs,*outputs;
 }
 @property (readonly) NSDictionary *inputs,*outputs;
++(MALInputProfile*) profileWithOutputDevice:(MALInputDevice*)device;
+-(void) addOutputDevice:(MALInputDevice*)device;
+
+
 -(void) setOutput:(MALOutputElement*)e forKey:(NSString*)key;
 -(void) setInput:(MALInputElement*)e forKey:(NSString*)key;
+
 -(MALOutputElement*) outputElementForKey:(NSString*)key;
 -(NSString*) inputIDForKey:(NSString*)key;
 

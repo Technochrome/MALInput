@@ -45,7 +45,7 @@
 }
 
 -(NSString*) description {
-	return [NSString stringWithFormat:@"%@",self.devicePath];
+	return [NSString stringWithFormat:@"<%@ %@>",[self class],self.devicePath];
 }
 -(void) dealloc {
 	[elements release]; elements=nil;

@@ -11,6 +11,12 @@
 @implementation MALInputCenter
 @synthesize inputListener;
 
+-(inputListenerType) inputListener { return inputListener; }
+-(void) setInputListener:(inputListenerType)listener {
+	[inputListener autorelease];
+	inputListener = [listener copy];
+}
+
 NSString * MALInputDeviceConnectionNotification = @"MALInput device connected";
 NSString * MALInputDeviceDisconnectionNotification = @"MALInput device disconnected";
 

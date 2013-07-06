@@ -15,6 +15,9 @@
 		2F0579D014C06585009D8B82 /* MALHidCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0579C614C06002009D8B82 /* MALHidCenter.m */; };
 		2F0579D214C06693009D8B82 /* MALInput.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0579B214C05F51009D8B82 /* MALInput.framework */; };
 		2F0579D314C06879009D8B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797E14C05A70009D8B82 /* Foundation.framework */; };
+		2F0F75DC1788CDEE00026F72 /* MALInputProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF216FE355E00C2BCCF /* MALInputProfile.m */; };
+		2F0F75DD1788CE0F00026F72 /* NSDictionary+toINI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F765AF017121EDC00A914EB /* NSDictionary+toINI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F0F75DE1788CE1400026F72 /* NSDictionary+toINI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F765AF117121EDC00A914EB /* NSDictionary+toINI.m */; };
 		2F1C92BA170E1D5900D35EA5 /* HID_usage_strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */; };
 		2F1C92BD170E2DDF00D35EA5 /* MALInputDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F1C92BB170E2DDF00D35EA5 /* MALInputDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F1C92BE170E2DDF00D35EA5 /* MALInputDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1C92BC170E2DDF00D35EA5 /* MALInputDevice.m */; };
@@ -24,10 +27,8 @@
 		2F6663E716FFFF7B00AD360B /* MALIOElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F6DFCF416FE3D4600C2BCCF /* MALIOElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F6663E816FFFF8400AD360B /* MALOutputElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F6DFCF816FE404A00C2BCCF /* MALOutputElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F6663E916FFFF8B00AD360B /* MALInputProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F6DFCF116FE355E00C2BCCF /* MALInputProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2F6DFCF316FE355E00C2BCCF /* MALInputProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF216FE355E00C2BCCF /* MALInputProfile.m */; };
 		2F6DFCFB16FE418B00C2BCCF /* MALIOElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF516FE3D4600C2BCCF /* MALIOElement.m */; };
 		2F6DFCFC16FE418F00C2BCCF /* MALOutputElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF916FE404A00C2BCCF /* MALOutputElement.m */; };
-		2F765AF217121EDC00A914EB /* NSDictionary+toINI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F765AF117121EDC00A914EB /* NSDictionary+toINI.m */; };
 		2FDF167F174F1500001F183D /* MALHidCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F0579C814C0613B009D8B82 /* MALHidCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2FF38DDE14EEC7750091504E /* MALHidStructs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF38DDC14EEC6F40091504E /* MALHidStructs.c */; };
 		2FF38DE414EED4020091504E /* MALHidUsageMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FF38DE314EED4020091504E /* MALHidUsageMap.plist */; };
@@ -240,6 +241,7 @@
 				2F4FA2F014EF006F004C8126 /* MALInputCenter.h in Headers */,
 				2FDF167F174F1500001F183D /* MALHidCenter.h in Headers */,
 				2F1C92BD170E2DDF00D35EA5 /* MALInputDevice.h in Headers */,
+				2F0F75DD1788CE0F00026F72 /* NSDictionary+toINI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,8 +330,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0579A114C05B15009D8B82 /* main.m in Sources */,
-				2F6DFCF316FE355E00C2BCCF /* MALInputProfile.m in Sources */,
-				2F765AF217121EDC00A914EB /* NSDictionary+toINI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +344,8 @@
 				2F6DFCFB16FE418B00C2BCCF /* MALIOElement.m in Sources */,
 				2F6DFCFC16FE418F00C2BCCF /* MALOutputElement.m in Sources */,
 				2F1C92BE170E2DDF00D35EA5 /* MALInputDevice.m in Sources */,
+				2F0F75DC1788CDEE00026F72 /* MALInputProfile.m in Sources */,
+				2F0F75DE1788CE1400026F72 /* NSDictionary+toINI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

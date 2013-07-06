@@ -18,6 +18,16 @@
 	} return self;
 }
 
++(MALInputProfile*) profileWithOutputDevice:(MALInputDevice*)device {
+	MALInputProfile * prof = [[self alloc] init];
+	[prof addOutputDevice:device];
+	return [prof autorelease];
+}
+-(void) addOutputDevice:(MALInputDevice*)device {
+	for (NSString * key in device.elements)
+		[self setOutput:device.elements[key] forKey:key];
+}
+
 
 -(void) setOutput:(MALOutputElement*)e forKey:(NSString*)key {
 	if(!e) [outputs removeObjectForKey:key];

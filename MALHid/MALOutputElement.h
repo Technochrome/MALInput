@@ -11,5 +11,6 @@
 @interface MALOutputElement : MALIOElement
 
 +(MALOutputElement*) boolElement;
++(MALOutputElement*) joyElement;
 
 @end
