@@ -2,73 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>DeviceIdentifier</key>
+	<key>HIDIdentifiers</key>
 	<dict>
-		<key>1.1</key>
-		<string>Mouse</string>
-		<key>1.2</key>
-		<string>Mouse</string>
-		<key>1.4</key>
-		<string>Gamepad(%x.%x.%x)</string>
-		<key>1.5</key>
-		<string>Gamepad(%x.%x.%x)</string>
-		<key>1.6</key>
-		<string>Key</string>
-		<key>1.7</key>
-		<string>Key</string>
-	</dict>
-	<key>ElementIdentifier</key>
-	<dict>
-		<key>Gamepad(79.6.109)</key>
-		<dict>
-			<key>Description</key>
-			<string>Retrolink N64 Controller</string>
-			<key>9.1</key>
-			<string>c.up</string>
-			<key>9.2</key>
-			<string>c.right</string>
-			<key>9.3</key>
-			<string>c.down</string>
-			<key>9.4</key>
-			<string>c.left</string>
-			<key>9.5</key>
-			<string>L</string>
-			<key>9.6</key>
-			<string>R</string>
-			<key>9.7</key>
-			<string>A</string>
-			<key>9.8</key>
-			<string>Z</string>
-			<key>9.9</key>
-			<string>B</string>
-			<key>9.a</key>
-			<string>start</string>
-			<key>1.30</key>
-			<string>analog.x</string>
-			<key>1.31</key>
-			<string>analog.y</string>
-			<key>1.32</key>
-			<string>_ignore_</string>
-			<key>1.35</key>
-			<string>_ignore_</string>
-			<key>1.39</key>
-			<string>dpad</string>
-		</dict>
-		<key>Mouse</key>
-		<dict>
-			<key>1.30</key>
-			<string>x</string>
-			<key>1.31</key>
-			<string>y</string>
-			<key>9.1</key>
-			<string>left</string>
-			<key>9.2</key>
-			<string>right</string>
-			<key>9.3</key>
-			<string>middle</string>
-		</dict>
-		<key>Copyright</key>
-		<string>Adapted From Apple&apos;s HID examples</string>
 		<key>0x0001</key>
 		<dict>
 			<key>0x0000</key>
@@ -106,7 +41,7 @@
 			<key>0x0038</key>
 			<string>Wheel</string>
 			<key>0x0039</key>
-			<string>Hatswitch</string>
+			<string>dpad</string>
 			<key>0x003A</key>
 			<string>Counted Buffer</string>
 			<key>0x003B</key>
@@ -160,13 +95,13 @@
 			<key>0x008D</key>
 			<string>System Menu Down</string>
 			<key>0x0090</key>
-			<string>DPad Up</string>
+			<string>dpad.up</string>
 			<key>0x0091</key>
-			<string>DPad Down</string>
+			<string>dpad.down</string>
 			<key>0x0092</key>
-			<string>DPad Right</string>
+			<string>dpad.right</string>
 			<key>0x0093</key>
-			<string>DPad Left</string>
+			<string>dpad.left</string>
 			<key>Name</key>
 			<string>Generic Desktop</string>
 		</dict>
@@ -255,35 +190,35 @@
 			<key>0x0028</key>
 			<string>Return</string>
 			<key>0x0029</key>
-			<string>Escape</string>
+			<string>Esc</string>
 			<key>0x002A</key>
-			<string>Delete</string>
+			<string>Del</string>
 			<key>0x002B</key>
 			<string>Tab</string>
 			<key>0x002C</key>
-			<string>Spacebar</string>
+			<string>Space</string>
 			<key>0x002D</key>
-			<string>Dash</string>
+			<string>-</string>
 			<key>0x002E</key>
-			<string>Equal</string>
+			<string>=</string>
 			<key>0x002F</key>
-			<string>Left Square Bracket</string>
+			<string>[</string>
 			<key>0x0030</key>
-			<string>Right Square Bracket</string>
+			<string>]</string>
 			<key>0x0031</key>
 			<string>Slash</string>
 			<key>0x0032</key>
 			<string>Non-US #</string>
 			<key>0x0033</key>
-			<string>Semi-Colan</string>
+			<string>;</string>
 			<key>0x0034</key>
-			<string>Single Quote</string>
+			<string>&apos;</string>
 			<key>0x0035</key>
-			<string>Grave Accent</string>
+			<string>`</string>
 			<key>0x0036</key>
-			<string>Comma</string>
+			<string>,</string>
 			<key>0x0037</key>
-			<string>Period</string>
+			<string>.</string>
 			<key>0x0038</key>
 			<string>Slash</string>
 			<key>0x0039</key>
@@ -331,13 +266,13 @@
 			<key>0x004E</key>
 			<string>Page Down</string>
 			<key>0x004F</key>
-			<string>Right Arrow</string>
+			<string>Right</string>
 			<key>0x0050</key>
-			<string>Left Arrow</string>
+			<string>Left</string>
 			<key>0x0051</key>
-			<string>Down Arrow</string>
+			<string>Down</string>
 			<key>0x0052</key>
-			<string>Up Arrow</string>
+			<string>Up</string>
 			<key>0x0053</key>
 			<string>Keypad NumLock</string>
 			<key>0x0054</key>
@@ -503,21 +438,544 @@
 			<key>0x00A4</key>
 			<string>ExSel</string>
 			<key>0x00E0</key>
-			<string>Left Control</string>
+			<string>L Cntrl</string>
 			<key>0x00E1</key>
-			<string>Left Shift</string>
+			<string>L Shift</string>
 			<key>0x00E2</key>
-			<string>Left Alt</string>
+			<string>L Alt</string>
 			<key>0x00E3</key>
-			<string>Left Command</string>
+			<string>L Cmd</string>
 			<key>0x00E4</key>
-			<string>Right Control</string>
+			<string>R Cntrl</string>
 			<key>0x00E5</key>
-			<string>Right Shift</string>
+			<string>R Shift</string>
 			<key>0x00E6</key>
-			<string>Right Alt</string>
+			<string>R Alt</string>
 			<key>0x00E7</key>
-			<string>Right Command</string>
+			<string>R Cmd</string>
+			<key>Name</key>
+			<string>Keyboard or Keypad</string>
+		</dict>
+		<key>0x0009</key>
+		<dict>
+			<key>default</key>
+			<string>Button %d</string>
+		</dict>
+	</dict>
+	<key>Copyright</key>
+	<string>Adapted From Apple&apos;s HID examples</string>
+	<key>DeviceIdentifiers</key>
+	<dict>
+		<key>1.1</key>
+		<string>Mouse</string>
+		<key>1.2</key>
+		<string>Mouse</string>
+		<key>1.4</key>
+		<string>Gamepad(%x.%x.%x)</string>
+		<key>1.5</key>
+		<string>Gamepad(%x.%x.%x)</string>
+		<key>1.6</key>
+		<string>Key</string>
+		<key>1.7</key>
+		<string>Key</string>
+	</dict>
+	<key>ElementIdentifiers</key>
+	<dict>
+		<key>Gamepad(79.6.109)</key>
+		<dict>
+			<key>Description</key>
+			<string>Retrolink N64 Controller</string>
+			<key>9.1</key>
+			<string>c.up</string>
+			<key>9.2</key>
+			<string>c.right</string>
+			<key>9.3</key>
+			<string>c.down</string>
+			<key>9.4</key>
+			<string>c.left</string>
+			<key>9.5</key>
+			<string>L</string>
+			<key>9.6</key>
+			<string>R</string>
+			<key>9.7</key>
+			<string>A</string>
+			<key>9.8</key>
+			<string>Z</string>
+			<key>9.9</key>
+			<string>B</string>
+			<key>9.a</key>
+			<string>start</string>
+			<key>1.30</key>
+			<string>analog.x</string>
+			<key>1.31</key>
+			<string>analog.y</string>
+			<key>1.32</key>
+			<string>_ignore_</string>
+			<key>1.35</key>
+			<string>_ignore_</string>
+		</dict>
+		<key>Mouse</key>
+		<dict>
+			<key>1.30</key>
+			<string>x</string>
+			<key>1.31</key>
+			<string>y</string>
+			<key>9.1</key>
+			<string>left</string>
+			<key>9.2</key>
+			<string>right</string>
+			<key>9.3</key>
+			<string>middle</string>
+		</dict>
+		<key>0x0001</key>
+		<dict>
+			<key>0x0000</key>
+			<string>Undefined Usage</string>
+			<key>0x0001</key>
+			<string>Pointer</string>
+			<key>0x0002</key>
+			<string>Mouse</string>
+			<key>0x0004</key>
+			<string>Joystick</string>
+			<key>0x0005</key>
+			<string>GamePad</string>
+			<key>0x0006</key>
+			<string>Keyboard</string>
+			<key>0x0007</key>
+			<string>Keypad</string>
+			<key>0x0008</key>
+			<string>MultiAxisController</string>
+			<key>0x0030</key>
+			<string>X</string>
+			<key>0x0031</key>
+			<string>Y</string>
+			<key>0x0032</key>
+			<string>Z</string>
+			<key>0x0033</key>
+			<string>Rx</string>
+			<key>0x0034</key>
+			<string>Ry</string>
+			<key>0x0035</key>
+			<string>Rz</string>
+			<key>0x0036</key>
+			<string>Slider</string>
+			<key>0x0037</key>
+			<string>Dial</string>
+			<key>0x0038</key>
+			<string>Wheel</string>
+			<key>0x0039</key>
+			<string>dpad</string>
+			<key>0x003A</key>
+			<string>Counted Buffer</string>
+			<key>0x003B</key>
+			<string>Byte Count</string>
+			<key>0x003C</key>
+			<string>Motion Wakeup</string>
+			<key>0x003D</key>
+			<string>Start</string>
+			<key>0x003E</key>
+			<string>Select</string>
+			<key>0x0040</key>
+			<string>Vx</string>
+			<key>0x0041</key>
+			<string>Vy</string>
+			<key>0x0042</key>
+			<string>Vz</string>
+			<key>0x0043</key>
+			<string>Vbrx</string>
+			<key>0x0044</key>
+			<string>Vbry</string>
+			<key>0x0045</key>
+			<string>Vbrz</string>
+			<key>0x0046</key>
+			<string>Vno</string>
+			<key>0x0080</key>
+			<string>System Control</string>
+			<key>0x0081</key>
+			<string>System Power Down</string>
+			<key>0x0082</key>
+			<string>System Sleep</string>
+			<key>0x0083</key>
+			<string>System Wake Up</string>
+			<key>0x0084</key>
+			<string>SystemContext Menu</string>
+			<key>0x0085</key>
+			<string>System Main Menu</string>
+			<key>0x0086</key>
+			<string>System App Menu</string>
+			<key>0x0087</key>
+			<string>System Menu help</string>
+			<key>0x0088</key>
+			<string>System Menu Exit</string>
+			<key>0x0089</key>
+			<string>System Menu</string>
+			<key>0x008A</key>
+			<string>System Menu Right</string>
+			<key>0x008B</key>
+			<string>System Menu Left</string>
+			<key>0x008C</key>
+			<string>System Menu Up</string>
+			<key>0x008D</key>
+			<string>System Menu Down</string>
+			<key>0x0090</key>
+			<string>dpad.up</string>
+			<key>0x0091</key>
+			<string>dpad.down</string>
+			<key>0x0092</key>
+			<string>dpad.right</string>
+			<key>0x0093</key>
+			<string>dpad.left</string>
+			<key>Name</key>
+			<string>Generic Desktop</string>
+		</dict>
+		<key>0x0007</key>
+		<dict>
+			<key>0x0000</key>
+			<string>Undefined Usage</string>
+			<key>0x0001</key>
+			<string>Error Roll Over</string>
+			<key>0x0002</key>
+			<string>POST Fail</string>
+			<key>0x0003</key>
+			<string>Error Undefined</string>
+			<key>0x0004</key>
+			<string>A</string>
+			<key>0x0005</key>
+			<string>B</string>
+			<key>0x0006</key>
+			<string>C</string>
+			<key>0x0007</key>
+			<string>D</string>
+			<key>0x0008</key>
+			<string>E</string>
+			<key>0x0009</key>
+			<string>F</string>
+			<key>0x000A</key>
+			<string>G</string>
+			<key>0x000B</key>
+			<string>H</string>
+			<key>0x000C</key>
+			<string>I</string>
+			<key>0x000D</key>
+			<string>J</string>
+			<key>0x000E</key>
+			<string>K</string>
+			<key>0x000F</key>
+			<string>L</string>
+			<key>0x0010</key>
+			<string>M</string>
+			<key>0x0011</key>
+			<string>N</string>
+			<key>0x0012</key>
+			<string>O</string>
+			<key>0x0013</key>
+			<string>P</string>
+			<key>0x0014</key>
+			<string>Q</string>
+			<key>0x0015</key>
+			<string>R</string>
+			<key>0x0016</key>
+			<string>S</string>
+			<key>0x0017</key>
+			<string>T</string>
+			<key>0x0018</key>
+			<string>U</string>
+			<key>0x0019</key>
+			<string>V</string>
+			<key>0x001A</key>
+			<string>W</string>
+			<key>0x001B</key>
+			<string>X</string>
+			<key>0x001C</key>
+			<string>Y</string>
+			<key>0x001D</key>
+			<string>Z</string>
+			<key>0x001E</key>
+			<string>1</string>
+			<key>0x001F</key>
+			<string>2</string>
+			<key>0x0020</key>
+			<string>3</string>
+			<key>0x0021</key>
+			<string>4</string>
+			<key>0x0022</key>
+			<string>5</string>
+			<key>0x0023</key>
+			<string>6</string>
+			<key>0x0024</key>
+			<string>7</string>
+			<key>0x0025</key>
+			<string>8</string>
+			<key>0x0026</key>
+			<string>9</string>
+			<key>0x0027</key>
+			<string>0</string>
+			<key>0x0028</key>
+			<string>Return</string>
+			<key>0x0029</key>
+			<string>Esc</string>
+			<key>0x002A</key>
+			<string>Del</string>
+			<key>0x002B</key>
+			<string>Tab</string>
+			<key>0x002C</key>
+			<string>Space</string>
+			<key>0x002D</key>
+			<string>-</string>
+			<key>0x002E</key>
+			<string>=</string>
+			<key>0x002F</key>
+			<string>[</string>
+			<key>0x0030</key>
+			<string>]</string>
+			<key>0x0031</key>
+			<string>Slash</string>
+			<key>0x0032</key>
+			<string>Non-US #</string>
+			<key>0x0033</key>
+			<string>;</string>
+			<key>0x0034</key>
+			<string>&apos;</string>
+			<key>0x0035</key>
+			<string>`</string>
+			<key>0x0036</key>
+			<string>,</string>
+			<key>0x0037</key>
+			<string>.</string>
+			<key>0x0038</key>
+			<string>Slash</string>
+			<key>0x0039</key>
+			<string>Caps Lock</string>
+			<key>0x003A</key>
+			<string>F1</string>
+			<key>0x003B</key>
+			<string>F2</string>
+			<key>0x003C</key>
+			<string>F3</string>
+			<key>0x003D</key>
+			<string>F4</string>
+			<key>0x003E</key>
+			<string>F5</string>
+			<key>0x003F</key>
+			<string>F6</string>
+			<key>0x0040</key>
+			<string>F7</string>
+			<key>0x0041</key>
+			<string>F8</string>
+			<key>0x0042</key>
+			<string>F9</string>
+			<key>0x0043</key>
+			<string>F10</string>
+			<key>0x0044</key>
+			<string>F11</string>
+			<key>0x0045</key>
+			<string>F12</string>
+			<key>0x0046</key>
+			<string>Print Screen</string>
+			<key>0x0047</key>
+			<string>Scroll Lock</string>
+			<key>0x0048</key>
+			<string>Pause</string>
+			<key>0x0049</key>
+			<string>Insert</string>
+			<key>0x004A</key>
+			<string>Home</string>
+			<key>0x004B</key>
+			<string>Page Up</string>
+			<key>0x004C</key>
+			<string>Delete Forward</string>
+			<key>0x004D</key>
+			<string>End</string>
+			<key>0x004E</key>
+			<string>Page Down</string>
+			<key>0x004F</key>
+			<string>Right</string>
+			<key>0x0050</key>
+			<string>Left</string>
+			<key>0x0051</key>
+			<string>Down</string>
+			<key>0x0052</key>
+			<string>Up</string>
+			<key>0x0053</key>
+			<string>Keypad NumLock</string>
+			<key>0x0054</key>
+			<string>Keypad Slash</string>
+			<key>0x0055</key>
+			<string>Keypad Asterisk</string>
+			<key>0x0056</key>
+			<string>Keypad Dash</string>
+			<key>0x0057</key>
+			<string>Keypad Plus</string>
+			<key>0x0058</key>
+			<string>Keypad Enter</string>
+			<key>0x0059</key>
+			<string>Keypad 1</string>
+			<key>0x005A</key>
+			<string>Keypad 2</string>
+			<key>0x005B</key>
+			<string>Keypad 3</string>
+			<key>0x005C</key>
+			<string>Keypad 4</string>
+			<key>0x005D</key>
+			<string>Keypad 5</string>
+			<key>0x005E</key>
+			<string>Keypad 6</string>
+			<key>0x005F</key>
+			<string>Keypad 7</string>
+			<key>0x0060</key>
+			<string>Keypad 8</string>
+			<key>0x0061</key>
+			<string>Keypad 9</string>
+			<key>0x0062</key>
+			<string>Keypad 0</string>
+			<key>0x0063</key>
+			<string>Keypad Period</string>
+			<key>0x0064</key>
+			<string>Non-US Backslash</string>
+			<key>0x0065</key>
+			<string> Application </string>
+			<key>0x0066</key>
+			<string> Power </string>
+			<key>0x0067</key>
+			<string>Keypad Equal</string>
+			<key>0x0068</key>
+			<string>F13</string>
+			<key>0x0069</key>
+			<string>F14</string>
+			<key>0x006A</key>
+			<string>F15</string>
+			<key>0x006B</key>
+			<string>F16</string>
+			<key>0x006C</key>
+			<string>F17</string>
+			<key>0x006D</key>
+			<string>F18</string>
+			<key>0x006E</key>
+			<string>F19</string>
+			<key>0x006F</key>
+			<string>F20</string>
+			<key>0x0070</key>
+			<string>F21</string>
+			<key>0x0071</key>
+			<string>F22</string>
+			<key>0x0072</key>
+			<string>F23</string>
+			<key>0x0073</key>
+			<string>F24</string>
+			<key>0x0074</key>
+			<string>Execute</string>
+			<key>0x0075</key>
+			<string>Help</string>
+			<key>0x0076</key>
+			<string>Menu</string>
+			<key>0x0077</key>
+			<string>Select</string>
+			<key>0x0078</key>
+			<string>Stop</string>
+			<key>0x0079</key>
+			<string>Again</string>
+			<key>0x007A</key>
+			<string>Undo</string>
+			<key>0x007B</key>
+			<string>Cut</string>
+			<key>0x007C</key>
+			<string>Copy</string>
+			<key>0x007D</key>
+			<string>Paste</string>
+			<key>0x007E</key>
+			<string>Find</string>
+			<key>0x007F</key>
+			<string>Mute</string>
+			<key>0x0080</key>
+			<string>Volume Up</string>
+			<key>0x0081</key>
+			<string>Volume Down</string>
+			<key>0x0082</key>
+			<string>Locking Caps Lock</string>
+			<key>0x0083</key>
+			<string>Locking Num Lock</string>
+			<key>0x0084</key>
+			<string>Locking Scroll Lock</string>
+			<key>0x0085</key>
+			<string>Keypad Comma</string>
+			<key>0x0086</key>
+			<string>Keypad Equal Sign for AS-400</string>
+			<key>0x0087</key>
+			<string>International1</string>
+			<key>0x0088</key>
+			<string>International2</string>
+			<key>0x0089</key>
+			<string>International3</string>
+			<key>0x008A</key>
+			<string>International4</string>
+			<key>0x008B</key>
+			<string>International5</string>
+			<key>0x008C</key>
+			<string>International6</string>
+			<key>0x008D</key>
+			<string>International7</string>
+			<key>0x008E</key>
+			<string>International8</string>
+			<key>0x008F</key>
+			<string>International9</string>
+			<key>0x0090</key>
+			<string>LANG1</string>
+			<key>0x0091</key>
+			<string>LANG2</string>
+			<key>0x0092</key>
+			<string>LANG3</string>
+			<key>0x0093</key>
+			<string>LANG4</string>
+			<key>0x0094</key>
+			<string>LANG5</string>
+			<key>0x0095</key>
+			<string>LANG6</string>
+			<key>0x0096</key>
+			<string>LANG7</string>
+			<key>0x0097</key>
+			<string>LANG8</string>
+			<key>0x0098</key>
+			<string>LANG9</string>
+			<key>0x0099</key>
+			<string>Alternate Erase</string>
+			<key>0x009A</key>
+			<string>SysReq or Attention</string>
+			<key>0x009B</key>
+			<string>Cancel</string>
+			<key>0x009C</key>
+			<string>Clear</string>
+			<key>0x009D</key>
+			<string>Prior</string>
+			<key>0x009E</key>
+			<string>Return</string>
+			<key>0x009F</key>
+			<string> Separator </string>
+			<key>0x00A0</key>
+			<string>Out</string>
+			<key>0x00A1</key>
+			<string>Oper</string>
+			<key>0x00A2</key>
+			<string>Clear or Again</string>
+			<key>0x00A3</key>
+			<string>CrSel or Props</string>
+			<key>0x00A4</key>
+			<string>ExSel</string>
+			<key>0x00E0</key>
+			<string>L Cntrl</string>
+			<key>0x00E1</key>
+			<string>L Shift</string>
+			<key>0x00E2</key>
+			<string>L Alt</string>
+			<key>0x00E3</key>
+			<string>L Cmd</string>
+			<key>0x00E4</key>
+			<string>R Cntrl</string>
+			<key>0x00E5</key>
+			<string>R Shift</string>
+			<key>0x00E6</key>
+			<string>R Alt</string>
+			<key>0x00E7</key>
+			<string>R Cmd</string>
 			<key>Name</key>
 			<string>Keyboard or Keypad</string>
 		</dict>

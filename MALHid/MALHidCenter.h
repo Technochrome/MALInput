@@ -16,7 +16,7 @@ typedef NSArray* (^MALElementConnectionObserver)(IOHIDElementRef element);
 
 @interface MALHidCenter : NSObject {
 	NSMutableDictionary * hidElements, *devices;
-	NSDictionary * mLookupTables;
+	NSDictionary * hidDescriptors;
 	NSMutableArray * elementConnectionObservers;
 	
 	IOHIDManagerRef ioManager;

@@ -8,22 +8,20 @@
 
 #import "MALInputPrivate.h"
 
-static NSDictionary * usageTables = nil;
+static NSDictionary * elementDescriptors = nil;
 static NSMutableSet * connectedDevices = nil;
-static NSDictionary * deviceNamespaces = nil;
+static NSDictionary * deviceIdentifiers = nil;
 
 @implementation MALHidCenter
-;
 #pragma mark element/device descriptions
 
 -(NSDictionary *) descriptionsForDevice:(IOHIDDeviceRef)device {
-	return usageTables[@"ElementIdentifier"][[self descriptionForDevice:device]];
+	return elementDescriptors[[self descriptionForDevice:device]];
 }
 -(NSString *) descriptionForDevice:(IOHIDDeviceRef)device {
 	MALHidUsage usage = [MALInputDevice usageForDevice:device];
 	
-	NSDictionary * generalDescriptions = [usageTables objectForKey:@"DeviceIdentifier"];
-	NSString * format = [generalDescriptions objectForKey:[NSString stringWithFormat:@"%x.%x",usage.page,usage.ID]];
+	NSString * format = [deviceIdentifiers objectForKey:mkString(@"%x.%x",usage.page,usage.ID)];
 	
 	return [NSString stringWithFormat:format,
 			[getHIDDeviceProperty(device, kIOHIDVendorIDKey) intValue],
@@ -42,14 +40,13 @@ static NSDictionary * deviceNamespaces = nil;
 	return [self descriptionForPage:usage.page usage:usage.ID];
 }
 -(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usageID {
-	
 	static NSString * usageFmt = @"0x%04X";
-	NSString * usagePageString = [NSString stringWithFormat: usageFmt, usagePage];
-	NSString * usageString = [NSString stringWithFormat: usageFmt, usageID];
+	NSString * usagePageString = mkString(usageFmt, usagePage);
+	NSString * usageString = mkString(usageFmt, usageID);
 	
-	NSDictionary * usagePageLookup = [mLookupTables objectForKey: usagePageString];
+	NSDictionary * usagePageLookup = [hidDescriptors objectForKey: usagePageString];
 	if (usagePageLookup == nil)
-		return [NSString stringWithFormat:@"Unknown usage page %@,%@",usagePageString,usageString];
+		return mkString(@"Unknown usage page %@,%@",usagePageString,usageString);
 	
 	NSString * description = [usagePageLookup objectForKey: usageString];
 	if (description != nil)
@@ -81,7 +78,7 @@ static NSDictionary * deviceNamespaces = nil;
 	
 	printf("Disconnect: %x %s #%x_%x\n",location, [desc UTF8String], usagePage, usageID);
 	
-	[connectedDevices removeObject:[NSString stringWithFormat:@"%x.%x.%x", location, usagePage, usageID]];
+	[connectedDevices removeObject:mkString(@"%x.%x.%x", location, usagePage, usageID)];
 }
 -(void) deviceConnection:(IOHIDDeviceRef)deviceRef {
 	NSString * deviceID = [self descriptionForDevice:deviceRef];
@@ -204,13 +201,13 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 		isListening = NO;
 		
 		NSBundle * myBundle = [NSBundle bundleForClass:[self class]];
-		NSString * usageDescriptionsPath = [myBundle pathForResource: @"HID_usage_strings" ofType: @"plist"];
-		mLookupTables = [[NSDictionary dictionaryWithContentsOfFile: usageDescriptionsPath] retain];
 		
 		// This data controls how devices and elements are handled
 		NSString * usageTablesPath = [myBundle pathForResource: @"MALHidUsageMap" ofType: @"plist"];
-		usageTables = [[NSDictionary dictionaryWithContentsOfFile: usageTablesPath] retain];
-		deviceNamespaces = [usageTables objectForKey:@"DeviceNamespace"];
+		NSDictionary * usageTables = [[NSDictionary dictionaryWithContentsOfFile: usageTablesPath] retain];
+		deviceIdentifiers = usageTables[@"DeviceIdentifiers"];
+		hidDescriptors    = usageTables[@"HIDIdentifiers"];
+		elementDescriptors= usageTables[@"ElementIdentifiers"];
 		connectedDevices = [[NSMutableSet alloc] init];
 		
 		hidElements = [[NSMutableDictionary alloc] init];
