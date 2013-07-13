@@ -8,6 +8,8 @@
 
 #import "MALInputPrivate.h"
 
+const float MALInputFloatAsBoolLimit = .8;
+
 @implementation MALIOElement
 @synthesize rawValue=value,rawMax,rawMin;
 @synthesize isRelative,isWrapping,isDiscoverable,specificDevice, generalDevice;
@@ -54,7 +56,7 @@
 
 #pragma makr Query Input Value
 -(BOOL) boolValue {
-	return value != 0;
+	return fabs([self floatValue]) > MALInputFloatAsBoolLimit;
 }
 -(float) floatValue {
 	return [self floatValueFrom:fMin to:fMax deadzone:fDeadzone];
