@@ -99,10 +99,10 @@ NSString * MALInputDeviceDisconnectionNotification = @"MALInput device disconnec
 	}];
 }
 -(MALInputDevice*) keyboard {
-	return [self deviceAtPath:@"Key#0"];
+	return [self deviceAtPath:@"Key"];
 }
 -(MALInputDevice*) mouse {
-	return [self deviceAtPath:@"Mouse#0"];
+	return [self deviceAtPath:@"Mouse"];
 }
 -(NSArray*) gamepads {
 	return [self devicesPassingTest:^BOOL(MALInputDevice * device) {
@@ -121,6 +121,7 @@ NSString * MALInputDeviceDisconnectionNotification = @"MALInput device disconnec
 	return [devices objectForKey:path];
 }
 -(void) removeDeviceAtPath:(NSString*)path {
+	if(devices[path] == nil) return;
 	[[NSNotificationCenter defaultCenter] postNotificationName:MALInputDeviceDisconnectionNotification
 														object:nil userInfo:@{@"path":path}];
 	[devices removeObjectForKey:path];
