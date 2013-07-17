@@ -96,6 +96,10 @@
 	[self updateValue:IOHIDValueGetIntegerValue(newValue) timestamp:IOHIDValueGetTimeStamp(newValue)];
 }
 
+-(NSString*) description {
+	return [NSString stringWithFormat:@"<%@: %@>",[self class],self.fullID];
+}
+
 -(void) dealloc {
 	[[MALHidCenter shared] removeObserver:self];
 	[super dealloc];

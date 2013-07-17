@@ -23,17 +23,17 @@
 			<key>0x0008</key>
 			<string>MultiAxisController</string>
 			<key>0x0030</key>
-			<string>X</string>
+			<string>joy(1).x</string>
 			<key>0x0031</key>
-			<string>Y</string>
+			<string>joy(1).y</string>
 			<key>0x0032</key>
-			<string>Z</string>
+			<string>joy(1).z</string>
 			<key>0x0033</key>
-			<string>Rx</string>
+			<string>joy(2).x</string>
 			<key>0x0034</key>
-			<string>Ry</string>
+			<string>joy(2).y</string>
 			<key>0x0035</key>
-			<string>Rz</string>
+			<string>joy(2).z</string>
 			<key>0x0036</key>
 			<string>Slider</string>
 			<key>0x0037</key>
@@ -989,13 +989,13 @@
 			<key>Description</key>
 			<string>Logitech Dual Action</string>
 			<key>1.30</key>
-			<string>JoyLeft.x</string>
+			<string>joyL.x</string>
 			<key>1.31</key>
-			<string>JoyLeft.y</string>
+			<string>JoyL.y</string>
 			<key>1.32</key>
-			<string>JoyRight.x</string>
+			<string>JoyR.x</string>
 			<key>1.35</key>
-			<string>JoyRight.y</string>
+			<string>JoyR.y</string>
 		</dict>
 	</dict>
 </dict>

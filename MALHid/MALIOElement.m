@@ -8,7 +8,8 @@
 
 #import "MALInputPrivate.h"
 
-const float MALInputFloatAsBoolLimit = .8;
+// at least .7 to make axis elements act as booleans as well
+const float MALInputFloatAsBoolLimit = .5;
 
 @implementation MALIOElement
 @synthesize rawValue=value,rawMax,rawMin;
@@ -56,7 +57,7 @@ const float MALInputFloatAsBoolLimit = .8;
 
 #pragma makr Query Input Value
 -(BOOL) boolValue {
-	return fabs([self floatValue]) > MALInputFloatAsBoolLimit;
+	return [self isBoolean] ? value != 0 : fabs([self floatValue]) > MALInputFloatAsBoolLimit;
 }
 -(float) floatValue {
 	return [self floatValueFrom:fMin to:fMax deadzone:fDeadzone];

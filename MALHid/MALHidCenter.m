@@ -213,31 +213,58 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 		hidElements = [[NSMutableDictionary alloc] init];
 		devices = [[NSMutableDictionary alloc] init];
 		elementConnectionObservers = [[NSMutableArray alloc] init];
+		
+#define setElementID(element,ID) element.elementID = [NSString stringWithFormat:@"%@" ID , rawElement.elementID]
+#define one 0x1000
+		
 		// default
 		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
 			return @[[MALInputElement elementWithHIDElement:element]];
+		}];
+		// Splits axis into + and -
+		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
+			MALHidUsage usage = [MALInputElement usageForElement:element];
+			if(usage.page == 0x01 && usage.ID >= 0x30 && usage.ID <= 0x35) {
+				MALInputElement *rawElement = [MALInputElement elementWithHIDElement:element];
+				rawElement.isDiscoverable = NO;
+				
+				MALInputElement *minus=[MALInputElement element], *plus=[MALInputElement element];
+				setElementID(minus,@" (-)"); setElementID(plus,@" (+)");
+				
+				for (MALInputElement * el in @[plus, minus]) {
+					el.rawMin=0; el.rawMax=one; el.fMin=0; el.fMax=1;
+				}
+				
+				[rawElement addObserver:^(MALIOElement *e) {
+					long value = [e floatValue]*one;
+					uint64_t t = e.timestamp;
+					
+					[minus updateValue:MAX(-value, 0) timestamp:t];
+					[plus updateValue:MAX(value,0) timestamp:t];
+				}];
+				
+				return @[rawElement, minus, plus];
+			}
+			return nil;
 		}];
 		// fixes up Hatswitches so that they're easier to work with
 		[self addElementConnectionObserver:^NSArray*(IOHIDElementRef element) {
 			MALHidUsage usage = [MALInputElement usageForElement:element];
 			if(usage.page == 0x1 && usage.ID == 0x39) {
 				
-#define setElementID(element,ID) element.elementID = [NSString stringWithFormat:@"%@." ID , draw.elementID]
-#define one 0x1000
-				
-				MALInputElement *draw = [MALInputElement elementWithHIDElement:element];
-				draw.isDiscoverable = NO;
+				MALInputElement *rawElement = [MALInputElement elementWithHIDElement:element];
+				rawElement.isDiscoverable = NO;
 				
 				MALInputElement *dup=[MALInputElement element],*ddown=[MALInputElement element],
-								*dright=[MALInputElement element],*dleft=[MALInputElement element],
-								*dx=[MALInputElement element],*dy=[MALInputElement element];
+					*dright=[MALInputElement element],*dleft=[MALInputElement element];
 				
-				setElementID(dup, "up"); setElementID(ddown, "down"); setElementID(dright, "right");
-				setElementID(dleft, "left"); setElementID(dx, "x"); setElementID(dy, "y");
+				setElementID(dup, ".up"); setElementID(ddown, ".down");
+				setElementID(dright, ".right"); setElementID(dleft, ".left");
 				
-				dx.rawMax = one; dy.rawMax = one;
-				dx.rawMin = -one; dy.rawMin = -one;
-				[draw addObserver:^(MALIOElement *e) {
+				for (MALInputElement * el in @[dup,ddown,dleft,dright]) {
+					el.rawMin=0; el.rawMax=one; el.fMin=0; el.fMax=1;
+				}
+				[rawElement addObserver:^(MALIOElement *e) {
 					// Some hatswitches don't have NW SW NE SE, i.e. just N E S W
 					long value8 = (e.rawMax == 3 ? 2*e.rawValue : e.rawValue);
 					long x, y, s2 = sqrtf(.5)*one;
@@ -255,19 +282,17 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 						default: x=0;y=0; break; // null value
 					}
 					
-					[dx updateValue:x timestamp:t];
-					[dy updateValue:y timestamp:t];
-					[dup    updateValue:y > 0 ? 1:0 timestamp:t];
-					[dright updateValue:x > 0 ? 1:0 timestamp:t];
-					[ddown  updateValue:y < 0 ? 1:0 timestamp:t];
-					[dleft  updateValue:x < 0 ? 1:0 timestamp:t];
+					[dup    updateValue:MAX(y,0) timestamp:t];
+					[dright updateValue:MAX(x,0) timestamp:t];
+					[ddown  updateValue:MAX(-y,0) timestamp:t];
+					[dleft  updateValue:MAX(-x,0) timestamp:t];
 				}];
-				return @[draw,dup,ddown,dright,dleft,dx,dy];
-#undef setElementID
-#undef one
+				return @[rawElement,dup,ddown,dright,dleft];
 			}
 			return nil;
 		}];
+#undef setElementID
+#undef one
 		
 		ioManager = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDOptionsTypeNone);
 		CFRetain(ioManager);

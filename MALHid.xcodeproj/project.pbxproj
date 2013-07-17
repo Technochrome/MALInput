@@ -18,7 +18,6 @@
 		2F0F75DC1788CDEE00026F72 /* MALInputProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DFCF216FE355E00C2BCCF /* MALInputProfile.m */; };
 		2F0F75DD1788CE0F00026F72 /* NSDictionary+toINI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F765AF017121EDC00A914EB /* NSDictionary+toINI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F0F75DE1788CE1400026F72 /* NSDictionary+toINI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F765AF117121EDC00A914EB /* NSDictionary+toINI.m */; };
-		2F1C92BA170E1D5900D35EA5 /* HID_usage_strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */; };
 		2F1C92BD170E2DDF00D35EA5 /* MALInputDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F1C92BB170E2DDF00D35EA5 /* MALInputDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F1C92BE170E2DDF00D35EA5 /* MALInputDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1C92BC170E2DDF00D35EA5 /* MALInputDevice.m */; };
 		2F37CF4E16F00F5D001C6DD3 /* MALInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F37CF4D16F00F5D001C6DD3 /* MALInput.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,7 +71,6 @@
 		2F0579C614C06002009D8B82 /* MALHidCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALHidCenter.m; sourceTree = "<group>"; };
 		2F0579C814C0613B009D8B82 /* MALHidCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALHidCenter.h; sourceTree = "<group>"; };
 		2F0579D114C065B8009D8B82 /* MALHid-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MALHid-Prefix.pch"; sourceTree = "<group>"; };
-		2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HID_usage_strings.plist; sourceTree = "<group>"; };
 		2F1C92BB170E2DDF00D35EA5 /* MALInputDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALInputDevice.h; sourceTree = "<group>"; };
 		2F1C92BC170E2DDF00D35EA5 /* MALInputDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MALInputDevice.m; sourceTree = "<group>"; };
 		2F37CF4D16F00F5D001C6DD3 /* MALInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MALInput.h; path = MALHid/MALInput.h; sourceTree = SOURCE_ROOT; };
@@ -184,7 +182,6 @@
 		2F0579BA14C05F51009D8B82 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2F1C92B9170E1D5900D35EA5 /* HID_usage_strings.plist */,
 				2FF38DE314EED4020091504E /* MALHidUsageMap.plist */,
 				2F0579BB14C05F51009D8B82 /* MALHid-Info.plist */,
 				2F0579BC14C05F51009D8B82 /* InfoPlist.strings */,
@@ -318,7 +315,6 @@
 			files = (
 				2F0579BE14C05F51009D8B82 /* InfoPlist.strings in Resources */,
 				2FF38DE414EED4020091504E /* MALHidUsageMap.plist in Resources */,
-				2F1C92BA170E1D5900D35EA5 /* HID_usage_strings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
