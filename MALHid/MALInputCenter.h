@@ -24,7 +24,7 @@ extern NSString * MALInputDeviceDisconnectionNotification;
 +(MALInputCenter*) shared;
 -(void) startListening;
 
--(MALInputDevice*) addDeviceAtPath:(NSString*)path usingProfile:(MALInputProfile*)profile withDevices:(NSArray*)devices;
+-(MALInputDevice*) deviceUsingProfile:(MALInputProfile *)profile withDevices:(NSArray *)inputDevices;
 
 -(NSArray*) devicesPassingTest:(BOOL (^) (MALInputDevice*))test;
 -(NSArray*) devicesWithID:(NSString*)deviceID;

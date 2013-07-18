@@ -49,11 +49,8 @@ NSString * MALInputDeviceDisconnectionNotification = @"MALInput device disconnec
 	if(inputListener) inputListener(element);
 }
 
--(MALInputDevice*) addDeviceAtPath:(NSString *)path usingProfile:(MALInputProfile *)profile withDevices:(NSArray *)inputDevices {
-	[self removeDeviceAtPath:path];
-	
+-(MALInputDevice*) deviceUsingProfile:(MALInputProfile *)profile withDevices:(NSArray *)inputDevices {
 	MALInputDevice * outputDevice = [MALInputDevice device];
-	[self addDevice:outputDevice atPath:path];
 	
 	for(NSString * key in [profile boundKeys]) {
 		MALIOElement * output = [[profile outputElementForKey:key] copy];

@@ -506,9 +506,9 @@
 			<key>9.a</key>
 			<string>start</string>
 			<key>1.30</key>
-			<string>analog.x</string>
+			<string>joy.x</string>
 			<key>1.31</key>
-			<string>analog.y</string>
+			<string>joy.y</string>
 			<key>1.32</key>
 			<string>_ignore_</string>
 			<key>1.35</key>
