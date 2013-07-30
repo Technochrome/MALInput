@@ -130,10 +130,13 @@ static NSDictionary * deviceIdentifiers = nil;
 			for(MALInputElement* element in newElements) {
 				if([[element elementID] isEqualToString:@"_ignore_"])
 					continue;
-//				if(![[deviceGeneral deviceID] isEqualToString:@"Key"])
-//					NSLog(@"add: %@ %@",[deviceGeneral devicePath], [element elementID]);
-				[deviceSpecific setElement:element forPath:element.elementID];
-				[deviceGeneral setElement:element forPath:element.elementID];
+				
+				if( ![deviceSpecific setElement:element forPath:element.elementID] ) {
+					MALInputElement * other = deviceSpecific.elements[element.elementID];
+					[self setObserver:other forHIDElement:(IOHIDElementRef)[hidElements[element.elementID] pointerValue]];
+				} else {
+					[deviceGeneral setElement:element forPath:element.elementID];
+				}
 			}
 			
 			break;
@@ -176,12 +179,9 @@ static void deviceConnection(void * inputCenter, IOReturn inResult, void * HIDMa
 -(void) addElementConnectionObserver:(MALElementConnectionObserver)modifier {
 	[elementConnectionObservers insertObject:modifier atIndex:0];
 }
--(BOOL) addObserver:(MALInputElement*)o forHIDElement:(IOHIDElementRef)e {
-	if(!o) return NO;
+-(void) setObserver:(MALInputElement*)o forHIDElement:(IOHIDElementRef)e {
 	id key = [NSValue valueWithPointer:e];
-	if([hidElements objectForKey:key]) return NO;
-	[hidElements setObject:o forKey:key];
-	return YES;
+	hidElements[key] = o;
 }
 -(void) removeObserver:(MALInputElement*)o {
 	for(id key in [hidElements allKeysForObject:o])

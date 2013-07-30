@@ -62,7 +62,8 @@ NSString * MALInputDeviceDisconnectionNotification = @"MALInput device disconnec
 		for(MALInputDevice * d in inputDevices) {
 			if([inputID hasPrefix:d.deviceID]) {
 				NSString * elementID = [MALInputElement elementIDFromFullID:inputID];
-				[[d.elements objectForKey:elementID] addObserver:output];
+				MALIOElement * input = [d.elements objectForKey:elementID];
+				[input addObserver:output];
 				break;
 			}
 		}

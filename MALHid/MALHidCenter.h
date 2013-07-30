@@ -28,7 +28,7 @@ typedef NSArray* (^MALElementConnectionObserver)(IOHIDElementRef element);
 
 -(void) addElementConnectionObserver:(MALElementConnectionObserver)modifier;
 
--(BOOL) addObserver:(MALInputElement*)o forHIDElement:(IOHIDElementRef)e;
+-(void) setObserver:(MALInputElement*)o forHIDElement:(IOHIDElementRef)e;
 -(void) removeObserver:(MALInputElement*)o;
 -(NSString *) descriptionForPage:(unsigned) usagePage usage:(unsigned) usage;
 -(NSDictionary *) descriptionsForDevice:(IOHIDDeviceRef)device;

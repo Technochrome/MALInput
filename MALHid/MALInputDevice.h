@@ -18,7 +18,7 @@
 @property (readonly) NSMutableDictionary * elements;
 @property (readonly) BOOL isSpecific;
 
--(void) setElement:(MALIOElement*)element forPath:(NSString*)path;
+-(BOOL) setElement:(MALIOElement*)element forPath:(NSString*)path;
 
 +(MALInputDevice*) device;
 @end

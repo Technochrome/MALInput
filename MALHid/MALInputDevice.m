@@ -15,12 +15,16 @@
 	return location != 0;
 }
 
--(void) setElement:(MALIOElement*)element forPath:(NSString*)path {
+-(BOOL) setElement:(MALIOElement*)element forPath:(NSString*)path {
+	if([elements objectForKey:path]!=nil) return NO;
+	
 	[elements setObject:element forKey:path];
 	if([self isSpecific])
 		element.specificDevice = self;
 	else
 		element.generalDevice = self;
+	
+	return YES;
 }
 
 -(NSString*) devicePath {
@@ -45,7 +49,7 @@
 }
 
 -(NSString*) description {
-	return [NSString stringWithFormat:@"<%@ %@>",[self class],self.devicePath];
+	return [NSString stringWithFormat:@"<%@(%p) %@>",[self class],self,self.devicePath];
 }
 -(void) dealloc {
 	[elements release]; elements=nil;

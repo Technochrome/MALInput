@@ -81,7 +81,7 @@
 	isDiscoverable = YES;
 	self.elementID = [[MALHidCenter shared] descriptionForElement:element];
 	
-	[[MALHidCenter shared] addObserver:self forHIDElement:element];
+	[[MALHidCenter shared] setObserver:self forHIDElement:element];
 	
 	return self;
 }
@@ -97,7 +97,7 @@
 }
 
 -(NSString*) description {
-	return [NSString stringWithFormat:@"%@ = %@",[super description],self.fullID];
+	return [NSString stringWithFormat:@"<%@ = %@>",self.fullID, [super description]];
 }
 
 -(void) dealloc {

@@ -84,9 +84,17 @@ const float MALInputFloatAsBoolLimit = .5;
 	return sVal;
 }
 
+#define MALInput_debug_NSLog_long
+
+#ifdef MALInput_debug_NSLog_long
 -(NSString*) description {
-	return [NSString stringWithFormat:@"%@ [%lx %lx %lx] => [%.2f %.2f %.2f] ",[self class], rawMin, value, rawMax, fMin, [self floatValue], fMax];
+	return [NSString stringWithFormat:@"%@(%p) {[%lx %lx %lx] => [%.2f %.2f %.2f]} => %p %@",[self class],self, rawMin, value, rawMax, fMin, [self floatValue], fMax, observers, observers];
 }
+#else
+-(NSString*) description {
+	return [NSString stringWithFormat:@"%@: %.2f",[self class],[self floatValue]];
+}
+#endif
 
 -(id) copyWithZone:(NSZone *)zone {
 	MALIOElement * el = [[[self class] allocWithZone:zone] init];
