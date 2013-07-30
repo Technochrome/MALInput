@@ -49,6 +49,7 @@ typedef void (^MALIOValueModifierBlock)(MALIOElement* src, MALIOElement *dest);
 // The deadzone is a percentage of the range [min, max]
 -(float) floatValueFrom:(float)from to:(float)to deadzone:(float)deadzone;
 
+-(void) updateFloatValue:(float)value timestamp:(uint64_t)t;
 -(void) updateValue:(long)value timestamp:(uint64_t)t;
 -(void) valueUpdated:(MALIOElement*)element;
 

@@ -97,7 +97,7 @@
 }
 
 -(NSString*) description {
-	return [NSString stringWithFormat:@"<%@: %@>",[self class],self.fullID];
+	return [NSString stringWithFormat:@"%@ = %@",[super description],self.fullID];
 }
 
 -(void) dealloc {

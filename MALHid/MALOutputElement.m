@@ -12,7 +12,8 @@
 
 +(MALOutputElement*) boolElement {
 	MALOutputElement *e = [[self alloc] init];
-	e->rawMin=0; e->rawMax = 1;
+	e->rawMin = 0; e->rawMax = 1;
+	e->fMin = 0; e->fMax = 1;
 	return [e autorelease];
 }
 +(MALOutputElement*) joyElement {

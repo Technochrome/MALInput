@@ -25,7 +25,10 @@ const float MALInputFloatAsBoolLimit = .5;
 
 -(void) valueUpdated:(MALIOElement*)element {
 	if(valueModifier) valueModifier(element,self);
-	else [self updateValue:element.rawValue timestamp:element.timestamp];
+	else [self updateFloatValue:[element floatValueFrom:0 to:1] timestamp:element.timestamp];
+}
+-(void) updateFloatValue:(float)newValue timestamp:(uint64_t)t {
+	[self updateValue:(newValue - fMin)*(fMax - fMin)*(rawMax - rawMin) timestamp:t];
 }
 -(void) updateValue:(long)newValue timestamp:(uint64_t)t {
 	if(newValue == value) return;
@@ -71,14 +74,18 @@ const float MALInputFloatAsBoolLimit = .5;
 	float sVal = (value - rawMin)/(float)(rawMax-rawMin);
 	
 	// Lop off the deadzone from the middle. [0,1] => [0+deadzone,1-deadzone]
-	sVal = (sVal > .5 ? MAX(.5,sVal-deadzone) : MIN(.5, sVal+deadzone));
+//	sVal = (sVal > .5 ? MAX(.5,sVal-deadzone) : MIN(.5, sVal+deadzone));
 	
 	// [0+deadzone,1-deadzone] => [0,1]
-	sVal = (sVal - deadzone)/(1-2*deadzone);
+//	sVal = (sVal - deadzone)/(1-2*deadzone);
 	
 	// [0,1] => [min, max]
 	sVal = sVal*(to-from) + from;
 	return sVal;
+}
+
+-(NSString*) description {
+	return [NSString stringWithFormat:@"%@ [%lx %lx %lx] => [%.2f %.2f %.2f] ",[self class], rawMin, value, rawMax, fMin, [self floatValue], fMax];
 }
 
 -(id) copyWithZone:(NSZone *)zone {
