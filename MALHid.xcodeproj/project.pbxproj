@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		2F8FCFC917B5F0EA00400C0B /* MALInput (copy products to project dir) */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2F8FCFCA17B5F0EA00400C0B /* Build configuration list for PBXAggregateTarget "MALInput (copy products to project dir)" */;
+			buildPhases = (
+				2F8FCFCF17B5F0F400400C0B /* ShellScript */,
+			);
+			dependencies = (
+				2F8FCFCE17B5F0EF00400C0B /* PBXTargetDependency */,
+			);
+			name = "MALInput (copy products to project dir)";
+			productName = "MALInput (copy products to project dir)";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2F05799E14C05B15009D8B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F05797E14C05A70009D8B82 /* Foundation.framework */; };
 		2F0579A114C05B15009D8B82 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0579A014C05B15009D8B82 /* main.m */; };
@@ -37,6 +52,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		2F37CF4B16F00B77001C6DD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F05796D14C05A70009D8B82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F0579B114C05F51009D8B82;
+			remoteInfo = MALInput;
+		};
+		2F8FCFCD17B5F0EF00400C0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2F05796D14C05A70009D8B82 /* Project object */;
 			proxyType = 1;
@@ -86,6 +108,7 @@
 		2F765AF017121EDC00A914EB /* NSDictionary+toINI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+toINI.h"; sourceTree = "<group>"; };
 		2F765AF117121EDC00A914EB /* NSDictionary+toINI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+toINI.m"; sourceTree = "<group>"; };
 		2F765AF517177AD300A914EB /* MALInputPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MALInputPrivate.h; sourceTree = "<group>"; };
+		2F8FCFD117B5F24200400C0B /* MALInput.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MALInput.framework; path = build/MALInput.framework; sourceTree = "<group>"; };
 		2FF38DDC14EEC6F40091504E /* MALHidStructs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MALHidStructs.c; sourceTree = "<group>"; };
 		2FF38DE314EED4020091504E /* MALHidUsageMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MALHidUsageMap.plist; sourceTree = "<group>"; };
 		2FF38DE514EEE5600091504E /* MALInputElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MALInputElement.h; sourceTree = "<group>"; };
@@ -121,6 +144,7 @@
 				2F0579B914C05F51009D8B82 /* MALHid */,
 				2F05797814C05A70009D8B82 /* Frameworks */,
 				2F05797714C05A70009D8B82 /* Products */,
+				2F8FCFD117B5F24200400C0B /* MALInput.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -304,6 +328,7 @@
 			targets = (
 				2F05799B14C05B15009D8B82 /* HIDTest */,
 				2F0579B114C05F51009D8B82 /* MALInput */,
+				2F8FCFC917B5F0EA00400C0B /* MALInput (copy products to project dir) */,
 			);
 		};
 /* End PBXProject section */
@@ -319,6 +344,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2F8FCFCF17B5F0F400400C0B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PRODUCT_NAME=MALInput.framework\n\ncp -r $BUILT_PRODUCTS_DIR/$PRODUCT_NAME $SRCROOT/build/$PRODUCT_NAME";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2F05799814C05B15009D8B82 /* Sources */ = {
@@ -352,6 +393,11 @@
 			isa = PBXTargetDependency;
 			target = 2F0579B114C05F51009D8B82 /* MALInput */;
 			targetProxy = 2F37CF4B16F00B77001C6DD3 /* PBXContainerItemProxy */;
+		};
+		2F8FCFCE17B5F0EF00400C0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2F0579B114C05F51009D8B82 /* MALInput */;
+			targetProxy = 2F8FCFCD17B5F0EF00400C0B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -468,6 +514,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)/products";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -486,7 +533,22 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)/products";
 				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		2F8FCFCB17B5F0EA00400C0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2F8FCFCC17B5F0EA00400C0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -519,6 +581,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		2F8FCFCA17B5F0EA00400C0B /* Build configuration list for PBXAggregateTarget "MALInput (copy products to project dir)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F8FCFCB17B5F0EA00400C0B /* Debug */,
+				2F8FCFCC17B5F0EA00400C0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

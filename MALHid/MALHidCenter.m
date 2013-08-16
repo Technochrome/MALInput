@@ -76,7 +76,7 @@ static NSDictionary * deviceIdentifiers = nil;
 	
 	NSString * desc = [[MALHidCenter shared] descriptionForDevice:device];
 	
-	printf("Disconnect: %x %s #%x_%x\n",location, [desc UTF8String], usagePage, usageID);
+//	printf("Disconnect: %x %s #%x_%x\n",location, [desc UTF8String], usagePage, usageID);
 	
 	[connectedDevices removeObject:mkString(@"%x.%x.%x", location, usagePage, usageID)];
 }
@@ -105,7 +105,7 @@ static NSDictionary * deviceIdentifiers = nil;
 		deviceSpecific.location = deviceGeneral.location;
 		[[MALInputCenter shared] addDevice:deviceSpecific atPath:deviceSpecific.devicePath];
 		
-		NSLog(@"Device connection :: %@", deviceSpecific.devicePath);
+//		NSLog(@"Device connection :: %@", deviceSpecific.devicePath);
 	}
 	deviceGeneral.location = 0;
 	
